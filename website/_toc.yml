@@ -8,6 +8,7 @@ parts:
   chapters:
   - file: content/502A/syllabus
   - file: content/502A/Lecture 1/intro
+  - file: content/502A/Lecture 2/intro
     sections:
     - file: content/502A/Lecture 1/placeholder
 - caption: 502B
