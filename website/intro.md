@@ -1,4 +1,4 @@
-# NEY/PSY/MOL 502 Course Website
+# NEU/PSY 502 
 
 
 
