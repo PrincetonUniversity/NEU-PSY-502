@@ -16,53 +16,48 @@ BUILD_DIR = "./website"
 JUPYTER_BOOK_BUILD_CMD = ["jupyter-book", "build", "_website_build"]
 PUBLISH_CMD = "ghp-import -n -p -f _website_build/_build/html"
 
-
 skip_dirs = ["_build"]
 
-
-
-
 exercise_template = Template(
-"""
----
-<h3 style="background: #256ca2; color: #e9e9e9">&#129504 {{ title }}</h3>
-
-{{ content }}
-
-"""
+    """
+    ---
+    <h3 style="background: #256ca2; color: #e9e9e9">&#129504 {{ title }}</h3>
+    
+    {{ content }}
+    
+    """
 )
 
-
 hint_template = Template(
-"""
----
-<details><summary style="background: #d6c89d; color: #e9e9e9">&#128269 {{ title }}</summary>
-
-{{ content }}
-                         
-</details>
-
----
-"""
+    """
+    ---
+    <details><summary style="background: #d6c89d; color: #e9e9e9">&#128269 {{ title }}</summary>
+    
+    {{ content }}
+                             
+    </details>
+    
+    ---
+    """
 )
 
 solution_template = Template(
-"""
----
-<details><summary style='background: #22ae6a; color:#e9e9e9'>&#128273 {{ title }}</summary>
-
-{{ content }}
-
-</details>
-
----
-""")
+    """
+    ---
+    <details><summary style='background: #22ae6a; color:#e9e9e9'>&#128273 {{ title }}</summary>
+    
+    {{ content }}
+    
+    </details>
+    
+    ---
+    """)
 
 pdf_template = Template(
-"""
-<iframe src="{{ path }}" width="100%" height="600px"></iframe>
-
-""")
+    """
+    <iframe src="{{ path }}" width="100%" height="600px"></iframe>
+    
+    """)
 
 
 def copy_if_changed(src_dir, dest_dir):
@@ -100,7 +95,6 @@ def copy_if_changed(src_dir, dest_dir):
 
 
 def build_notebook(path=BUILD_DIR, yaml_path=f"{BUILD_DIR}/_config.yml"):
-
     env = jinja2.Environment(
         loader=jinja2.FileSystemLoader(searchpath="."),
         autoescape=False
@@ -141,7 +135,6 @@ def process_notebook(path=BUILD_DIR):
         nbformat.write(notebook, f)
 
 
-
 def build_markdown(path=BUILD_DIR, yaml_path=f"{BUILD_DIR}/_config.yml"):
     env = jinja2.Environment(
         loader=jinja2.FileSystemLoader(searchpath="."),
@@ -158,17 +151,7 @@ def build_markdown(path=BUILD_DIR, yaml_path=f"{BUILD_DIR}/_config.yml"):
         f.write(rendered_notebook_str)
 
 
-
 def build():
-    # copy_if_changed(SOURCE_DIR, BUILD_DIR)
-    #
-    # _d = None
-    # with open(f"{BUILD_DIR}/_config.yml") as f:
-    #     _d = yaml.safe_load(f)
-    #     _d["repository"]["path_to_book"] = "_book_build"
-    #
-    # yaml.safe_dump(_d, open(f"{BUILD_DIR}/_config.yml", "w"))
-
     for root, dirs, files in os.walk(SOURCE_DIR):
         for file in files:
             if file.endswith(".ipynb"):
@@ -178,19 +161,5 @@ def build():
                 build_markdown(os.path.join(root, file))
 
 
-
-
-
-def main():
-    # args = sys.argv[1:]
-    build()
-    # if '--a' in args:
-    #     build()
-    #     subprocess.run(JUPYTER_BOOK_BUILD_CMD)
-    #     subprocess.run(PUBLISH_CMD, shell=True)
-    # else:
-    #     build()
-
-
 if __name__ == '__main__':
-    main()
+    build()

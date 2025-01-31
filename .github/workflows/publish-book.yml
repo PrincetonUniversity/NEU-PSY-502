@@ -39,11 +39,18 @@ jobs:
         with:
           path: website/_build/.jupyter_cache
           key: jupyter-book-cache-${{ hashFiles('requirements.txt') }}
-
+      - name: Run pre processing
+        run: |
+          python _pre.py
       # Build the book
       - name: Build the book
         run: |
           jupyter-book build website
+      - name : Run post processing
+        run: |
+          python _post.py
+
+      
 
       - name: Check if build folder exists
         run: |
