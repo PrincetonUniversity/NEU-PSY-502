@@ -1,0 +1,15 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+parts:
+- caption: 502A
+  chapters:
+  - file: content/502A/syllabus
+  - file: content/502A/Lecture 1/intro
+    sections:
+    - file: content/502A/Lecture 1/placeholder
+- caption: 502B
+  chapters:
+  - file: content/502B/intro

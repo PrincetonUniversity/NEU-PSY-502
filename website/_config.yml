@@ -1,0 +1,32 @@
+# Book settings
+# Learn more at https://jupyterbook.org/customize/config.html
+
+title: NEU-PSY-MOL-502
+author: Jonathan Cohen, Samuel Nastase, Alexander Ku
+copyright: '2025'
+logo: logo.svg
+
+execute:
+  execute_notebooks: auto
+  allow_errors: true
+
+latex:
+  latex_documents:
+    targetname: book.tex
+
+bibtex_bibfiles:
+  - references.bib
+
+html:
+  baseurl: https://younesstrittmatter.github.io/book-test/
+  use_issues_button: true
+  use_repository_button: true
+
+
+launch_buttons:
+  colab_url: https://colab.research.google.com
+  thebe: true
+  binderhub_url: https://mybinder.org/
+  notebook_interface: "classic"
+
+
