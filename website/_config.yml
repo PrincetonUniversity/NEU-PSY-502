@@ -35,4 +35,9 @@ launch_buttons:
   binderhub_url: https://mybinder.org/
   notebook_interface: "classic"
 
-
+parse:
+  myst_substitutions:
+    repo_url: "https://github.com/PrincetonUniversity/NEU-PSY-502"
+    raw_data_url: "https://github.com/PrincetonUniversity/NEU-PSY-502/raw/refs/heads/main/data"
+    base_url: "https://princetonuniversity.github.io/NEU-PSY-502"
+    assets_url: "https://princetonuniversity.github.io/NEU-PSY-502/_static"
