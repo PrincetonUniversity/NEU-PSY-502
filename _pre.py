@@ -19,45 +19,45 @@ PUBLISH_CMD = "ghp-import -n -p -f _website_build/_build/html"
 skip_dirs = ["_build"]
 
 exercise_template = Template(
-    """
-    ---
-    <h3 style="background: #256ca2; color: #e9e9e9">&#129504 {{ title }}</h3>
+"""
+---
+<h3 style="background: #256ca2; color: #e9e9e9">&#129504 {{ title }}</h3>
     
-    {{ content }}
+{{ content }}
     
-    """
+"""
 )
 
 hint_template = Template(
-    """
-    ---
-    <details><summary style="background: #d6c89d; color: #e9e9e9">&#128269 {{ title }}</summary>
+"""
+---
+<details><summary style="background: #d6c89d; color: #e9e9e9">&#128269 {{ title }}</summary>
     
-    {{ content }}
-                             
-    </details>
+{{ content }}
     
-    ---
-    """
+</details>
+    
+---
+"""
 )
 
 solution_template = Template(
-    """
-    ---
-    <details><summary style='background: #22ae6a; color:#e9e9e9'>&#128273 {{ title }}</summary>
+"""
+---
+<details><summary style='background: #22ae6a; color:#e9e9e9'>&#128273 {{ title }}</summary>
     
-    {{ content }}
+{{ content }}
     
-    </details>
+</details>
     
-    ---
-    """)
+---
+""")
 
 pdf_template = Template(
-    """
-    <iframe src="{{ path }}" width="100%" height="600px"></iframe>
-    
-    """)
+"""
+<iframe src="{{ path }}" width="100%" height="600px"></iframe>
+
+""")
 
 
 def copy_if_changed(src_dir, dest_dir):
