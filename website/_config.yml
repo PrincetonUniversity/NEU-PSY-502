@@ -4,7 +4,7 @@
 title: NEU-PSY-MOL-502
 author: Jonathan Cohen, Samuel Nastase, Alexander Ku
 copyright: '2025'
-logo: logo.svg
+logo: logo.png
 
 execute:
   execute_notebooks: auto
