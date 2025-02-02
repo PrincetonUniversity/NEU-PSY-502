@@ -11,9 +11,9 @@ parts:
   - file: content/502A/Lecture 2/intro
 - caption: 502B Computation
   chapters:
-  - file: content/502B Computation/intro
-  - file: content/502B Computation/Primer/intro
+  - file: content/502B/Computation/intro
+  - file: content/502B/Computation/Primer/intro
     sections:
-    - file: content/502B Computation/Primer/notebooks/1 Scalars, Vectors, and Matrices
-    - file: content/502B Computation/Primer/notebooks/2 Logistic Function
-    - file: content/502B Computation/Primer/notebooks/3 Perceptron and XOR
+    - file: content/502B/Computation/Primer/notebooks/1 Scalars, Vectors, and Matrices
+    - file: content/502B/Computation/Primer/notebooks/2 Logistic Function
+    - file: content/502B/Computation/Primer/notebooks/3 Perceptron and XOR

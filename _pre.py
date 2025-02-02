@@ -20,8 +20,7 @@ skip_dirs = ["_build"]
 
 exercise_template = Template(
 """
----
-<h3 style="background: #256ca2; color: #e9e9e9">&#129504 {{ title }}</h3>
+<h{{ title_level }} style="background: #256ca2; color: #e9e9e9">🎯 {{ title }}</h{{ title_level}}>
     
 {{ content }}
     
@@ -30,27 +29,23 @@ exercise_template = Template(
 
 hint_template = Template(
 """
----
-<details><summary style="background: #d6c89d; color: #e9e9e9">&#128269 {{ title }}</summary>
+<details><summary style="background: #d6c89d; color: #e9e9e9">💡 {{ title }}</summary>
     
 {{ content }}
     
 </details>
     
----
 """
 )
 
 solution_template = Template(
 """
----
-<details><summary style='background: #22ae6a; color:#e9e9e9'>&#128273 {{ title }}</summary>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ {{ title }}</summary>
     
 {{ content }}
     
 </details>
     
----
 """)
 
 pdf_template = Template(
@@ -115,20 +110,31 @@ def build_notebook(path=BUILD_DIR, yaml_path=f"{BUILD_DIR}/_config.yml"):
 
 
 def process_notebook(path=BUILD_DIR):
+    def _process_title(title, rep):
+        title = title.replace(rep, '')
+        # count how many # are in the title
+        count = 0
+        for char in title:
+            if char == '#':
+                count += 1
+        title = title.replace('#', '')
+        return title, count
+
     with open(path, 'r', encoding='utf-8') as f:
         notebook = nbformat.read(f, as_version=nbformat.NO_CONVERT)
     for cell in notebook['cells']:
         if cell['cell_type'] == 'markdown':
-            if '### Exercise' in cell['source']:
-                title = cell['source'].split('\n')[0][4:]
+            title = cell['source'].split('\n')[0]
+            if '{exercise}' in title:
+                title, count = _process_title(title, '{exercise}')
                 content = '\n'.join(cell['source'].split('\n')[1:]) if len(cell['source'].split('\n')) > 1 else ''
-                cell['source'] = exercise_template.render(title=title, content=content)
-            if '### Hint' in cell['source']:
-                title = cell['source'].split('\n')[0][4:]
+                cell['source'] = exercise_template.render(title=title, content=content, title_level=count)
+            if '{hint}' in title:
+                title, _ = _process_title(title, '{hint}')
                 content = '\n'.join(cell['source'].split('\n')[1:]) if len(cell['source'].split('\n')) > 1 else ''
                 cell['source'] = hint_template.render(title=title, content=content)
-            if '### Solution' in cell['source']:
-                title = cell['source'].split('\n')[0][4:]
+            if '{solution}' in title:
+                title, _ = _process_title(title, '{solution}')
                 content = '\n'.join(cell['source'].split('\n')[1:]) if len(cell['source'].split('\n')) > 1 else ''
                 cell['source'] = solution_template.render(title=title, content=content)
     with open(path, 'w', encoding='utf-8') as f:

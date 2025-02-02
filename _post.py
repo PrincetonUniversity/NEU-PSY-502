@@ -1,20 +1,8 @@
-import subprocess
-import sys
-
-import jinja2
-from jinja2 import Template
-import yaml
-import json
 import os
-import shutil
-import filecmp
-import nbformat
 import re
 
 # Directory paths
 SOURCE_DIR = "./website/_build/html/content"
-
-
 
 skip_dirs = ["_build"]
 
@@ -37,15 +25,5 @@ def build():
                 replace_colab_link(os.path.join(root, file))
 
 
-
-
-
-
-def main():
-
-    build()
-
-
-
 if __name__ == '__main__':
-    main()
+    build()
