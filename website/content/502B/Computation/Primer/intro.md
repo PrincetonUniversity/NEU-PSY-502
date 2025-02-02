@@ -1,4 +1,4 @@
-# Primer
+# 1 Primer
 
 ## Overview
 
@@ -9,12 +9,11 @@ the models.
 
 ## Content
 
-<ul>
-    <li><a href="notebooks/1%20Scalars,%20Vectors,%20and%20Matrices.ipynb">Scalars, Vectors, and Matrices</a></li>
-    <li><a href="notebooks/2%20Logistic%20Function.ipynb">Logistic Function</a></li>
-    <li><a href="notebooks/3%20Perceptron%20and%20XOR.ipynb">Perceptron and XOR</a></li>
-</ul>
+[1.1 Scalars, Vectors, and Matrices](notebooks/1%20Scalars,%20Vectors,%20and%20Matrices.ipynb)
 
+[1.2 Logistic Function](notebooks/2%20Logistic%20Function.ipynb)
+
+[1.3 Perceptron and XOR](notebooks/3%20Perceptron%20and%20XOR.ipynb)
 
 ## Additional Resources
 

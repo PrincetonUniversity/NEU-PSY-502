@@ -17,3 +17,8 @@ parts:
     - file: content/502B/Computation/Primer/notebooks/1 Scalars, Vectors, and Matrices
     - file: content/502B/Computation/Primer/notebooks/2 Logistic Function
     - file: content/502B/Computation/Primer/notebooks/3 Perceptron and XOR
+  - file: content/502B/Computation/Dynamics in Perception/intro
+    sections:
+    - file: content/502B/Computation/Dynamics in Perception/notebooks/1 Hebbian Learning
+    - file: content/502B/Computation/Dynamics in Perception/notebooks/2 Hopfield Networks
+    - file: content/502B/Computation/Dynamics in Perception/notebooks/3 Dynamic Systems and Bistable Perception
