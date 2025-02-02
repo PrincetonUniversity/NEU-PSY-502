@@ -9,9 +9,11 @@ the models.
 
 ## Content
 
-1. [Scalars, Vectors, and Matrices](notebooks/1%20Scalars,%20Vectors,%20and%20Matrices.ipynb)
-2. [Logistic Function](notebooks/2%20Logistic%20Function.ipynb)
-3. [Perceptron and XOR](notebooks/3%20Perceptron%20and%20XOR.ipynb)
+<ul>
+    <li><a href="notebooks/1%20Scalars,%20Vectors,%20and%20Matrices.ipynb">Scalars, Vectors, and Matrices</a></li>
+    <li><a href="notebooks/2%20Logistic%20Function.ipynb">Logistic Function</a></li>
+    <li><a href="notebooks/3%20Perceptron%20and%20XOR.ipynb">Perceptron and XOR</a></li>
+</ul>
 
 
 ## Additional Resources
