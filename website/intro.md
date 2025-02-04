@@ -1,5 +1,7 @@
 # NEU/PSY 502
 
+## Content
+
 <details><summary><a href="content/502A/syllabus.md">502A</a></summary>
   <ul>
     <li><a href="content/502A/Lecture%201/intro.html">1 Introduction and History</a></li>

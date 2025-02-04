@@ -22,3 +22,6 @@ parts:
     - file: content/502B/Computation/Dynamics in Perception/notebooks/1 Hebbian Learning
     - file: content/502B/Computation/Dynamics in Perception/notebooks/2 Hopfield Networks
     - file: content/502B/Computation/Dynamics in Perception/notebooks/3 Dynamic Systems and Bistable Perception
+  - file: content/502B/Computation/Decision Making/intro
+    sections:
+    - file: content/502B/Computation/Decision Making/notebooks/1 Drift Diffusion Models
