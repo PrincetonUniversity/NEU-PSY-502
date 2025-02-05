@@ -4,12 +4,10 @@
 
 1. Create a new markdown or jupyter notebook file in the `website/content` folder.
 2. Add the file to the `website/_toc.yml` file to make it appear in the sidebar.
-
-## Automatic build and deployment
-
-The website is automatically built and deployed using GitHub Actions. 
-The build process is triggered whenever a new commit is pushed to the `main` branch. 
-The website is deployed to the `gh-pages` branch.
+3. There might are three places, where you also might want to add a link to the new page:
+    - `website/intro.md` for the main page
+    - `website/content/502A/syllabus.md` (for 502A)
+    - `website/content/502B/syllabus.md` (for 502B)
 
 ## Adding static files (e.g., images, pdfs)
 
@@ -28,8 +26,14 @@ To make files accessible everywhere (e.g., when using the notebooks in google co
 1. Add the pdf file to the `_static/pdf` folder.
 2. Add the following code snippet to the markdown file where you want to display the pdf file. (Replace `<file-name>` with the name of the pdf file.)
 ```markdown
-<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/<file-name>" width="100%" height="600px"></iframe>
+<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/<path-to-file>" width="100%" height="600px"></iframe>
 ```
+
+## Automatic build and deployment
+
+The website is automatically built and deployed using GitHub Actions. 
+The build process is triggered whenever a new commit is pushed to the `main` branch. 
+The website is deployed to the `gh-pages` branch.
 
 ## Pre and Postprocessing
 

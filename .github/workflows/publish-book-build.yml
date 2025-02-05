@@ -1,11 +1,7 @@
 name: deploy-book
 
 # Run this when the master or main branch changes
-on:
-  push:
-    branches:
-      - master
-      - main
+on: workflow_dispatch
     # If your git repository has the Jupyter Book within some-subfolder next to
     # unrelated files, you can make this run only if a file within that specific
     # folder has been modified.
@@ -33,6 +29,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install jupyter-book
+          pip install -r requirements.txt
           python -m pip list  # Logs installed dependencies
           python -c "import psyneulink as pnl; print('PsyNeuLink Version:', pnl.__version__)"
 

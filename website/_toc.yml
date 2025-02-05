@@ -29,6 +29,9 @@ parts:
   - file: content/502B/Computation/Decision Making/intro
     sections:
     - file: content/502B/Computation/Decision Making/notebooks/1 Drift Diffusion Models
+  - file: content/502B/Computation/Reinforcement Learning/intro
+    sections:
+    - file: content/502B/Computation/Reinforcement Learning/notebooks/1 Reinforcement Learning
 - caption: 502B Empirical
   chapters:
   - file: content/502B/Empirical/intro
