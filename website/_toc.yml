@@ -7,6 +7,7 @@ parts:
 - caption: 502A
   chapters:
   - file: content/502A/syllabus
+  - file: content/502A/lectures
   - file: content/502A/Class 1/index
   - file: content/502A/Class 2/index
   - file: content/502A/Class 3/index
