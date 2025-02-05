@@ -7,9 +7,9 @@ parts:
 - caption: 502A
   chapters:
   - file: content/502A/syllabus
-  - file: content/502A/Class 1/intro
-  - file: content/502A/Class 2/intro
-  - file: content/502A/Class 3/intro
+  - file: content/502A/Class 1/index
+  - file: content/502A/Class 2/index
+  - file: content/502A/Class 3/index
 - caption: 502B
   chapters:
   - file: content/502B/intro

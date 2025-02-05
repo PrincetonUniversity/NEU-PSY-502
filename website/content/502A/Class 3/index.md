@@ -7,5 +7,5 @@ height="600px"></iframe>
 
 ## Michael Graziano: Topography of the Visual Cortex
 
-<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%203/Topography%20of%20Visual%20-%20Graziano.pdf"width="100%" 
+<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%203/Topography%20of%20Visual%20Cortex%20-%20Graziano.pdf"width="100%" 
 height="600px"></iframe>
