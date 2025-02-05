@@ -1,6 +1,6 @@
 # 2 Dynamics in Perception
 
-![duck rabbit]({{ assets_url }}/images/duckrabbit.jpeg)
+![duck rabbit](https://princetonuniversity.github.io/NEU-PSY-502/_static/images/duckrabbit.jpeg)
 
 ## Overview
 
