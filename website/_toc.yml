@@ -7,8 +7,12 @@ parts:
 - caption: 502A
   chapters:
   - file: content/502A/syllabus
-  - file: content/502A/Lecture 1/intro
-  - file: content/502A/Lecture 2/intro
+  - file: content/502A/Class 1/syllabus
+  - file: content/502A/Class 2/intro
+  - file: content/502A/Class 3/intro
+- caption: 502B
+  chapters:
+  - file: content/502B/intro
 - caption: 502B Computation
   chapters:
   - file: content/502B/Computation/intro
@@ -25,3 +29,6 @@ parts:
   - file: content/502B/Computation/Decision Making/intro
     sections:
     - file: content/502B/Computation/Decision Making/notebooks/1 Drift Diffusion Models
+- caption: 502B Empirical
+  chapters:
+  - file: content/502B/Empirical/intro
