@@ -7,7 +7,7 @@ copyright: '2025'
 logo: logo.png
 
 execute:
-  execute_notebooks: true
+  execute_notebooks: force
   allow_errors: true
 
 latex:
