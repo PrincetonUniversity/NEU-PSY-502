@@ -33,6 +33,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install jupyter-book
+          pip install -r requirements.txt
           python -m pip list  # Logs installed dependencies
           python -c "import psyneulink as pnl; print('PsyNeuLink Version:', pnl.__version__)"
 
