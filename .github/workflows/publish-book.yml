@@ -32,18 +32,31 @@ jobs:
 
       - name: Install dependencies
         run: |
+          pip install jupyter-book
           pip install -r requirements.txt
+          python -m pip list  # Logs installed dependencies
+          python -c "import psyneulink as pnl; print('PsyNeuLink Version:', pnl.__version__)"
 
       - name: cache executed notebooks
         uses: actions/cache@v3
         with:
           path: website/_build/.jupyter_cache
           key: jupyter-book-cache-${{ hashFiles('requirements.txt') }}
-
+      - name: Run pre processing
+        run: |
+          python _pre.py
       # Build the book
       - name: Build the book
         run: |
+          export OMP_NUM_THREADS=1  # Prevents multi-threading issues
+          export MKL_NUM_THREADS=1
+          export NUMEXPR_NUM_THREADS=1
           jupyter-book build website
+      - name : Run post processing
+        run: |
+          python _post.py
+
+      
 
       - name: Check if build folder exists
         run: |

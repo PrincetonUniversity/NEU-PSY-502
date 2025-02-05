@@ -36,13 +36,13 @@ To make files accessible everywhere (e.g., when using the notebooks in google co
 The notebooks are processed before uploading to the website. For the development of the notebooks, 
 this has one main implications:
 
-There are three "magic" titles that will render differently on the website than in the local jupyter notebook:
+There are three "magic" tags that will render differently on the website than in the local jupyter notebook:
 
-- ### Exercise
-- ### Hint
-- ### Solution
+- {exercise}
+- {hint}
+- {solution}
 
-These will be rendered with special colors and the hints and solutions will be hidden by default.
+If you add these to the end of the first line of a cell (for example after the title), these will be rendered with special colors and the hints and solutions will be hidden by default.
 
 
 
