@@ -1,6 +1,4 @@
-# Computational Modeling 
-
-## Introduction
+# Introduction
 
 This guide explores computational techniques and concepts central to modern cognitive neuroscience, with practical applications using [PsyNeuLink](https://princetonuniversity.github.io/PsyNeuLink/). It designed for students, researchers, and practitioners who are interested in building and simulating cognitive and neural models.
 

@@ -1,3 +1,0 @@
-# FMRI
-
-... coming soon
