@@ -18,6 +18,8 @@ Some pages include interactive Jupyter notebooks that allow you to run code and 
 
 [3 Decision Making](Decision%20Making/intro.md)
 
+[4 Reinforcement Learning](Reinforcement%20Learning/intro.md)
+
 ## Prerequisites
 
 This guide introduces PsyNeuLink, a Python package for building cognitive and neural models. It assumes familiarity

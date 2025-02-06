@@ -1,4 +1,4 @@
-# 3 Reinforcement Learning
+# 4 Reinforcement Learning
 
 ## Overview
 
@@ -6,7 +6,7 @@ Here, we will introduce the concept of *reinforcement learning* by recreating th
 
 ## Content
 
-[3.1 Reinforcement Learning](notebooks/1%20Reinforcement%20Learning.ipynb)
+[4.1 Reinforcement Learning](notebooks/1%20Reinforcement%20Learning.ipynb)
 
 ## Additional Resources
 
