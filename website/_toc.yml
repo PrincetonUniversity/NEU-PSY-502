@@ -1,0 +1,38 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+parts:
+- caption: 502A
+  chapters:
+  - file: content/502A/syllabus
+  - file: content/502A/lectures
+  - file: content/502A/Class 1/index
+  - file: content/502A/Class 2/index
+  - file: content/502A/Class 3/index
+- caption: 502B
+  chapters:
+  - file: content/502B/intro
+- caption: 502B Computation
+  chapters:
+  - file: content/502B/Computation/intro
+  - file: content/502B/Computation/Primer/intro
+    sections:
+    - file: content/502B/Computation/Primer/notebooks/1 Scalars, Vectors, and Matrices
+    - file: content/502B/Computation/Primer/notebooks/2 Logistic Function
+    - file: content/502B/Computation/Primer/notebooks/3 Perceptron and XOR
+  - file: content/502B/Computation/Dynamics in Perception/intro
+    sections:
+    - file: content/502B/Computation/Dynamics in Perception/notebooks/1 Hebbian Learning
+    - file: content/502B/Computation/Dynamics in Perception/notebooks/2 Hopfield Networks
+    - file: content/502B/Computation/Dynamics in Perception/notebooks/3 Dynamic Systems and Bistable Perception
+  - file: content/502B/Computation/Decision Making/intro
+    sections:
+    - file: content/502B/Computation/Decision Making/notebooks/1 Drift Diffusion Models
+  - file: content/502B/Computation/Reinforcement Learning/intro
+    sections:
+    - file: content/502B/Computation/Reinforcement Learning/notebooks/1 Reinforcement Learning
+- caption: 502B Empirical
+  chapters:
+  - file: content/502B/Empirical/intro
