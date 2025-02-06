@@ -35,6 +35,44 @@ The website is automatically built and deployed using GitHub Actions.
 The build process is triggered whenever a new commit is pushed to the `main` branch. 
 The website is deployed to the `gh-pages` branch.
 
+### How to preview the website locally
+
+To preview the website locally, you can use the following steps:
+
+Change to the `website` directory:
+```bash
+cd website
+```
+
+Install the required packages:
+```bash
+pip install jupyter-book
+pip install psyneulink
+```
+
+Build the website:
+```bash
+jupyter-book build .
+```
+
+There now should be a build directory. You can preview the website by looking at the `index.html` file in the `_build/html` directory.
+
+### How can I temporarily disable the automatic build and deployment?
+
+If you want to make changes to the website without executing all the notebooks, you can disable this by changing the `_config.yml` file in the `website` directory.
+
+Change the following line:
+```
+execute:
+  execute_notebooks: force
+```
+
+to:
+```
+execute:
+  execute_notebooks: off
+```
+
 ## Pre and Postprocessing
 
 The notebooks are processed before uploading to the website. For the development of the notebooks, 
