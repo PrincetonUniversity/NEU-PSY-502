@@ -1,4 +1,4 @@
-# Interactive Activation, Statistical Learning, and Language Processing
+# 11 Interactive Activation, Statistical Learning, and Language Processing
 
 ## Readings
 
