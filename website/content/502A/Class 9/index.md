@@ -1,4 +1,4 @@
-# Statistical Learning, Semantics and Neocortex
+# 9 Statistical Learning, Semantics and Neocortex
 
 ## Readings
 
