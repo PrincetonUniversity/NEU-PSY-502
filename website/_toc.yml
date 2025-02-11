@@ -11,6 +11,15 @@ parts:
   - file: content/502A/Class 1/index
   - file: content/502A/Class 2/index
   - file: content/502A/Class 3/index
+  - file: content/502A/Class 4/index
+  - file: content/502A/Class 5/index
+  - file: content/502A/Class 6/index
+  - file: content/502A/Class 7/index
+  - file: content/502A/Class 8/index
+  - file: content/502A/Class 9/index
+  - file: content/502A/Class 10/index
+  - file: content/502A/Class 11/index
+  - file: content/502A/Class 12/index
 - caption: 502B
   chapters:
   - file: content/502B/intro
@@ -33,6 +42,9 @@ parts:
   - file: content/502B/Computation/Reinforcement Learning/intro
     sections:
     - file: content/502B/Computation/Reinforcement Learning/notebooks/1 Reinforcement Learning
+  - file: content/502B/Computation/Statistical Learning and Backpropagation/intro
+    sections:
+    - file: content/502B/Computation/Statistical Learning and Backpropagation/notebooks/1 Rummelhart Network
 - caption: 502B Empirical
   chapters:
   - file: content/502B/Empirical/intro
