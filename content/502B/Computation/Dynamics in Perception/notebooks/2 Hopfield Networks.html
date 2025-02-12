@@ -1,0 +1,804 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>2.2 Hopfield Networks &#8212; NEU-PSY-MOL-502</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/502B/Computation/Dynamics in Perception/notebooks/2 Hopfield Networks';</script>
+    <link rel="canonical" href="https://princetonuniversity.github.io/NEU-PSY-502/content/502B/Computation/Dynamics in Perception/notebooks/2 Hopfield Networks.html" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="2.3 Dynamic Systems and Bistable Perception" href="3%20Dynamic%20Systems%20and%20Bistable%20Perception.html" />
+    <link rel="prev" title="2.1 Hebbian Learning" href="1%20Hebbian%20Learning.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../../_static/logo.png" class="logo__image only-light" alt="NEU-PSY-MOL-502 - Home"/>
+    <img src="../../../../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="NEU-PSY-MOL-502 - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../../intro.html">
+                    NEU/PSY 502
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">502A</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/syllabus.html">Syllabus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/lectures.html">Lectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%201/index.html">1 Introduction and History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%202/index.html">2 Perception and Constraint Satisfaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%203/index.html">3 Associative Learning and Topography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%204/index.html">4 High Level Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%205/index.html">5 Dynamics of Integration and Decision Making</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%206/index.html">6 Optimization of Decision Making</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%207/index.html">7 Reward Systems and Psychodynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%208/index.html">8 Explore/Exploit and Noradrenergic Neuromodulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%209/index.html">9 Statistical Learning, Semantics and Neocortex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2010/index.html">10 Bayesian Approaches and Bounded Rationality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2011/index.html">11 Interactive Activation, Statistical Learning, and Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2012/index.html">12 Language and LLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Syllabus</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B Computation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Primer/intro.html">1 Primer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Primer/notebooks/1%20Scalars%2C%20Vectors%2C%20and%20Matrices.html">1.1 Scalars, Vectors, and Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Primer/notebooks/2%20Logistic%20Function.html">1.2 Logistic Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Primer/notebooks/3%20Perceptron%20and%20XOR.html">1.3 Perceptron and XOR</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../intro.html">2 Dynamics in Perception</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="1%20Hebbian%20Learning.html">2.1 Hebbian Learning</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.2 Hopfield Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3%20Dynamic%20Systems%20and%20Bistable%20Perception.html">2.3 Dynamic Systems and Bistable Perception</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Decision%20Making/intro.html">3 Decision Making</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Decision%20Making/notebooks/1%20Drift%20Diffusion%20Models.html">3.1 Drift Diffusion Models</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Reinforcement%20Learning/intro.html">4 Reinforcement Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Reinforcement%20Learning/notebooks/1%20Reinforcement%20Learning.html">4.1 Reinforcement Learning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Statistical%20Learning%20and%20Backpropagation/intro.html">5 Statistical Learning and Backpropagation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B Empirical</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../Empirical/intro.html">Introduction</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/PrincetonUniversity/NEU-PSY-502/main?urlpath=tree/website/content/502B/Computation/Dynamics in Perception/notebooks/2 Hopfield Networks.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../../../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/PrincetonUniversity/NEU-PSY-502/blob/main/website/content/502B/Computation/Dynamics in Perception/notebooks/2 Hopfield Networks.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../../../../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/PrincetonUniversity/NEU-PSY-502" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/PrincetonUniversity/NEU-PSY-502/issues/new?title=Issue%20on%20page%20%2Fcontent/502B/Computation/Dynamics in Perception/notebooks/2 Hopfield Networks.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../../../_sources/content/502B/Computation/Dynamics in Perception/notebooks/2 Hopfield Networks.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>2.2 Hopfield Networks</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#noisy-input-and-perception-hopfield-networks">Noisy Input and Perception: Hopfield Networks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#letter-recognition">Letter Recognition</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="hopfield-networks">
+<h1>2.2 Hopfield Networks<a class="headerlink" href="#hopfield-networks" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<section id="noisy-input-and-perception-hopfield-networks">
+<h3>Noisy Input and Perception: Hopfield Networks<a class="headerlink" href="#noisy-input-and-perception-hopfield-networks" title="Link to this heading">#</a></h3>
+<p>When you are looking out at the world through a rainstorm, your sense data are noisy with a messy distribution of water droplets partially obscuring your view at any given moment, but you are typically still able to recognize the landscape. Similarly, if you are walking through a forest on a sunny windy day the pattern of sunlight dancing on the forest floor makes your raw sense data fluctuate unpredictably, but you can still reliably recognize the path, plants, stones, etc. Sense data are often noisy, and Hopfield Networks (<a class="reference external" href="https://doi.org/10.1073/pnas.79.8.2554">Hopfield, 1982</a>) can model how to reliably extract signal from and input of signal mixed with noise using associative nodes and thresholds.</p>
+<p><strong>Installation and Setup</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">psyneulink</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">psyneulink</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pnl</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="letter-recognition">
+<h2>Letter Recognition<a class="headerlink" href="#letter-recognition" title="Link to this heading">#</a></h2>
+<p>Here, we will perform pattern completion (i.e. associative memory) using a simple recurrent network. We will use a Hopfield network to recognize noisy versions of the letter “A” and “Z”.</p>
+<p>First, we will create the patterns for the letters “A” and “Z”. We will use a 5x5 grid to represent each letter.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the dimensions of the patterns</span>
+<span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Define the patterns for the letters &quot;A&quot;</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">],</span>
+<span class="p">])</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="c1"># Define the patterns for the letters &quot;Z&quot;</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">],</span>
+<span class="p">])</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_pattern</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot a `pattern` in a grid of shape `shape`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">pattern</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;binary&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+
+
+<span class="c1"># Plot the patterns for the letters &quot;A&quot; and &quot;Z&quot;</span>
+<span class="n">plot_pattern</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">plot_pattern</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/4c262e3cefeb02714a0f4477d8d462bfe122025d0a3386a549e8f2538e1390d7.png" src="../../../../../_images/4c262e3cefeb02714a0f4477d8d462bfe122025d0a3386a549e8f2538e1390d7.png" />
+<img alt="../../../../../_images/5be35045c94a2a342b3393b2551e94f1028253cb2375fc213aa109b3dba4a99e.png" src="../../../../../_images/5be35045c94a2a342b3393b2551e94f1028253cb2375fc213aa109b3dba4a99e.png" />
+</div>
+</div>
+<p>Next, we’ll implement how a Hopfield network can memorize patterns and recognize them when presented with noisy versions of those patterns. First, we’ll set up the connections between units in our network, represented by a 25-by-25 weight matrix initialized with zeros. Each unit is connected to every other unit, and we’ll manually set the diagonal of the weight matrix to zero to ensure that each unit isn’t connected to itself. Each unit corresponds to a “pixel” in the input letter patterns.</p>
+<p>To “train” the network, we supply each input pattern to the network and update the weights. Mathematically, this involves computing the outer product of each pattern (where patterns are represented using 1s and -1s) and adding it to the existing weights. This process effectively constructs a covariance matrix. The result is that when two units are coactivated in a pattern, the strength of their connection increases—an example of Hebbian learning (Hebb, 1949), which states that “neurons that fire together, wire together.”</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up the &quot;training&quot; set to memorize.</span>
+<span class="n">training_set</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">A</span><span class="p">,</span> <span class="n">Z</span><span class="p">])</span>
+
+<span class="c1"># Get the shape</span>
+<span class="n">m</span><span class="p">,</span> <span class="n">n_units</span> <span class="o">=</span> <span class="n">training_set</span><span class="o">.</span><span class="n">shape</span>
+
+<span class="c1"># Initialize the weight matrix with zeros.</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_units</span><span class="p">,</span> <span class="n">n_units</span><span class="p">))</span>
+
+<span class="c1"># Update the weights using Hebbian learning.</span>
+<span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">training_set</span><span class="p">:</span>
+    <span class="n">weights</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span> <span class="o">/</span> <span class="n">m</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that the network has “memorized” the input letters, we can examine how well it recognizes novel test letters. First, let’s create a function that adds noise to existing letters. The function works by replacing each pixel with a random value, with the probability of replacement determined by the noise level.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">add_noise</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">noise_level</span><span class="o">=</span><span class="mf">0.2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add noise to a `pattern` by flipping each pixel with probability `noise_level`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Generate a random pattern of 1 and -1</span>
+    <span class="n">random_pattern</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">pattern</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    
+    <span class="c1"># Generate a noise mask based on the noise level</span>
+    <span class="n">noise_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">pattern</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">noise_level</span>
+    
+    <span class="c1"># Blend the original pattern and the random pattern based on the noise mask</span>
+    <span class="n">noisy_pattern</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">noisy_pattern</span><span class="p">[</span><span class="n">noise_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">random_pattern</span><span class="p">[</span><span class="n">noise_mask</span><span class="p">]</span>
+    
+    <span class="k">return</span> <span class="n">noisy_pattern</span>
+
+<span class="c1"># Set a seed for reproducibility</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Add noise to the letter &quot;A&quot;</span>
+<span class="n">Z_noisy</span> <span class="o">=</span> <span class="n">add_noise</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+<span class="n">plot_pattern</span><span class="p">(</span><span class="n">Z_noisy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/b6a4e3db262da9c74ce014b76c838b2cf19c34d13af4906b163e4a8876c86c0e.png" src="../../../../../_images/b6a4e3db262da9c74ce014b76c838b2cf19c34d13af4906b163e4a8876c86c0e.png" />
+</div>
+</div>
+<p>The network will attempt to associate any input pattern with one of the patterns it learned during training. For a given input pattern, we allow the network to iteratively update it over a number of steps. At each iteration, we compute the dot product between the current pattern and the learned weight matrix, which produces a new pattern. This new pattern is a transformation of the input pattern based on the learned associations encoded in the weight matrix. The network continues this process, updating the pattern at each step. After a specified number of iterations, we return the final internal state of the model: the predicted pattern. Importantly, during this stage, the weights of the network remain fixed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">pattern_complete</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">soft</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Complete a `pattern` using the `weights` matrix for `n_iter` iterations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Supply pattern to weight matrix for each iteration</span>
+    <span class="n">patterns</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_iter</span><span class="p">):</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+        
+        <span class="c1"># Threshold resulting pattern</span>
+        <span class="k">if</span> <span class="n">soft</span><span class="p">:</span>
+            <span class="n">pattern</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pattern</span><span class="p">[</span><span class="n">pattern</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="n">pattern</span><span class="p">[</span><span class="n">pattern</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="c1"># Store pattern at each iteration</span>
+        <span class="n">patterns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">patterns</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, we’ll perform pattern completion. We create a randomized test pattern and supply it to the pattern completion function. We also plot all the intermediate patterns generated during the completion process.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pattern_test</span> <span class="o">=</span> <span class="n">add_noise</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">noise_level</span><span class="o">=</span><span class="mf">.3</span><span class="p">)</span>
+<span class="n">plot_pattern</span><span class="p">(</span><span class="n">pattern_test</span><span class="p">)</span>
+
+<span class="n">n_iter</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">patterns_pred</span> <span class="o">=</span> <span class="n">pattern_complete</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">pattern_test</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="n">n_iter</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">pattern_pred</span> <span class="ow">in</span> <span class="n">patterns_pred</span><span class="p">:</span>
+    <span class="n">plot_pattern</span><span class="p">(</span><span class="n">pattern_pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/352db0dae5beeae329da7a7cfc1b7400632f061255eb7b521ebb94bcac1be83c.png" src="../../../../../_images/352db0dae5beeae329da7a7cfc1b7400632f061255eb7b521ebb94bcac1be83c.png" />
+<img alt="../../../../../_images/5be35045c94a2a342b3393b2551e94f1028253cb2375fc213aa109b3dba4a99e.png" src="../../../../../_images/5be35045c94a2a342b3393b2551e94f1028253cb2375fc213aa109b3dba4a99e.png" />
+<img alt="../../../../../_images/5be35045c94a2a342b3393b2551e94f1028253cb2375fc213aa109b3dba4a99e.png" src="../../../../../_images/5be35045c94a2a342b3393b2551e94f1028253cb2375fc213aa109b3dba4a99e.png" />
+<img alt="../../../../../_images/5be35045c94a2a342b3393b2551e94f1028253cb2375fc213aa109b3dba4a99e.png" src="../../../../../_images/5be35045c94a2a342b3393b2551e94f1028253cb2375fc213aa109b3dba4a99e.png" />
+</div>
+</div>
+<h4 style="background: #256ca2; color: #e9e9e9">🎯  Exercise</h4>
+<p>The Hopfield network here, seems to be very similar to the models discussed in the previous section on Hebbian Learning. Can you identify core differences between this model?</p>
+<details><summary style="background: #d6c89d; color: #e9e9e9">💡 Hint</summary>
+<p>Although we used recurrent networks in the PsyNeuLink implementation of the models in the previous section, the models of the previous section were ultimately feedforward networks. However, the Hopfield network is a recurrent network.</p>
+<p>This is a prerequisite for another fundamental difference.</p>
+</details>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution</summary>
+<p>The Hopfield network models an attractor network, which means that it is capable of running multiple steps and therefor dynamics. The output is not determined by a single feedforward pass, but by the dynamics of the network and probably stable states.</p>
+</details>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "PrincetonUniversity/NEU-PSY-502",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/502B/Computation/Dynamics in Perception/notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1%20Hebbian%20Learning.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">2.1 Hebbian Learning</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="3%20Dynamic%20Systems%20and%20Bistable%20Perception.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">2.3 Dynamic Systems and Bistable Perception</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#noisy-input-and-perception-hopfield-networks">Noisy Input and Perception: Hopfield Networks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#letter-recognition">Letter Recognition</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jonathan Cohen, Samuel Nastase, Alexander Ku & Younes Strittmatter
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

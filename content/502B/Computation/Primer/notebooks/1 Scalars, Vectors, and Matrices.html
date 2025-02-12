@@ -1,0 +1,1197 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>1.1 Scalars, Vectors, and Matrices &#8212; NEU-PSY-MOL-502</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/502B/Computation/Primer/notebooks/1 Scalars, Vectors, and Matrices';</script>
+    <link rel="canonical" href="https://princetonuniversity.github.io/NEU-PSY-502/content/502B/Computation/Primer/notebooks/1 Scalars, Vectors, and Matrices.html" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="1.2 Logistic Function" href="2%20Logistic%20Function.html" />
+    <link rel="prev" title="1 Primer" href="../intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../../_static/logo.png" class="logo__image only-light" alt="NEU-PSY-MOL-502 - Home"/>
+    <img src="../../../../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="NEU-PSY-MOL-502 - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../../intro.html">
+                    NEU/PSY 502
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">502A</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/syllabus.html">Syllabus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/lectures.html">Lectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%201/index.html">1 Introduction and History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%202/index.html">2 Perception and Constraint Satisfaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%203/index.html">3 Associative Learning and Topography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%204/index.html">4 High Level Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%205/index.html">5 Dynamics of Integration and Decision Making</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%206/index.html">6 Optimization of Decision Making</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%207/index.html">7 Reward Systems and Psychodynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%208/index.html">8 Explore/Exploit and Noradrenergic Neuromodulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%209/index.html">9 Statistical Learning, Semantics and Neocortex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2010/index.html">10 Bayesian Approaches and Bounded Rationality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2011/index.html">11 Interactive Activation, Statistical Learning, and Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2012/index.html">12 Language and LLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Syllabus</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B Computation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../intro.html">1 Primer</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">1.1 Scalars, Vectors, and Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2%20Logistic%20Function.html">1.2 Logistic Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3%20Perceptron%20and%20XOR.html">1.3 Perceptron and XOR</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Dynamics%20in%20Perception/intro.html">2 Dynamics in Perception</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Dynamics%20in%20Perception/notebooks/1%20Hebbian%20Learning.html">2.1 Hebbian Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Dynamics%20in%20Perception/notebooks/2%20Hopfield%20Networks.html">2.2 Hopfield Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Dynamics%20in%20Perception/notebooks/3%20Dynamic%20Systems%20and%20Bistable%20Perception.html">2.3 Dynamic Systems and Bistable Perception</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Decision%20Making/intro.html">3 Decision Making</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Decision%20Making/notebooks/1%20Drift%20Diffusion%20Models.html">3.1 Drift Diffusion Models</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Reinforcement%20Learning/intro.html">4 Reinforcement Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Reinforcement%20Learning/notebooks/1%20Reinforcement%20Learning.html">4.1 Reinforcement Learning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Statistical%20Learning%20and%20Backpropagation/intro.html">5 Statistical Learning and Backpropagation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B Empirical</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../Empirical/intro.html">Introduction</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/PrincetonUniversity/NEU-PSY-502/main?urlpath=tree/website/content/502B/Computation/Primer/notebooks/1 Scalars, Vectors, and Matrices.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../../../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/PrincetonUniversity/NEU-PSY-502/blob/main/website/content/502B/Computation/Primer/notebooks/1 Scalars, Vectors, and Matrices.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../../../../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/PrincetonUniversity/NEU-PSY-502" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/PrincetonUniversity/NEU-PSY-502/issues/new?title=Issue%20on%20page%20%2Fcontent/502B/Computation/Primer/notebooks/1 Scalars, Vectors, and Matrices.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../../../_sources/content/502B/Computation/Primer/notebooks/1 Scalars, Vectors, and Matrices.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>1.1 Scalars, Vectors, and Matrices</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-matrix-operations">Vector &amp; Matrix Operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transpose">Transpose</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#addition">Addition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalar-multiplication">Scalar Multiplication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dot-product">Dot Product</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiplication-of-matrix-and-a-vector-multiplication">Multiplication of Matrix and a Vector Multiplication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-multiplication">Matrix Multiplication</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="scalars-vectors-and-matrices">
+<h1>1.1 Scalars, Vectors, and Matrices<a class="headerlink" href="#scalars-vectors-and-matrices" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>A <em>scalar</em> is a number used to quantify magnitude (e.g. temperature), while a <em>vector</em> is used to quantify magnitude and direction (e.g. wind).</p>
+<p>Vectors are typically formatted as a list of numbers with each number corresponding to one direction. Familiar Cartesian coordinates have 2 dimensions, X &amp; Y, and a vector in Cartesian coordinates is 1x2, a one dimensional list with two numbers. For example, west-east is the X axis and south-north is the Y axis. The vector (3, 4) indicates wind moving both 3 mph west and 4 mph north, but the combination of these components is a vector of wind moving 5 mph northwest (thanks to the pythagorean theorem, <span class="math notranslate nohighlight">\(a^2 + b^2 = c^2\)</span>). The <em>magnitude</em> is the distance from the origin (0,0), in this case 5. The vector itself is one dimensional and can be depicted as an arrow starting at (0,0) and extending to (3,4) in these Cartesian coordinates.</p>
+<p><em><strong>Note:</strong></em> A number with magnitude AND two or more directions is called a <em>tensor</em>. One way to think of a basic tensor is pinching and pulling a rubber sheet toward you: there is a magnitude of force pulling back toward the initial position (you could use this to launch a pebble like a slingshot) and there is also a magnitude of tension in the rubber sheet itself that will contract back when you let go. Tensors are used to describe gravity in general relativity.</p>
+<p>Vectors are typically formatted as one-dimensional data structures or lists, 1xN, with N as the length of the list.  A <em>matrix</em> is a two-dimensional, MxN, data structures.</p>
+</section>
+<section id="vector-matrix-operations">
+<h2>Vector &amp; Matrix Operations<a class="headerlink" href="#vector-matrix-operations" title="Link to this heading">#</a></h2>
+<p>Here, we introduce common mathematical notation and the equivalent code implementation in <a class="reference external" href="https://numpy.org/">Numpy</a>.</p>
+<p><strong>Installation and Setup</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">numpy</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="notation">
+<h3>Notation<a class="headerlink" href="#notation" title="Link to this heading">#</a></h3>
+<p>Like scalars, vectors and matrices of numbers can be added and multiplied. However, these operations differ from their scalar counterparts, and are heavily dependent on dimensionality. Matrix and vector dimensions are given as (r x c) where r is the number of rows, and c is the number of columns. Individual vectors are 1 dimensional and notated as a single row (1 x c) or as a single column (r x 1).</p>
+<p>For example, <span class="math notranslate nohighlight">\(a\)</span> is a [1x3] vector, called a row vector. Vector <span class="math notranslate nohighlight">\(b\)</span> is a [3x1] vector, called a column vector. <span class="math notranslate nohighlight">\(C\)</span> is a [3x3] matrix. The components of a matrix <span class="math notranslate nohighlight">\(C\)</span> are denoted <span class="math notranslate nohighlight">\(c_{ij}\)</span>, where i is the row index and j is the column index.</p>
+<p><em><strong>Note:</strong></em> Vectors are a special type of matrix. In the following sections, the term “matrices” will be used as a general term to refer to both matrices and vectors.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\overrightarrow{a} =
+\left[
+\begin{matrix}
+a_{1} &amp; a_{2} &amp; a_{3}
+\end{matrix}
+\right]
+;  \overrightarrow{b} =
+\left[
+\begin{matrix}
+b_{1} \\ b_{2} \\ b_{3}
+\end{matrix}
+\right]
+; C =
+\left[
+\begin{matrix}
+C_{11} &amp; C_{12} &amp; C_{13} \\ C_{21} &amp; C_{22} &amp; C_{23} \\ C_{31} &amp; C_{32} &amp; C_{33}
+\end{matrix}
+\right]
+\end{equation}
+\end{split}\]</div>
+<p><em>Code:</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define vectors and matrices</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>        <span class="c1"># Row vector (1x3)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">]])</span>    <span class="c1"># Column vector (3x1)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>         <span class="c1"># Matrix (3x3)</span>
+              <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]])</span>
+
+<span class="c1"># Get the dimensions</span>
+<span class="n">dim_a</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">dim_b</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">dim_c</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">shape</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;a(</span><span class="si">{</span><span class="n">dim_a</span><span class="si">}</span><span class="s1">):</span><span class="se">\n</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;b(</span><span class="si">{</span><span class="n">dim_b</span><span class="si">}</span><span class="s1">):</span><span class="se">\n</span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;c(</span><span class="si">{</span><span class="n">dim_c</span><span class="si">}</span><span class="s1">):</span><span class="se">\n</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a((1, 3)):
+[[1 2 3]]
+b((3, 1)):
+[[4]
+ [5]
+ [6]]
+c((3, 3)):
+[[1 2 3]
+ [4 5 6]
+ [7 8 9]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="transpose">
+<h3>Transpose<a class="headerlink" href="#transpose" title="Link to this heading">#</a></h3>
+<p>When performing operations on vectors, it is easiest to represent a vector as a column vector, and a corresponding row vector as its <em>transpose</em>.
+$<span class="math notranslate nohighlight">\(
+\begin{equation}
+\overrightarrow{a}=
+\left[
+\begin{matrix}
+a_{1} \\ a_{2} \\ a_{3}
+\end{matrix}
+\right]
+; \overrightarrow{a}^T=
+\left[
+\begin{matrix}
+a_{1} &amp; a_{2} &amp; a_{3}
+\end{matrix}
+\right]
+\end{equation}
+\)</span>$</p>
+<p><strong>Code:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a row vector</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+
+<span class="c1"># Transpose the vector</span>
+<span class="n">a_transpose</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">T</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Transpose of a:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">a_transpose</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Dim a: </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Dim a_transpose: </span><span class="si">{</span><span class="n">a_transpose</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Transpose of a:
+ [[1]
+ [2]
+ [3]]
+Dim a: (1, 3)
+Dim a_transpose: (3, 1)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="addition">
+<h3>Addition<a class="headerlink" href="#addition" title="Link to this heading">#</a></h3>
+<p>Matrices of the same dimension can be added component-wise, and the result is a new matrix of the same dimension.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\overrightarrow{a} 
++
+\overrightarrow{b}
+=
+\left[
+\begin{matrix}
+a_{1} \\ a_{2} \\ a_{3}
+\end{matrix}
+\right]
++
+\left[
+\begin{matrix}
+b_{1} \\ b_{2} \\ b_{3}
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+a_{1} + b_{1}\\ a_{2} + b_{2} \\ a_{3} + b_{3}
+\end{matrix}
+\right]
+\end{equation}
+\end{split}\]</div>
+<p>Matrix subtraction works precisely the same way.</p>
+<p><strong>Code:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define two vectors</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">]])</span>
+
+<span class="c1"># Calculate the sum of a and b</span>
+<span class="n">sum_ab</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="c1"># Calculate the difference between b and a</span>
+<span class="n">diff_ba</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="n">a</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;a + b:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">sum_ab</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;b - a:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">diff_ba</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a + b:
+ [[5]
+ [7]
+ [9]]
+b - a:
+ [[3]
+ [3]
+ [3]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="scalar-multiplication">
+<h3>Scalar Multiplication<a class="headerlink" href="#scalar-multiplication" title="Link to this heading">#</a></h3>
+<p>A matrix can also be multiplied by a scalar by multiplying every component of a matrix by that scalar.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\alpha 
+\overrightarrow{a}
+=
+\begin{equation}
+\alpha \left[
+\begin{matrix}
+a_{1} \\ a_{2} \\ a_{3}
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+\alpha a_{1} \\ \alpha a_{2} \\ \alpha a_{3}
+\end{matrix}
+\right]
+\end{equation}
+\end{split}\]</div>
+<p><strong>Code:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a vector and a scalar</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
+
+
+<span class="n">product_alpha_a</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">a</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;alpha * a:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">product_alpha_a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>alpha * a:
+ [[2]
+ [4]
+ [6]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dot-product">
+<h3>Dot Product<a class="headerlink" href="#dot-product" title="Link to this heading">#</a></h3>
+<p>There are other types of vector multiplication. Here, we will introduce one type of vector multiplication: the <em>dot product</em>, or <em>inner product</em>.</p>
+<p>A dot product is the sum of component-wise multiplication of vectors. To perform it, we first multiply each component of the first vector by its corresponding component of the second vector, then we sum the resulting products. The result of a dot product is a scalar.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+c =
+\sum\limits_{i} a_{i} b_{i}
+\end{equation}
+\]</div>
+<p>In vector notation, the dot product can be written as follows</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\overrightarrow{b} \cdot \overrightarrow{a} = \overrightarrow{b}^T \overrightarrow{a} = 
+\left[
+\begin{matrix}
+b_{1} &amp; b_{2} &amp; b_{3}
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+a_{1} \\ a_{2} \\ a_{3}
+\end{matrix}
+\right]
+=a_{1}b_{1} + a_{2}b_{2} + a_{3}b_{3}  
+=c
+\end{equation}
+\end{split}\]</div>
+<p>Note that the product only works if its “inner dimensions”, the number of columns of <span class="math notranslate nohighlight">\(b\)</span> and the number of rows of <span class="math notranslate nohighlight">\(a\)</span>, are the same.</p>
+<p><strong>Code:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define two vectors</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">]])</span>
+
+<span class="n">dot_product_ba</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Dot product between b and a:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">dot_product_ba</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dot product between b and a:
+ [[32]]
+</pre></div>
+</div>
+</div>
+</div>
+<h4 style="background: #256ca2; color: #e9e9e9">🎯  Exercise 1</h4>
+<p>What happens if we try to compute a dot product from vectors whose inner dimensions are different? Write some code in Python that tries to compute the dot product from vectors with different inner dimensions. Report and interpret the error.</p>
+<div class="cell tag_remove_output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example for vectors where the inner dimension match</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">]])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dim(a)=</span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">, dim(b)=</span><span class="si">{</span><span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Dot product between a and b:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+
+<span class="c1"># Define vectors where the inner dimensions don&#39;t match</span>
+<span class="n">c</span> <span class="o">=</span> <span class="c1"># TODO: Your code here</span>
+<span class="n">d</span> <span class="o">=</span> <span class="c1"># TODO: Your code here</span>
+
+<span class="c1"># Calculate the dot product</span>
+<span class="n">dot_cd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 1</summary>
+<p>The following solution is just one of many. Make sure to understand why a dot product is not possible when the dimensions don’t match.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example for vectors where the inner dimension match</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">]])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dim(a)=</span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">, dim(b)=</span><span class="si">{</span><span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Dot product between a and b:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+
+<span class="c1"># Define vectors where the inner dimensions don&#39;t match</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+
+<span class="c1"># Calculate the dot product</span>
+<span class="n">dot_cd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+</details>
+</section>
+<section id="multiplication-of-matrix-and-a-vector-multiplication">
+<h3>Multiplication of Matrix and a Vector Multiplication<a class="headerlink" href="#multiplication-of-matrix-and-a-vector-multiplication" title="Link to this heading">#</a></h3>
+<p>The concept of a dot product can be extended to multiplying a matrix with a vector. We can think of this as multiply a single vector <span class="math notranslate nohighlight">\(b\)</span> by a set of vectors <span class="math notranslate nohighlight">\({A}\)</span>. Rather than doing so individually, we can form the vectors in <span class="math notranslate nohighlight">\({A}\)</span> into a matrix (which we will also call <span class="math notranslate nohighlight">\(A\)</span>), by storing their transposes in the rows of <span class="math notranslate nohighlight">\(A\)</span>. Then, we can sequentially compute the dot product of each vector in <span class="math notranslate nohighlight">\(A\)</span> with <span class="math notranslate nohighlight">\(b\)</span>, and store their results in a new vector, <span class="math notranslate nohighlight">\(c\)</span>. The dimensions of <span class="math notranslate nohighlight">\(c\)</span> will depend on how many vectors we stored in <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>For example, let there be a set of two vectors</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\overrightarrow{a_{1}}=
+\left[
+\begin{matrix}
+a_{11} \\ a_{21} \\ a_{31}
+\end{matrix}
+\right]
+\end{equation}
+\end{split}\]</div>
+<p>and its transpose</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+\overrightarrow{a_{1}}^T=
+\left[
+\begin{matrix}
+a_{11} &amp; a_{12} &amp; a_{13}
+\end{matrix}
+\right]
+\end{equation}
+\]</div>
+<p><span class="math notranslate nohighlight">\( \overrightarrow{a_{2}} \)</span> is constructed in the same way to <span class="math notranslate nohighlight">\( \overrightarrow{a_{1}}\)</span> .</p>
+<p>Now, let <span class="math notranslate nohighlight">\(A\)</span> be</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+A = 
+\left[
+\begin{matrix}
+\overrightarrow{a_{1}}^T \\ \overrightarrow{a_{2}}^T
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+a_{11} &amp; a_{12} &amp; a_{13} \\ a_{21} &amp; a_{22} &amp; a_{23}
+\end{matrix}
+\right]
+\end{equation} 
+\end{split}\]</div>
+<p>Then the product Ab is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+A\overrightarrow{b} = 
+\left[
+\begin{matrix}
+a_{11} &amp; a_{12} &amp; a_{13} \\ a_{21} &amp; a_{22} &amp; a_{23}
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+b_{1}\\b_{2}\\b_{3}
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+\overrightarrow{a_{1}} \cdot \overrightarrow{b} \\ \overrightarrow{a_{2}} \cdot \overrightarrow{b}
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+c_{1} \\ c_{2}
+\end{matrix}
+\right]
+=
+\overrightarrow{c}
+\end{equation}
+\end{split}\]</div>
+<p><strong>Code:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a_1 and a_2</span>
+<span class="n">a_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
+<span class="n">a_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">]])</span>
+
+<span class="c1"># Define the matrix A</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">a_1</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">a_2</span><span class="o">.</span><span class="n">T</span><span class="p">])</span>
+
+<span class="c1"># Define b</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">]])</span>
+
+<span class="c1"># Here, we introduce a short form for the dot product (@)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">b</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;A * b:&#39;</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;a_1 * b:&#39;</span><span class="p">,</span> <span class="n">a_1</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;a_2 * b:&#39;</span><span class="p">,</span> <span class="n">a_2</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A * b: [[ 50]
+ [122]]
+
+a_1 * b: [[50]]
+a_2 * b: [[122]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="matrix-multiplication">
+<h3>Matrix Multiplication<a class="headerlink" href="#matrix-multiplication" title="Link to this heading">#</a></h3>
+<p>Matrix multiplication is what we use if we want to multiply a set of vectors <span class="math notranslate nohighlight">\({B}\)</span> by the vectors in <span class="math notranslate nohighlight">\(A\)</span>, we can perform a similar operation as before. We store the vectors in <span class="math notranslate nohighlight">\({B}\)</span> in the columns of a matrix (also called <span class="math notranslate nohighlight">\(B\)</span>). Then, we compute the dot product of each vector in the columns of <span class="math notranslate nohighlight">\(B\)</span> with each vector in the rows of <span class="math notranslate nohighlight">\(A\)</span>. We store the results, as we did before, in a new set of column vectors, a matrix <span class="math notranslate nohighlight">\(C\)</span>. <span class="math notranslate nohighlight">\(C\)</span> will have the “outer dimensions” of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> (the same number of rows as <span class="math notranslate nohighlight">\(A\)</span> and the same number of columns as <span class="math notranslate nohighlight">\(B\)</span>).</p>
+<p>For example, let there be two vectors b such that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\overrightarrow{b_{1}} =
+\left[
+\begin{matrix}
+b_{11} \\ b_{21} \\ b_{31}
+\end{matrix}
+\right] 
+\end{split}\]</div>
+<p>and <span class="math notranslate nohighlight">\( \overrightarrow{b_{2}} \)</span> be similar. Then B is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+B =
+\left[
+\begin{matrix}
+b_{11} &amp; b_{12} \\ b_{21} &amp; b_{22}  \\ b_{31} &amp; b_{32}
+\end{matrix}
+\right]
+\end{equation}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+AB =
+\left[
+\begin{matrix}
+a_{11} &amp; a_{12} &amp; a_{13} \\ a_{21} &amp; a_{22} &amp; a_{23}
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+b_{11} &amp; b_{12} \\ b_{21} &amp; b_{22}  \\ b_{31} &amp; b_{32}
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+\overrightarrow{a_{1}} \cdot \overrightarrow{b_{1}} &amp; \overrightarrow{a_{1}} \cdot \overrightarrow{b_{2}} \\ \overrightarrow{a_{2}} \cdot \overrightarrow{b_{1}} &amp; \overrightarrow{a_{2}} \cdot \overrightarrow{b_{2}}
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+c_{11} &amp; c_{12} \\ c_{21} &amp; c_{22}
+\end{matrix}
+\right]
+=
+C
+\end{equation}
+\end{split}\]</div>
+<p>The components of <span class="math notranslate nohighlight">\(C\)</span> are therefore given by <span class="math notranslate nohighlight">\( c_{ij} = a_{i} \cdot b_{j} \)</span></p>
+<p>In this case, the product BA also exists. However, it is very important to understand that matrix multiplication does not commute: <span class="math notranslate nohighlight">\( AB \neq BA.\)</span></p>
+<p><strong>Code</strong>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define Vectors</span>
+<span class="n">a_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
+<span class="n">a_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">]])</span>
+
+<span class="n">b_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">]])</span>
+<span class="n">b_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="p">[</span><span class="mi">12</span><span class="p">]])</span>
+
+<span class="c1"># Define the matrices</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">a_1</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">a_2</span><span class="o">.</span><span class="n">T</span><span class="p">])</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">b_1</span><span class="p">,</span> <span class="n">b_2</span><span class="p">])</span>
+
+<span class="c1"># Calculate the matrix product</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">B</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;A * B&#39;</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;a_1 * b_1&#39;</span><span class="p">,</span> <span class="n">a_1</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">b_1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;a_1 * b_2&#39;</span><span class="p">,</span> <span class="n">a_1</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">b_2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;a_2 * b_1&#39;</span><span class="p">,</span> <span class="n">a_2</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">b_1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;a_2 * b_2&#39;</span><span class="p">,</span> <span class="n">a_2</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">b_2</span><span class="p">)</span>
+
+<span class="c1"># Calculate the matrix product in reverse order</span>
+<span class="n">C_reverse</span> <span class="o">=</span> <span class="n">B</span> <span class="o">@</span> <span class="n">A</span>
+
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;B * A&#39;</span><span class="p">,</span> <span class="n">C_reverse</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A * B [[ 50  68]
+ [122 167]]
+
+a_1 * b_1 [[50]]
+a_1 * b_2 [[68]]
+a_2 * b_1 [[122]]
+a_2 * b_2 [[167]]
+
+B * A [[47 64 81]
+ [52 71 90]
+ [57 78 99]]
+</pre></div>
+</div>
+</div>
+</div>
+<h4 style="background: #256ca2; color: #e9e9e9">🎯  Exercise 2</h4>
+<p>Let D be a 4x2 matrix and E be a 2x7 matrix, what are the dimensions of DE? What are the dimensions of ED?</p>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 2</summary>
+<ul class="simple">
+<li><p>The dimensions of DE are (4, 7)</p></li>
+<li><p>ED is not defined since the inner dimensions (7 and 4) don’t match</p></li>
+</ul>
+</details>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "PrincetonUniversity/NEU-PSY-502",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/502B/Computation/Primer/notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">1 Primer</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="2%20Logistic%20Function.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">1.2 Logistic Function</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-matrix-operations">Vector &amp; Matrix Operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transpose">Transpose</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#addition">Addition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalar-multiplication">Scalar Multiplication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dot-product">Dot Product</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiplication-of-matrix-and-a-vector-multiplication">Multiplication of Matrix and a Vector Multiplication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-multiplication">Matrix Multiplication</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jonathan Cohen, Samuel Nastase, Alexander Ku & Younes Strittmatter
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1703 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>2.1 Hebbian Learning &#8212; NEU-PSY-MOL-502</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/502B/Computation/Dynamics in Perception/notebooks/1 Hebbian Learning';</script>
+    <link rel="canonical" href="https://princetonuniversity.github.io/NEU-PSY-502/content/502B/Computation/Dynamics in Perception/notebooks/1 Hebbian Learning.html" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="2.2 Hopfield Networks" href="2%20Hopfield%20Networks.html" />
+    <link rel="prev" title="2 Dynamics in Perception" href="../intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../../_static/logo.png" class="logo__image only-light" alt="NEU-PSY-MOL-502 - Home"/>
+    <img src="../../../../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="NEU-PSY-MOL-502 - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../../intro.html">
+                    NEU/PSY 502
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">502A</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/syllabus.html">Syllabus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/lectures.html">Lectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%201/index.html">1 Introduction and History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%202/index.html">2 Perception and Constraint Satisfaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%203/index.html">3 Associative Learning and Topography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%204/index.html">4 High Level Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%205/index.html">5 Dynamics of Integration and Decision Making</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%206/index.html">6 Optimization of Decision Making</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%207/index.html">7 Reward Systems and Psychodynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%208/index.html">8 Explore/Exploit and Noradrenergic Neuromodulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%209/index.html">9 Statistical Learning, Semantics and Neocortex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2010/index.html">10 Bayesian Approaches and Bounded Rationality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2011/index.html">11 Interactive Activation, Statistical Learning, and Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2012/index.html">12 Language and LLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Syllabus</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B Computation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Primer/intro.html">1 Primer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Primer/notebooks/1%20Scalars%2C%20Vectors%2C%20and%20Matrices.html">1.1 Scalars, Vectors, and Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Primer/notebooks/2%20Logistic%20Function.html">1.2 Logistic Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Primer/notebooks/3%20Perceptron%20and%20XOR.html">1.3 Perceptron and XOR</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../intro.html">2 Dynamics in Perception</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.1 Hebbian Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2%20Hopfield%20Networks.html">2.2 Hopfield Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3%20Dynamic%20Systems%20and%20Bistable%20Perception.html">2.3 Dynamic Systems and Bistable Perception</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Decision%20Making/intro.html">3 Decision Making</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Decision%20Making/notebooks/1%20Drift%20Diffusion%20Models.html">3.1 Drift Diffusion Models</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Reinforcement%20Learning/intro.html">4 Reinforcement Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Reinforcement%20Learning/notebooks/1%20Reinforcement%20Learning.html">4.1 Reinforcement Learning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Statistical%20Learning%20and%20Backpropagation/intro.html">5 Statistical Learning and Backpropagation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B Empirical</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../Empirical/intro.html">Introduction</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/PrincetonUniversity/NEU-PSY-502/main?urlpath=tree/website/content/502B/Computation/Dynamics in Perception/notebooks/1 Hebbian Learning.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../../../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/PrincetonUniversity/NEU-PSY-502/blob/main/website/content/502B/Computation/Dynamics in Perception/notebooks/1 Hebbian Learning.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../../../../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/PrincetonUniversity/NEU-PSY-502" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/PrincetonUniversity/NEU-PSY-502/issues/new?title=Issue%20on%20page%20%2Fcontent/502B/Computation/Dynamics in Perception/notebooks/1 Hebbian Learning.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../../../_sources/content/502B/Computation/Dynamics in Perception/notebooks/1 Hebbian Learning.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>2.1 Hebbian Learning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ubiquity-of-associations">The Ubiquity of Associations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-theory-of-learning">A Theory of Learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-learning">Unsupervised Learning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-to-group-properties-of-objects">Learning to group Properties of Objects</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hebbian-model-1">Hebbian Model #1</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stimulus-driven-activation">Stimulus Driven Activation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accumulating-evidence">Accumulating Evidence</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hebbian-model-2">Hebbian Model #2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hebbian-learning-processing">Hebbian Learning Processing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bounding-output">Bounding Output</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#normalize-the-activation-matrix">Normalize The Activation Matrix</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#normalize-the-correlation-matrix">Normalize The Correlation Matrix</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#self-correlation">Self-correlation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-in-psyneulink">Implementation In PsyNeuLink</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hebbian-model-3">Hebbian Model #3</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="hebbian-learning">
+<h1>2.1 Hebbian Learning<a class="headerlink" href="#hebbian-learning" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<section id="the-ubiquity-of-associations">
+<h3>The Ubiquity of Associations<a class="headerlink" href="#the-ubiquity-of-associations" title="Link to this heading">#</a></h3>
+<p>How do you learn to associate things that occur together?</p>
+<ul class="simple">
+<li><p>Peaches and ____________?</p></li>
+<li><p>Cause and ____________?</p></li>
+<li><p>Law and ____________?</p></li>
+<li><p>Sooner or ____________?</p></li>
+<li><p>Jack and ____________ went up ______ ____________ ?</p></li>
+</ul>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution</summary>
+<ul class="simple">
+<li><p>Peaches and cream</p></li>
+<li><p>Cause and effect</p></li>
+<li><p>Law and order</p></li>
+<li><p>Sooner or later</p></li>
+<li><p>Jack and Jill went up the hill</p></li>
+</ul>
+</details>
+<p>You can automatically fill in most or all of the blanks using associations you have learned in the past. Associations are everywhere in cognition. You learn to associate all the different properties of individual objects, all the objects that make up familiar scenes, and generally any groups of people, properties, and/or things that tend to co-occur.</p>
+<p>When you simply look at your laptop, you know about its weight, texture, range of likely temperatures, approximately how long the battery will operate before dying, and lots of other associated details. When you see only the top of a chair on the other side of a solid table, you automatically infer details about the rest of the chair that is out of sight - the top part of the chair that you see is strongly associated with the rest of a representation of a chair.</p>
+<p>What do you expect to see in the waiting room of a doctor’s office? As each detail comes to mind, it triggers associations with other details: chairs to sit in while you wait -&gt; coffee table -&gt; magazines -&gt; Oprah magazine, Sports Illustrated, The Economist -&gt; cheap art on walls -&gt; laminate flooring -&gt; hand sanitizer -&gt; clipboards with forms -&gt;, etc.
+When you see lightning, what do you expect to hear? Associations can build up in <em>temporal proximity</em> (events occurring together in time, like lightning and thunder) and <em>spatial proximity</em> (objects that co-occur in space, like a chair and a table). Your stream of consciousness is partly built out of strong and weak associations.</p>
+<p>How does the brain learn associations in the first place?</p>
+</section>
+<section id="a-theory-of-learning">
+<h3>A Theory of Learning<a class="headerlink" href="#a-theory-of-learning" title="Link to this heading">#</a></h3>
+<p>Perhaps the most influential early theory in neuroscience is about learning associations, summarized as: “Neurons that fire together, wire together.” The theory was advanced in great detail by Donald Hebb in 1949, who stated, “The general idea is an old one, that any two cells or systems of cells that are repeatedly active at the same time will tend to become ‘associated,’ so that activity in one facilitates activity in the other,” and it is now called Hebbian Learning. It is an elegant theory because it is simple and can potentially explain many psychological and neuroscientific data. And it is also a mechanistic theory that we can explore by building models.</p>
+</section>
+<section id="unsupervised-learning">
+<h3>Unsupervised Learning<a class="headerlink" href="#unsupervised-learning" title="Link to this heading">#</a></h3>
+<p>Hebbian learning is a type of <em>unsupervised learning</em> because it can extract structure from data without using feedback. There are no answers provided in unsupervised learning, only an acquired representation of structure present in the data. In contrast, <em>supervised learning</em> usually involves a decision that can be correct or incorrect (e.g., Is this a picture of a dog or a cat?) and uses training and feedback to improve accuracy.</p>
+<p><strong>Installation and Setup</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">psyneulink</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">psyneulink</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pnl</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="learning-to-group-properties-of-objects">
+<h2>Learning to group Properties of Objects<a class="headerlink" href="#learning-to-group-properties-of-objects" title="Link to this heading">#</a></h2>
+<p>Objects typically have multiple properties, such as size, shape, color, texture, density, temperature, etc. It is useful to learn to group the different properties of an object together.</p>
+<p>In the following cell, we define a set of features to represent objects. The features include size (small, medium, large), color (red, blue, green), and shape (circle, rectangle, triangle). A feature is coded as <code class="docutils literal notranslate"><span class="pre">1</span></code> when it is present and <code class="docutils literal notranslate"><span class="pre">0</span></code> when it is absent.</p>
+<p>Next, we specify some objects, such as a small red circle. Each object is represented as a stimulus in the model using a feature-coded vector. For example:</p>
+<p>A small red circle is coded as <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">0,</span> <span class="pre">0]</span></code> and abbreviated as <code class="docutils literal notranslate"><span class="pre">src</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the set of features</span>
+<span class="n">feature_names</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;small&#39;</span><span class="p">,</span> <span class="s1">&#39;medium&#39;</span><span class="p">,</span> <span class="s1">&#39;large&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;circle&#39;</span><span class="p">,</span> <span class="s1">&#39;rectangle&#39;</span><span class="p">,</span> <span class="s1">&#39;triangle&#39;</span>
+<span class="p">]</span>
+
+<span class="c1"># Calculate the size of the feature space</span>
+<span class="n">size_f</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">feature_names</span><span class="p">)</span>
+
+<span class="c1"># Define stimuli representing objects composed of features</span>
+<span class="n">small_red_circle</span> <span class="o">=</span>        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">medium_yellow_rectangle</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">large_blue_triangle</span> <span class="o">=</span>     <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Note: Feature coding can be more elaborate, e.g., combining basic features.</span>
+<span class="c1"># Represent green as the activation of blue + yellow, and use rectangle + triangle for a house</span>
+<span class="n">small_green_house</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Assign abbreviated aliases</span>
+<span class="n">src</span> <span class="o">=</span> <span class="n">small_red_circle</span>
+<span class="n">myr</span> <span class="o">=</span> <span class="n">medium_yellow_rectangle</span>
+<span class="n">lbt</span> <span class="o">=</span> <span class="n">large_blue_triangle</span>
+<span class="n">sgh</span> <span class="o">=</span> <span class="n">small_green_house</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>With our features defined, we can specify a collection of stimuli (<code class="docutils literal notranslate"><span class="pre">sm_3_uniform</span></code>) to present to the model. This collection is organized as a matrix where each row corresponds to a single stimulus, and each column represents a feature (as defined in <code class="docutils literal notranslate"><span class="pre">feature_names</span></code>). Here, the <code class="docutils literal notranslate"><span class="pre">sm_3_uniform</span> <span class="pre">matrix</span></code> contains three repetitions of each stimulus.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sm_3_uniform</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">([</span><span class="n">src</span><span class="p">,</span><span class="n">src</span><span class="p">,</span><span class="n">src</span><span class="p">,</span><span class="n">myr</span><span class="p">,</span><span class="n">myr</span><span class="p">,</span><span class="n">myr</span><span class="p">,</span><span class="n">lbt</span><span class="p">,</span><span class="n">lbt</span><span class="p">,</span><span class="n">lbt</span><span class="p">])</span>
+<span class="n">sm_3_uniform</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>matrix([[1, 0, 0, 1, 0, 0, 1, 0, 0],
+        [1, 0, 0, 1, 0, 0, 1, 0, 0],
+        [1, 0, 0, 1, 0, 0, 1, 0, 0],
+        [0, 1, 0, 0, 1, 0, 0, 1, 0],
+        [0, 1, 0, 0, 1, 0, 0, 1, 0],
+        [0, 1, 0, 0, 1, 0, 0, 1, 0],
+        [0, 0, 1, 0, 0, 1, 0, 0, 1],
+        [0, 0, 1, 0, 0, 1, 0, 0, 1],
+        [0, 0, 1, 0, 0, 1, 0, 0, 1]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can also think about every feature as being represented by one artificial neuron in a system of neurons. For example, one neuron fires in response to objects with a “small” size, another fires for a “medium” size, and so on. Similarly, other neurons respond to colors like “red,” “yellow,” or “blue,” or shapes like “circles” or “triangles.” In our case, this amounts to a total of 9 feature neurons.</p>
+<p>When we present a multi-feature stimulus to the system, the corresponding neurons in the system are expected to fire simultaneously. As these neurons fire together, their connections should strengthen, mirroring how associations are formed in the brain. For example, if the system frequently encounters “red,” “small,” and “circle” together, these neurons will become linked. As a result, activating just one feature (e.g., “red”) can trigger the activation of its associated features (“small” and “circle”). This process reflects the principle that neurons that fire together wire together.</p>
+<section id="hebbian-model-1">
+<h3>Hebbian Model #1<a class="headerlink" href="#hebbian-model-1" title="Link to this heading">#</a></h3>
+<p>To model this, we will examine the activations for all stimuli. In this example, the stimuli are conveniently represented in the same way as their corresponding activation patterns, using 0s and 1s. As an example, consider the “red” neuron. When this neuron is active, we can examine which other neurons also tend to activate simultaneously. To quantify the relationships between neurons, we use a statistic called correlation. Correlation coefficients range from -1 to 1 and have two key characteristics:</p>
+<ol class="arabic simple">
+<li><p>Sign(+/-)</p>
+<ul class="simple">
+<li><p>Positive(+): Two variables increase or decrease together (e.g., temperature and the volume of mercury).</p></li>
+<li><p>Negative(-): As one variable increases, the other decreases (e.g., temperature and layers of clothing worn).</p></li>
+</ul>
+</li>
+<li><p>Strength</p>
+<ul class="simple">
+<li><p>Values close to 1 or -1 indicate a strong relationship.</p></li>
+<li><p>Values close to 0 indicate no relationship.</p></li>
+</ul>
+</li>
+</ol>
+<p>In the next cell, we compute a correlation matrix for the features of all our stimuli. The rows and columns represent the same set of feature neurons. Each value in the matrix indicates the correlation between two neurons. For example, the value at the intersection of the first row (“small” neuron) and the fifth column (“yellow” neuron) shows how often “small” and “yellow” fired together. (In Python, this value can be accessed using <code class="docutils literal notranslate"><span class="pre">cor_mat[0,</span> <span class="pre">4]</span></code> since Python indexing starts at 0.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute the correlation matrix</span>
+<span class="n">cor_mat_command</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">sm_3_uniform</span><span class="p">,</span>
+                              <span class="n">rowvar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># rowvar=False indicates that the columns represent the features</span>
+<span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">cor_mat_command</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>  <span class="c1"># Maximum absolute correlation value</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="o">-</span><span class="n">ub</span>  <span class="c1"># Lower bound for the color scale</span>
+
+
+<span class="c1"># Define a function to plot the correlation matrix</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_correlation_matrix</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Correlation Matrix&quot;</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="n">ub</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to plot a correlation matrix with optional masking</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">feature_names</span><span class="p">)),</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>  <span class="c1"># Rotate labels for better visibility</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">feature_names</span><span class="p">)),</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">ub</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="c1"># Visualize lower half, upper half, and full correlation matrices</span>
+<span class="c1"># Note: The correlation matrix is symmetric across the diagonal</span>
+<span class="n">plot_correlation_matrix</span><span class="p">(</span><span class="n">cor_mat_command</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">triu</span><span class="p">(</span><span class="n">cor_mat_command</span><span class="p">),</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Lower Half of Correlation Matrix&quot;</span><span class="p">)</span>
+<span class="n">plot_correlation_matrix</span><span class="p">(</span><span class="n">cor_mat_command</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">tril</span><span class="p">(</span><span class="n">cor_mat_command</span><span class="p">),</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Upper Half of Correlation Matrix&quot;</span><span class="p">)</span>
+<span class="n">plot_correlation_matrix</span><span class="p">(</span><span class="n">cor_mat_command</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Full Correlation Matrix&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/437c773df0f26064bdc7d46abc5104fac629058be538d17627d1e3df5ff79ebe.png" src="../../../../../_images/437c773df0f26064bdc7d46abc5104fac629058be538d17627d1e3df5ff79ebe.png" />
+<img alt="../../../../../_images/fa42f97eba72ff5ab7a529e7d1ebadda9eca975a209ccbaab3d1b7cd59d3f4e7.png" src="../../../../../_images/fa42f97eba72ff5ab7a529e7d1ebadda9eca975a209ccbaab3d1b7cd59d3f4e7.png" />
+<img alt="../../../../../_images/b3ddf4e4e220f328a058597d0bd47605209c7172d13824e2fcc2ad58167040a8.png" src="../../../../../_images/b3ddf4e4e220f328a058597d0bd47605209c7172d13824e2fcc2ad58167040a8.png" />
+</div>
+</div>
+<p>The correlation matrix, <code class="docutils literal notranslate"><span class="pre">cor_mat_command</span></code>, represents all connections between all neurons. The principal diagonal (top left to bottom right) is the self-correlation; a neuron is perfectly correlated with itself, so it should be all 1’s. Except on the diagonal, every connection is depicted twice in this matrix. For example, [1,2] is the same value as [2,1].</p>
+<p>The correlation matrix can be thought of as the probability that the firing of two neurons will coincide, based on the frequency that their firing coincided in the past. The rows and columns of the matrix represent the features, ordered as they are in our feature list. Each entry represents the connection between a pair of neurons. One can think of the entries in the correlation matrix as directional probability, where the magnitude gives the strength of association, while the sign gives positive or negative association.</p>
+<p>Positive values mean that the neurons tend to both 1) fire together and 2) be inactive at the same time. Negative values mean that when one of the neurons is firing, the other one tends to be inactive (and vice a versa). Values close to 0 mean that the neurons do not exhibit a linear relationship in their patterns of activity. Note, the correlations only detect linear relationships. For example, if the activity of two neurons had a perfectly U shaped relationship that would produce a correlation of 0.)</p>
+<p>Once the connections between all the feature neurons have been established from learning, these connections can be useful for performing pattern completion. For example, if the model is given an object that is a “triangle”, it can use the connections to infer that this object is probably also “large” and “blue”.</p>
+<section id="stimulus-driven-activation">
+<h4>Stimulus Driven Activation<a class="headerlink" href="#stimulus-driven-activation" title="Link to this heading">#</a></h4>
+<p>To demonstrate how the trained model (the correlation matrix, <code class="docutils literal notranslate"><span class="pre">cor_mat_command</span></code>) responds to stimuli, we present it an incomplete stimulus. The model should complete the stimulus based on the learned associations.</p>
+<p>Consider the following incomplete stimulus: <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">1]</span></code>. This stimulus represents only a “triangle.” We can use the learned associations to predict the other features of the object by multiplying the incomplete stimulus by the correlation matrix. The resulting vector will contain the predicted activations for all features.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the incomplete stimulus</span>
+<span class="n">triangle</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Step 1: Construct a diagonal matrix from the stimulus vector</span>
+<span class="c1"># This represents activating only the &quot;triangle&quot; neuron</span>
+<span class="n">diag_triangle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">triangle</span><span class="p">)</span>
+
+<span class="c1"># Step 2: Multiply the diagonal matrix with the correlation matrix</span>
+<span class="c1"># This selects and scales rows of the correlation matrix based on the stimulus</span>
+<span class="c1"># It represents how activating the &quot;triangle&quot; neuron propagates activation to other neurons</span>
+<span class="n">active_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">diag_triangle</span><span class="p">,</span> <span class="n">cor_mat_command</span><span class="p">)</span>
+
+<span class="c1"># Step 3: Sum the rows to compute the total activation for each feature</span>
+<span class="c1"># This consolidates the contributions from the activated neurons</span>
+<span class="n">active_mat</span> <span class="o">=</span> <span class="n">active_mat</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+
+<span class="c1"># This plot visualizes the activations from a triangular stimulus. The output is an array,</span>
+<span class="c1"># and its values are mapped to the principal diagonal of this image. All off-diagonal elements are zero.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_activation</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="n">ub</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">vec</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">ub</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">feature_names</span><span class="p">)),</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">feature_names</span><span class="p">)),</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Activation Value&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="n">plot_activation</span><span class="p">(</span><span class="n">active_mat</span><span class="p">,</span> <span class="s2">&quot;Activations of a Triangular Stimulus with Cor_mat_command&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># This plot shows the same values but as a line plot.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_activation_line</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">feature_names</span><span class="p">)),</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Feature&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Activation Strength&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="n">plot_activation_line</span><span class="p">(</span><span class="n">active_mat</span><span class="p">,</span> <span class="s2">&quot;Activations of a Triangular Stimulus with Cor_mat_command&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/a5ceb3230b2822d77a290516df7afa604275f8c702a186f92d2c09ec8825fc68.png" src="../../../../../_images/a5ceb3230b2822d77a290516df7afa604275f8c702a186f92d2c09ec8825fc68.png" />
+<img alt="../../../../../_images/83df9a0f23fb58102d6fbfe08592939b9831e1c974bc974a3d75ab713d8d1b5e.png" src="../../../../../_images/83df9a0f23fb58102d6fbfe08592939b9831e1c974bc974a3d75ab713d8d1b5e.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="accumulating-evidence">
+<h2>Accumulating Evidence<a class="headerlink" href="#accumulating-evidence" title="Link to this heading">#</a></h2>
+<p>In the previous example we made an over-simplifying assumption that the stimuli were all present at the same time. But most learning doesn’t happen at a single moment in time, it builds up over experience. We also computed correlations that include negative values, but the most basic implementation of “fire together wire together” should only detect simultaneous firing, not simultaneous absences of firing. So next we can build a model that accumulates evidence over time and only detects neurons firing together.</p>
+<section id="hebbian-model-2">
+<h3>Hebbian Model #2<a class="headerlink" href="#hebbian-model-2" title="Link to this heading">#</a></h3>
+<p>We start with an empty connectivity matrix, full of 0’s to indicate that no neurons are wired together yet.  When two neurons fire at the same time we’ll add a weight of 0.1 to the matrix.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a new, all zeros correlation matrix</span>
+<span class="n">cor_mat_manual</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">size_f</span><span class="p">,</span> <span class="n">size_f</span><span class="p">))</span>
+
+<span class="c1"># Get the number of stimuli (number of rows in sm_3_uniform)  </span>
+<span class="n">size_s</span> <span class="o">=</span> <span class="n">sm_3_uniform</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Define the learning rate as a parameter - this is how much the weights will change each stimulus</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">.1</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">stim</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sm_3_uniform</span><span class="p">):</span>  <span class="c1"># progress through all stimuli</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size_f</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size_f</span><span class="p">):</span>
+            <span class="n">cor_mat_manual</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">cor_mat_manual</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">stim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="n">stim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">*</span> <span class="n">learning_rate</span><span class="p">)</span>
+    <span class="c1"># Plot the correlation matrix after each stimulus</span>
+    <span class="n">plot_correlation_matrix</span><span class="p">(</span><span class="n">cor_mat_manual</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Correlation Matrix after </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1"> stimuli&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/ebb956bdc5c6b2559aa9a1a67996c3c186a45c2eab992fc185eeaa1a262046ce.png" src="../../../../../_images/ebb956bdc5c6b2559aa9a1a67996c3c186a45c2eab992fc185eeaa1a262046ce.png" />
+<img alt="../../../../../_images/4792b14736f0e093fdb8bfb3bfe75ec3f61d2a554a512c6bba19c5758db27f3c.png" src="../../../../../_images/4792b14736f0e093fdb8bfb3bfe75ec3f61d2a554a512c6bba19c5758db27f3c.png" />
+<img alt="../../../../../_images/7c9a846d12f60bc3fb3990b15c85ab83d04f7c35431cbdf1926b6dd97fb8dc49.png" src="../../../../../_images/7c9a846d12f60bc3fb3990b15c85ab83d04f7c35431cbdf1926b6dd97fb8dc49.png" />
+<img alt="../../../../../_images/00260498495917f8f3d01b611b0ad3cf371a273a1e4dfc232f9641c73b157f78.png" src="../../../../../_images/00260498495917f8f3d01b611b0ad3cf371a273a1e4dfc232f9641c73b157f78.png" />
+<img alt="../../../../../_images/b42f6c8abf3c779e587a4adf23fb0da79425027815ba59e367dafa33e451df20.png" src="../../../../../_images/b42f6c8abf3c779e587a4adf23fb0da79425027815ba59e367dafa33e451df20.png" />
+<img alt="../../../../../_images/7f2c9603aa74b7b6adda7d50f7f9bbbb2c92f13ff5448f5e56cad9081bcc280c.png" src="../../../../../_images/7f2c9603aa74b7b6adda7d50f7f9bbbb2c92f13ff5448f5e56cad9081bcc280c.png" />
+<img alt="../../../../../_images/3850b0ecb9bdffb645731c13d27617582e2f3eac3ebbcd241263cc1f1c56e277.png" src="../../../../../_images/3850b0ecb9bdffb645731c13d27617582e2f3eac3ebbcd241263cc1f1c56e277.png" />
+<img alt="../../../../../_images/9522f1bd9ae3b0cd20f7e686bec768f13a98e1d476bce266e2ff6aeb4370393e.png" src="../../../../../_images/9522f1bd9ae3b0cd20f7e686bec768f13a98e1d476bce266e2ff6aeb4370393e.png" />
+<img alt="../../../../../_images/ec9f387e1432e66274062c4b11ff3a16f1a8146d570e261909ee5f26b551fa8a.png" src="../../../../../_images/ec9f387e1432e66274062c4b11ff3a16f1a8146d570e261909ee5f26b551fa8a.png" />
+</div>
+</div>
+<h4 style="background: #256ca2; color: #e9e9e9">🎯  Exercise 1</h4>
+<p>Suppose you want to know what a Hebbian Model #1 learner would associate and infer it had seen 10 small red circles, 7 medium yellow rectangles, and 4 large blue triangles if instead of the stimuli described earlier. Then, what does it infer if we present it the color purple?</p>
+<p>Create a set of stimuli and then a correlation matrix that fit this situation. How do you code purple as a stimulus? What output do you get from testing the trained model on an input of purple?  Explain how you interpret this output.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a set of stimuli</span>
+<span class="n">stimulus_matrix</span> <span class="o">=</span>  <span class="c1"># TODO: Your code here</span>
+
+<span class="c1"># Compute the correlation matrix with numpy</span>
+<span class="n">correlation_matrix</span> <span class="o">=</span>  <span class="c1"># TODO: Your code here</span>
+
+<span class="c1"># Define the purple stimulus</span>
+<span class="n">purple</span> <span class="o">=</span>  <span class="c1"># TODO: Your code here</span>
+
+<span class="c1"># Compute the activations for the purple stimulus</span>
+<span class="c1"># TODO: Your code here</span>
+<span class="n">active_mat_purple</span> <span class="o">=</span>  <span class="c1"># TODO: Your code here</span>
+
+<span class="c1"># Plot the activations for the purple stimulus</span>
+<span class="n">plot_activation_line</span><span class="p">(</span><span class="n">active_mat_purple</span><span class="p">,</span> <span class="s2">&quot;Activations of a Purple Stimulus&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 1</summary>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a set of stimuli</span>
+<span class="n">stimulus_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">([</span><span class="n">src</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="p">[</span><span class="n">myr</span><span class="p">]</span> <span class="o">*</span> <span class="mi">7</span> <span class="o">+</span> <span class="p">[</span><span class="n">lbt</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># Compute the correlation matrix with numpy</span>
+<span class="n">correlation_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">stimulus_matrix</span><span class="p">,</span> <span class="n">rowvar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Define the purple stimulus</span>
+<span class="n">purple</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Compute the activations for the purple stimulus</span>
+<span class="n">diag_purple</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">purple</span><span class="p">)</span>
+<span class="n">active_mat_purple</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">diag_purple</span><span class="p">,</span> <span class="n">correlation_matrix</span><span class="p">)</span>
+<span class="n">active_mat_purple</span> <span class="o">=</span> <span class="n">active_mat_purple</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Plot the activations for the purple stimulus</span>
+<span class="n">plot_activation_line</span><span class="p">(</span><span class="n">active_mat_purple</span><span class="p">,</span> <span class="s2">&quot;Activations of a Purple Stimulus&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</details>
+<h4 style="background: #256ca2; color: #e9e9e9">🎯  Exercise 2</h4>
+<p>In the example of <a class="reference internal" href="#hebbian-model-2"><span class="xref myst">Hebbian Model #2</span></a> above, we used 3 loops to update all the values in cor_mat. You should reason through how and why this works by considering a few specific examples. When i = 0, what are the values of stim?  When x and y equal 0, what number will be updated in cor_mat?</p>
+<p><strong>Exercise 2a</strong></p>
+<p>There is a more compact way to accomplish the same result as the 3 loops above, using the transpose function and a single loop.</p>
+<p>You can transpose an array (turn rows into columns, and columns into rows) by adding .T to the array:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stim_mat</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+<p>And you can do matrix multiplication of two arrays with the appropriate dimensionality using &#64;:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stim_mat</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span><span class="o">.</span><span class="n">T</span><span class="nd">@stim_mat</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> 
+</pre></div>
+</div>
+<p>Now create a single loop that progresses through the stimuli in stim_mat and creates the same resulting cor_mat2 values as above.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a new, all zeros correlation matrix</span>
+<span class="n">cor_mat_compact</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">size_f</span><span class="p">,</span> <span class="n">size_f</span><span class="p">))</span>
+
+<span class="c1"># Get the number of stimuli (number of rows in sm_3_uniform)  </span>
+<span class="n">size_s</span> <span class="o">=</span> <span class="n">sm_3_uniform</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Define the learning rate as a parameter - this is how much the weights will change each stimulus</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">.1</span>
+
+<span class="k">for</span> <span class="n">stim</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sm_3_uniform</span><span class="p">):</span>  <span class="c1"># progress through all stimuli</span>
+    <span class="n">cor_mat_compact</span> <span class="o">=</span>  <span class="c1"># TODO: Your code here</span>
+
+<span class="c1"># Verify that we got the same answer as before</span>
+
+<span class="c1"># allclose returns True if each entry of the first array is equal to the corresponding entry in the second, and False otherwise </span>
+<span class="n">same_ans</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">cor_mat_compact</span><span class="p">,</span> <span class="n">cor_mat_manual</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">same_ans</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;cor_mat_compact and cor_mat_manual matrices are equal&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 2a</summary>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a new, all zeros correlation matrix</span>
+<span class="n">cor_mat_compact</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">size_f</span><span class="p">,</span> <span class="n">size_f</span><span class="p">))</span>
+
+<span class="c1"># Get the number of stimuli (number of rows in sm_3_uniform)  </span>
+<span class="n">size_s</span> <span class="o">=</span> <span class="n">sm_3_uniform</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Define the learning rate as a parameter - this is how much the weights will change each stimulus</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">.1</span>
+
+<span class="k">for</span> <span class="n">stim</span> <span class="ow">in</span> <span class="n">sm_3_uniform</span><span class="p">:</span>  <span class="c1"># progress through all stimuli</span>
+  <span class="n">cor_mat_compact</span> <span class="o">=</span> <span class="n">cor_mat_compact</span> <span class="o">+</span>  <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">stim</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">stim</span>
+
+<span class="c1"># Verify that we got the same answer as before</span>
+
+<span class="c1"># allclose returns True if each entry of the first array is equal to the corresponding entry in the second, and False otherwise </span>
+<span class="n">same_ans</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">cor_mat_compact</span><span class="p">,</span> <span class="n">cor_mat_manual</span><span class="p">)</span> 
+<span class="k">if</span> <span class="n">same_ans</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;cor_mat_compact and cor_mat_manual matrices are equal&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</details>
+<p><strong>Exercise 2b</strong></p>
+<p>Matrix multiplication can simplify the code even more, eliminating the need for any loops.  Use the transpose function .T and matrix multiplication function &#64; to matrix multiply stim_mat by itself transposed.  As a final step, multiply this entire function by a value that will reproduce the same matrix values in cor_mat above.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cor_mat_compactest</span> <span class="o">=</span>  <span class="c1"># TODO: Your code here</span>
+
+<span class="c1"># Verify correctness</span>
+<span class="n">same_ans</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">cor_mat_compactest</span><span class="p">,</span> <span class="n">cor_mat_manual</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">same_ans</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;cor_mat_compactest and cor_mat_manual matrices are equal&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 2b</summary>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cor_mat_compactest</span> <span class="o">=</span> <span class="n">sm_3_uniform</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">sm_3_uniform</span> <span class="o">*</span> <span class="n">learning_rate</span>
+
+<span class="c1"># Verify correctness</span>
+<span class="n">same_ans</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">cor_mat_compactest</span><span class="p">,</span><span class="n">cor_mat_manual</span><span class="p">)</span> 
+<span class="k">if</span> <span class="n">same_ans</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;cor_mat_compactest and cor_mat_manual matrices are equal&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</details>
+</section>
+</section>
+<section id="hebbian-learning-processing">
+<h2>Hebbian Learning Processing<a class="headerlink" href="#hebbian-learning-processing" title="Link to this heading">#</a></h2>
+<p>In the following section, we will explore how Hebbian learning correlation matrices can be processed to achieve “normalization” and to remove “self-correlation”. Similar to Exercise 1, in the next cell ,we create a matrix <code class="docutils literal notranslate"><span class="pre">sm_nonuniform</span></code> of stimuli that includes 100 small red circles, 70 medium yellow rectangles, and 40 large blue triangles. Then, we will use transpose and matrix multiplication to build a matrix of connection strengths <code class="docutils literal notranslate"><span class="pre">cor_mat_nonuniform</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">.1</span>
+
+<span class="n">sm_nonuniform</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">src</span><span class="p">),</span> <span class="mi">70</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">myr</span><span class="p">),</span> <span class="mi">40</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lbt</span><span class="p">)])</span>
+<span class="n">cor_mat_nonuniform</span> <span class="o">=</span> <span class="n">sm_nonuniform</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">sm_nonuniform</span> <span class="o">*</span> <span class="n">learning_rate</span>
+
+<span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">cor_mat_nonuniform</span><span class="p">)))</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="o">-</span><span class="n">ub</span>
+
+<span class="n">plot_correlation_matrix</span><span class="p">(</span>
+    <span class="n">cor_mat_nonuniform</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Correlation Matrix Created by Matrix Multiplication for Nonuniform Stimuli&quot;</span><span class="p">,</span>
+    <span class="n">lb</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span>
+    <span class="n">ub</span><span class="o">=</span><span class="n">ub</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/dabb01abe0f430a47f2a590b01bebb5a1f086abeb3bbe4f4f6bbc22ab8509753.png" src="../../../../../_images/dabb01abe0f430a47f2a590b01bebb5a1f086abeb3bbe4f4f6bbc22ab8509753.png" />
+</div>
+</div>
+<p>Then, we present a purple stimulus to this model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">purple</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+<span class="n">active_mat_purple</span> <span class="o">=</span> <span class="n">purple</span> <span class="o">@</span> <span class="n">cor_mat_nonuniform</span>
+</pre></div>
+</div>
+</div>
+</div>
+<h4 style="background: #256ca2; color: #e9e9e9">🎯  Exercise 3</h4>
+<p>To calculate the activation, we use the following shorter version:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">active_mat_purple</span> <span class="o">=</span> <span class="n">purple</span> <span class="o">@</span> <span class="n">cor_mat_nonuniform</span>
+</pre></div>
+</div>
+<p>Instead of the calculations used above:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">diag_purple</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">purple</span><span class="p">)</span>
+<span class="n">scaled_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">diag_purple</span><span class="p">,</span> <span class="n">cor_mat_nonuniform</span><span class="p">)</span>
+<span class="n">active_mat_purple</span> <span class="o">=</span> <span class="n">scaled_matrix</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Please convince yourself, that these are equivalent</p>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 3</summary>
+<p><strong>Method 1</strong></p>
+<p>In the first method, <code class="docutils literal notranslate"><span class="pre">purple</span> <span class="pre">&#64;</span> <span class="pre">cor_mat_nonuniform</span></code> performs matrix multiplication. This computes the dot product of the purple vector with each column of cor_mat_nonuniform and is mathematically equivalent to:</p>
+<div class="math notranslate nohighlight">
+\[
+activation_j = \sum_{i} purple_i \cdot cor\_mat\_nonuniform_{i, j}
+\]</div>
+<p>The second method constructs a diagonal matrix <code class="docutils literal notranslate"><span class="pre">diag_purple</span></code>, multiplies it with the correlation matrix <code class="docutils literal notranslate"><span class="pre">cor_mat_nonuniform</span></code> and then sums along rows:</p>
+<p><strong>Method 2</strong></p>
+<p><em>Step 1:</em> <code class="docutils literal notranslate"><span class="pre">diag_purple</span> <span class="pre">=</span> <span class="pre">np.diag(purple)</span></code></p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+diag\_purple_{i,j} =
+\begin{cases} 
+\text{purple}_i &amp; \text{if } i = j, \\
+0 &amp; \text{otherwise.}
+\end{cases}
+\end{split}\]</div>
+<p><em>Step 2:</em> <code class="docutils literal notranslate"><span class="pre">scaled_mat</span> <span class="pre">=</span> <span class="pre">np.dot(diag_purple,</span> <span class="pre">cor_mat_nonuniform)</span></code></p>
+<div class="math notranslate nohighlight">
+\[
+scaled\_mat_{i, j} = diag\_purple_{i, j} \cdot cor\_mat\_nonuniform_{i, j}
+\]</div>
+<p><em>Step 3:</em> <code class="docutils literal notranslate"><span class="pre">active_mat_purple</span> <span class="pre">=</span> <span class="pre">scaled_mat.sum(axis=0)</span></code></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+activation_j &amp;= \sum_{i} scaled\_mat_{i, j} \\
+&amp;= \sum_{i} diag\_purple_{i, j} \cdot cor\_mat\_nonuniform_{i, j}
+\end{split}\]</div>
+</details>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_activation_line</span><span class="p">(</span><span class="n">active_mat_purple</span><span class="p">,</span> <span class="s2">&quot;Activation from Purple Stimulus with Cor_mat_nonuniform&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/5cf95b2b5f35728c1b0c546dddd01692b46f3b31aa3b9dabdcd667870543792c.png" src="../../../../../_images/5cf95b2b5f35728c1b0c546dddd01692b46f3b31aa3b9dabdcd667870543792c.png" />
+</div>
+</div>
+<p>The model associated the color purple mostly with the small red circle, slightly with the large blue triangle, and not at all with the medium yellow rectangle. This makes sense because the model was trained with more exposure to small red circles. Purple activated red, so it strongly associates with small and circle. Purple also activated blue and its associates, large and triangle.</p>
+<section id="bounding-output">
+<h3>Bounding Output<a class="headerlink" href="#bounding-output" title="Link to this heading">#</a></h3>
+<p>It is often a good idea to set boundaries on the values of neuron activity in a model. Most neurons can only physically fire a maximum of a few hundred times per second, and tend to fire closer to the order of around 10 times per second. Even when we take the liberty of ignoring physical constraints on individual neurons (or even if we assume the unit we are modeling is composed of thousands of neurons and could, in principle, cumulatively send hundreds of thousands of action potentials per second), unbounded values that tend toward +/- infinity cause practical problems for many functions. In the following cells we will explore some ways to regularize our model outputs.</p>
+<section id="normalize-the-activation-matrix">
+<h4>Normalize The Activation Matrix<a class="headerlink" href="#normalize-the-activation-matrix" title="Link to this heading">#</a></h4>
+<p>We can normalize the activation matrix</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Normalize the output by dividing with the max:</span>
+<span class="n">active_mat_purple_normalized</span> <span class="o">=</span> <span class="n">active_mat_purple</span><span class="o">/</span><span class="nb">max</span><span class="p">(</span><span class="n">active_mat_purple</span><span class="p">)</span>
+
+<span class="n">plot_activation_line</span><span class="p">(</span><span class="n">active_mat_purple</span><span class="p">,</span> <span class="s1">&#39;Activation from Purple Stimulus&#39;</span><span class="p">)</span>
+<span class="n">plot_activation_line</span><span class="p">(</span><span class="n">active_mat_purple_normalized</span><span class="p">,</span> <span class="s1">&#39;Normalized Activation from Purple Stimulus&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/e841672a38dc0a19a914678d773b49f9123081e2d1b57ddf3d8525ce4cf09d1f.png" src="../../../../../_images/e841672a38dc0a19a914678d773b49f9123081e2d1b57ddf3d8525ce4cf09d1f.png" />
+<img alt="../../../../../_images/d0256819da907440dc0faa7a269c182c86fa3ca17fe714117229114b498fa5ea.png" src="../../../../../_images/d0256819da907440dc0faa7a269c182c86fa3ca17fe714117229114b498fa5ea.png" />
+</div>
+</div>
+</section>
+<section id="normalize-the-correlation-matrix">
+<h4>Normalize The Correlation Matrix<a class="headerlink" href="#normalize-the-correlation-matrix" title="Link to this heading">#</a></h4>
+<p>Instead, we can also normalize the correlation matrix:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the absolute of the maximum of the correlation matrix</span>
+<span class="n">max_cor_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">cor_mat_nonuniform</span><span class="p">)</span>
+<span class="n">max_cor_mat_absolute</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">max_cor_mat</span><span class="p">)</span>
+
+<span class="c1"># Set the lower and upper bound for the original matrix</span>
+<span class="n">ub_cor_mat</span> <span class="o">=</span> <span class="n">max_cor_mat_absolute</span>
+<span class="n">lb_cor_mat</span> <span class="o">=</span> <span class="o">-</span><span class="n">ub</span>
+
+<span class="c1"># Calculate the normalized correlation matrix</span>
+<span class="n">cor_mat_nonuniform_normalized</span> <span class="o">=</span> <span class="n">cor_mat_nonuniform</span> <span class="o">/</span> <span class="n">max_cor_mat_absolute</span>
+
+<span class="c1"># The normalized upper and lower bounds are 1. and -1. respectivly</span>
+<span class="n">ub_cor_mat_normalized</span> <span class="o">=</span> <span class="mf">1.</span>
+<span class="n">lb_cor_mat_normalized</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span>
+
+<span class="c1"># Visualize the matrices</span>
+<span class="n">plot_correlation_matrix</span><span class="p">(</span>
+    <span class="n">cor_mat_nonuniform</span><span class="p">,</span> 
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Correlation Matrix&#39;</span><span class="p">,</span> 
+    <span class="n">lb</span><span class="o">=</span><span class="n">lb_cor_mat</span><span class="p">,</span> 
+    <span class="n">ub</span><span class="o">=</span><span class="n">ub_cor_mat</span><span class="p">)</span>
+<span class="n">plot_correlation_matrix</span><span class="p">(</span>
+    <span class="n">cor_mat_nonuniform_normalized</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Normalized Correlation Matrix&#39;</span><span class="p">,</span>
+    <span class="n">lb</span><span class="o">=</span><span class="n">lb_cor_mat_normalized</span><span class="p">,</span>
+    <span class="n">ub</span><span class="o">=</span><span class="n">ub_cor_mat_normalized</span>
+<span class="p">)</span>
+
+<span class="c1"># Calculate the activation for the purple stimulus with both matrices:</span>
+<span class="n">active_mat_purple</span> <span class="o">=</span> <span class="n">purple</span> <span class="o">@</span> <span class="n">cor_mat_nonuniform</span>
+<span class="n">active_mat_purple_cmn</span> <span class="o">=</span> <span class="n">purple</span> <span class="o">@</span> <span class="n">cor_mat_nonuniform_normalized</span>
+
+<span class="c1"># Visualize the Activations</span>
+<span class="n">plot_activation_line</span><span class="p">(</span><span class="n">active_mat_purple</span><span class="p">,</span> <span class="s1">&#39;Activation with Original Correlation Matrix&#39;</span><span class="p">)</span>
+<span class="n">plot_activation_line</span><span class="p">(</span><span class="n">active_mat_purple_cmn</span><span class="p">,</span> <span class="s1">&#39;Activation with Normalized Correlation Matrix&#39;</span><span class="p">)</span>
+<span class="n">plot_activation_line</span><span class="p">(</span><span class="n">active_mat_purple_normalized</span><span class="p">,</span> <span class="s1">&#39;Normalized Activation with Original Correlation Matrix&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/7db03824578d49a241508db4d3c1b315b70f5dfe528e067b485192b046d20705.png" src="../../../../../_images/7db03824578d49a241508db4d3c1b315b70f5dfe528e067b485192b046d20705.png" />
+<img alt="../../../../../_images/3e4eb09e88ea94a02547953f398480a8bfb99a33b5982186df1b33a4227e2798.png" src="../../../../../_images/3e4eb09e88ea94a02547953f398480a8bfb99a33b5982186df1b33a4227e2798.png" />
+<img alt="../../../../../_images/1a44878049d66606d0f6b4ce751d7d47fff32a94c491a631444c2c561d05ffd8.png" src="../../../../../_images/1a44878049d66606d0f6b4ce751d7d47fff32a94c491a631444c2c561d05ffd8.png" />
+<img alt="../../../../../_images/038951363f7e346a8cc715676a8a660a5f1c66f33028f8352b6c27da5d08c1b0.png" src="../../../../../_images/038951363f7e346a8cc715676a8a660a5f1c66f33028f8352b6c27da5d08c1b0.png" />
+<img alt="../../../../../_images/26eb374b7bda0c7d52998c5927d12aebd9f5c44f6f6d0195d03dbc14026c5247.png" src="../../../../../_images/26eb374b7bda0c7d52998c5927d12aebd9f5c44f6f6d0195d03dbc14026c5247.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="self-correlation">
+<h3>Self-correlation<a class="headerlink" href="#self-correlation" title="Link to this heading">#</a></h3>
+<p>Up until this point, we have been creating correlation matrices that include self-correlation. That is, a stimulus is positively correlated with itself. This makes sense, because all stimuli correlate with themselves. That is, if we are shown something red, we know we have seen something red. However, if we consider what an output of a Hebbian system should be: the stimuli the learner <em>associates</em> with an input (I see red, I think stop sign), this doesn’t seem quite right.  After all, if one were prompted to respond to the word “red” with the first word that comes to mind, one would not typically respond, “red”.</p>
+<p>From another perspective, a neuron with positive excitatory connections to itself would behave a bit like a microphone placed next to a speaker that is amplifying the input to the microphone – a runaway positive feedback loop.  In most cases we don’t want our models to have seizures.</p>
+<p>It follows, that when constructing correlation matrices, it could be useful to remove self-correlation.</p>
+<h4 style="background: #256ca2; color: #e9e9e9">🎯  Exercise 4</h4>
+<p>Create a correlation matrix that does not include self-correlation.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the Correlation Matrix</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">.1</span>
+<span class="n">cor_mat_no_self</span> <span class="o">=</span> <span class="n">sm_nonuniform</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">sm_nonuniform</span> <span class="o">*</span> <span class="n">learning_rate</span>
+
+<span class="c1"># TODO: Your code here</span>
+
+<span class="c1"># Visualize the Correlation Matrix</span>
+<span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">cor_mat_no_self</span><span class="p">))</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="o">-</span><span class="n">ub</span>
+
+<span class="n">plot_correlation_matrix</span><span class="p">(</span><span class="n">cor_mat_no_self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span> <span class="s1">&#39;Correlation Matrix without Self Correlation&#39;</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="n">ub</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 4</summary>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the Correlation Matrix</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">.1</span>
+<span class="n">cor_mat_no_self</span> <span class="o">=</span> <span class="n">sm_nonuniform</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">sm_nonuniform</span> <span class="o">*</span> <span class="n">learning_rate</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cor_mat_no_self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">cor_mat_no_self</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+
+<span class="c1"># Visualize the Correlation Matrix</span>
+<span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">cor_mat_no_self</span><span class="p">))</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="o">-</span><span class="n">ub</span>
+
+<span class="n">plot_correlation_matrix</span><span class="p">(</span><span class="n">cor_mat_no_self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span> <span class="s1">&#39;Correlation Matrix without Self Correlation&#39;</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="n">ub</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Shorter:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the Correlation Matrix</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">.1</span>
+<span class="n">cor_mat_no_self</span> <span class="o">=</span> <span class="n">sm_nonuniform</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">sm_nonuniform</span> <span class="o">*</span> <span class="n">learning_rate</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">cor_mat_no_self</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Visualize the Correlation Matrix</span>
+<span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">cor_mat_no_self</span><span class="p">))</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="o">-</span><span class="n">ub</span>
+
+<span class="n">plot_correlation_matrix</span><span class="p">(</span><span class="n">cor_mat_no_self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span> <span class="s1">&#39;Correlation Matrix without Self Correlation&#39;</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="n">ub</span><span class="p">)</span>
+</pre></div>
+</div>
+</details>
+</section>
+</section>
+<section id="implementation-in-psyneulink">
+<h2>Implementation In PsyNeuLink<a class="headerlink" href="#implementation-in-psyneulink" title="Link to this heading">#</a></h2>
+<p>Hebbian learning is achieved in PsyNeuLink by creating an appropriately sized recurrent transfer mechanism, and enabling learning. To do this we simply set the argument <code class="docutils literal notranslate"><span class="pre">enable_learning</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> when defining your transfer mechanism.</p>
+<p>To initialize your matrix to zero, as we have been doing, set the arguments “auto” to 0 and “hetero” to 0.</p>
+<section id="hebbian-model-3">
+<h3>Hebbian Model #3<a class="headerlink" href="#hebbian-model-3" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a Composition</span>
+<span class="n">Hebb_comp</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">Composition</span><span class="p">()</span>
+
+<span class="c1"># Create the mechanism ensuring `enable_learning` is set to `True`</span>
+<span class="n">Hebb_mech</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">RecurrentTransferMechanism</span><span class="p">(</span>
+    <span class="n">input_shapes</span><span class="o">=</span><span class="n">size_f</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">Linear</span><span class="p">,</span>
+    <span class="n">enable_learning</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Hebb_mech&#39;</span><span class="p">,</span>
+    <span class="n">auto</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">hetero</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="c1"># Add the mechanism to the composition</span>
+<span class="n">Hebb_comp</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">Hebb_mech</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/core/compositions/composition.py:4652: UserWarning: NodeRole.LEARNING should be assigned with caution to Composition-0. Learning Components are generally constructed automatically as part of a learning Pathway. Doing so otherwise may cause unexpected results.
+  warnings.warn(f&quot;{role} should be assigned with caution to {self.name}. &quot;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s try training our new system on a single stimulus from the set we’ve been working with; small red circle.</p>
+<p>We can run our system as many times as we like, using only one stimulus as input. In the following cell, we run the system 5 times (num_trials = 5).</p>
+<p>Does the system behave the way you expected it to? In what ways does it behave similar and different to the previous two Hebbian Models #1 &amp; #2?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set an execution id</span>
+<span class="n">Hebb_comp</span><span class="o">.</span><span class="n">execution_id</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># Define a function that plots the correlation matrix and the stimulus activation to use in the callback function after each strep of the PNL composition learn method</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">vis_info</span><span class="p">():</span>
+    <span class="n">hebb_matrix</span> <span class="o">=</span> <span class="n">Hebb_mech</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">base</span>
+    <span class="n">active_mat</span> <span class="o">=</span> <span class="n">Hebb_mech</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">hebb_matrix</span><span class="p">))</span>
+    <span class="n">lb</span> <span class="o">=</span> <span class="o">-</span><span class="n">ub</span>
+    <span class="n">plot_correlation_matrix</span><span class="p">(</span><span class="n">hebb_matrix</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;PNL Hebbian Matrix&quot;</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="n">ub</span><span class="p">)</span>
+    <span class="n">plot_activation_line</span><span class="p">(</span><span class="n">active_mat</span><span class="p">,</span> <span class="s1">&#39;Activation from Stimulus with PNL Hebbian Matrix&#39;</span><span class="p">)</span>
+
+
+<span class="n">inputs_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">Hebb_mech</span><span class="p">:</span> <span class="n">src</span><span class="p">}</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">Hebb_comp</span><span class="o">.</span><span class="n">learn</span><span class="p">(</span><span class="n">num_trials</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                      <span class="n">call_after_trial</span><span class="o">=</span><span class="n">vis_info</span><span class="p">,</span>
+                      <span class="n">inputs</span><span class="o">=</span><span class="n">inputs_dict</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/core/compositions/composition.py:11665: UserWarning: learn() method called on &#39;Composition-0&#39;, but it has no learning components; it will be run but no learning will occur.
+  warnings.warn(f&quot;learn() method called on &#39;{self.name}&#39;, but it has no learning components; &quot;
+</pre></div>
+</div>
+<img alt="../../../../../_images/749619a0d0d9f31fb379cc7e55c7a2251c24f6e8027f72b468e7b91fbd421807.png" src="../../../../../_images/749619a0d0d9f31fb379cc7e55c7a2251c24f6e8027f72b468e7b91fbd421807.png" />
+<img alt="../../../../../_images/1dbd5d6b61e786d60c2d4f25788229be25de3b8ce751a8cce8a19276c369d6a4.png" src="../../../../../_images/1dbd5d6b61e786d60c2d4f25788229be25de3b8ce751a8cce8a19276c369d6a4.png" />
+<img alt="../../../../../_images/7e2b78ecb44fa26c397c5033428429d0ee647c0bdef9549cc04eccc7313b083b.png" src="../../../../../_images/7e2b78ecb44fa26c397c5033428429d0ee647c0bdef9549cc04eccc7313b083b.png" />
+<img alt="../../../../../_images/1c74d8c8d943a9ae1c78c35e39b2be7c3a5425649f22505b190d53ccafdf5056.png" src="../../../../../_images/1c74d8c8d943a9ae1c78c35e39b2be7c3a5425649f22505b190d53ccafdf5056.png" />
+<img alt="../../../../../_images/72dfe42c85ded8cb11796d06bfb136ef1b536c90e418afefa39941dc1ad987d7.png" src="../../../../../_images/72dfe42c85ded8cb11796d06bfb136ef1b536c90e418afefa39941dc1ad987d7.png" />
+<img alt="../../../../../_images/497dc5a1cef4c948f9caec7e927dc6fae60e71bf4da1b9cd6cc79313ce38b2c6.png" src="../../../../../_images/497dc5a1cef4c948f9caec7e927dc6fae60e71bf4da1b9cd6cc79313ce38b2c6.png" />
+<img alt="../../../../../_images/c60e2b267e2f70508c292d4a43c01b51f4caf63996e49cb0bee61f6978a9ad03.png" src="../../../../../_images/c60e2b267e2f70508c292d4a43c01b51f4caf63996e49cb0bee61f6978a9ad03.png" />
+<img alt="../../../../../_images/a61c9f09cd05b8216f2041493eed88995bcf3bb0ba96c4db68e49f516bde8d5a.png" src="../../../../../_images/a61c9f09cd05b8216f2041493eed88995bcf3bb0ba96c4db68e49f516bde8d5a.png" />
+<img alt="../../../../../_images/c61202b1e34d6fe7fc1467b5fa04ae08ba819887a41684c93718f5136665259c.png" src="../../../../../_images/c61202b1e34d6fe7fc1467b5fa04ae08ba819887a41684c93718f5136665259c.png" />
+<img alt="../../../../../_images/2108e94a9a6e40c8907e022f3ac3beab796a7e40fa1a09850e87628f3f2f2079.png" src="../../../../../_images/2108e94a9a6e40c8907e022f3ac3beab796a7e40fa1a09850e87628f3f2f2079.png" />
+</div>
+</div>
+<p>To better understand what is happening, try running your system with various inputs. To do this you will need to re-initialize the system by rerunning the cell that created Hebbian Model #3, or by copying that code into the top of the next cell. Models that learn get modified by running, and so we need to re-initialize to see how the model evolves with different kinds of input.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a Composition</span>
+<span class="n">Hebb_comp</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">Composition</span><span class="p">()</span>
+
+<span class="c1"># Create the mechanism ensuring `enable_learning` is set to `True`</span>
+<span class="n">Hebb_mech</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">RecurrentTransferMechanism</span><span class="p">(</span>
+    <span class="n">input_shapes</span><span class="o">=</span><span class="n">size_f</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">Linear</span><span class="p">,</span>
+    <span class="n">enable_learning</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Hebb_mech&#39;</span><span class="p">,</span>
+    <span class="n">auto</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">hetero</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="c1"># Add the mechanism to the composition</span>
+<span class="n">Hebb_comp</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">Hebb_mech</span><span class="p">)</span>
+
+<span class="c1"># Set an execution id</span>
+<span class="n">Hebb_comp</span><span class="o">.</span><span class="n">execution_id</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># Define a function that plots the correlation matrix and the stimulus activation to use in the callback function after each strep of the PNL composition learn method</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">vis_info</span><span class="p">():</span>
+    <span class="n">hebb_matrix</span> <span class="o">=</span> <span class="n">Hebb_mech</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">base</span>
+    <span class="n">active_mat</span> <span class="o">=</span> <span class="n">Hebb_mech</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">hebb_matrix</span><span class="p">))</span>
+    <span class="n">lb</span> <span class="o">=</span> <span class="o">-</span><span class="n">ub</span>
+    <span class="n">plot_correlation_matrix</span><span class="p">(</span><span class="n">hebb_matrix</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;PNL Hebbian Matrix&quot;</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="n">ub</span><span class="p">)</span>
+    <span class="n">plot_activation_line</span><span class="p">(</span><span class="n">active_mat</span><span class="p">,</span> <span class="s1">&#39;Activation from Stimulus with PNL Hebbian Matrix&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># Set your input here:</span>
+<span class="n">zero_stim</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">size_f</span>
+<span class="n">stimulus_list</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># e.g., [src, lbt]; [src, zero_stim, lbt]; [src, src, lbt]; [src, src, zero_stim, lbt]; ...</span>
+<span class="n">inputs_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">Hebb_mech</span><span class="p">:</span> <span class="n">stimulus_list</span><span class="p">}</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">Hebb_comp</span><span class="o">.</span><span class="n">learn</span><span class="p">(</span><span class="n">num_trials</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">stimulus_list</span><span class="p">),</span>
+                      <span class="n">call_after_trial</span><span class="o">=</span><span class="n">vis_info</span><span class="p">,</span>
+                      <span class="n">inputs</span><span class="o">=</span><span class="n">inputs_dict</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>During the first trials, the algorithms behaves very similarly to the Hebbian Model #2 we defined above (except with the diagonal entries being set to zero). However, after introducing a second stimulus, the model appears to learn several extra associations that were not learned by our previous model. It appears that the model is learning associations <em>between</em> different stimulus patterns, rather than just <em>within</em> a single pattern, as the previous models did. For example, it learns associations “small-medium”, “small-yellow” and “small-rectangle”, representing a mixture of the features from the small red circle with those of the medium yellow rectangle.</p>
+<p>This behavior arises because PsyNeuLink implements a learning mechanism that is designed to be neurologically plausible. Instead of simply updating the weight matrix based on the current input alone (as in the Hebbian learning algorithm described above), it incorporates feedback and recurrent connections. For a deeper explanation of this mechanism, including its use of cycles and feedback, refer to <a class="reference external" href="https://princetonuniversity.github.io/PsyNeuLink/Composition.html#cycles-and-feedback">PsyNeuLink Composition Cycles and Feedback</a>.</p>
+<p>To simulate the behavior of Hebbian Model #2, we can introduce zero-input intervals between the stimuli. These intervals reset the previous activation to zero, ensuring that only the current input contributes to the learning process. This mimics the behavior of the original Hebbian model by isolating each stimulus from the influence of prior activations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Hebb_comp</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">Composition</span><span class="p">()</span>
+
+<span class="n">Hebb_mech</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">RecurrentTransferMechanism</span><span class="p">(</span>
+    <span class="n">input_shapes</span><span class="o">=</span><span class="n">size_f</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">Linear</span><span class="p">,</span>
+    <span class="n">enable_learning</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Hebb_mech&#39;</span><span class="p">,</span>
+    <span class="n">auto</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">hetero</span><span class="o">=</span><span class="mi">0</span>
+<span class="p">)</span>
+
+<span class="n">Hebb_comp</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">Hebb_mech</span><span class="p">)</span>
+
+<span class="n">inputs_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">Hebb_mech</span><span class="p">:</span> <span class="p">[</span><span class="n">src</span><span class="p">,</span> <span class="n">zero_stim</span><span class="p">,</span> <span class="n">myr</span><span class="p">]}</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">Hebb_comp</span><span class="o">.</span><span class="n">learn</span><span class="p">(</span><span class="n">num_trials</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                      <span class="n">call_after_trial</span><span class="o">=</span><span class="n">vis_info</span><span class="p">,</span>
+                      <span class="n">inputs</span><span class="o">=</span><span class="n">inputs_dict</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/core/compositions/composition.py:4652: UserWarning: NodeRole.LEARNING should be assigned with caution to Composition-2. Learning Components are generally constructed automatically as part of a learning Pathway. Doing so otherwise may cause unexpected results.
+  warnings.warn(f&quot;{role} should be assigned with caution to {self.name}. &quot;
+/opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/core/compositions/composition.py:11665: UserWarning: learn() method called on &#39;Composition-2&#39;, but it has no learning components; it will be run but no learning will occur.
+  warnings.warn(f&quot;learn() method called on &#39;{self.name}&#39;, but it has no learning components; &quot;
+</pre></div>
+</div>
+<img alt="../../../../../_images/749619a0d0d9f31fb379cc7e55c7a2251c24f6e8027f72b468e7b91fbd421807.png" src="../../../../../_images/749619a0d0d9f31fb379cc7e55c7a2251c24f6e8027f72b468e7b91fbd421807.png" />
+<img alt="../../../../../_images/1dbd5d6b61e786d60c2d4f25788229be25de3b8ce751a8cce8a19276c369d6a4.png" src="../../../../../_images/1dbd5d6b61e786d60c2d4f25788229be25de3b8ce751a8cce8a19276c369d6a4.png" />
+<img alt="../../../../../_images/b764177cc72a9ed13646f8382dde0320fde73520ff2331e098062345266c5e10.png" src="../../../../../_images/b764177cc72a9ed13646f8382dde0320fde73520ff2331e098062345266c5e10.png" />
+<img alt="../../../../../_images/400476d8412c352d173884810a9b37956fa2a5bd64070443606ae3eb1d12621f.png" src="../../../../../_images/400476d8412c352d173884810a9b37956fa2a5bd64070443606ae3eb1d12621f.png" />
+<img alt="../../../../../_images/3365a221b7b65c74145ecccfa3a414b44dc3107e50e72c4142212bb76ab6cfdb.png" src="../../../../../_images/3365a221b7b65c74145ecccfa3a414b44dc3107e50e72c4142212bb76ab6cfdb.png" />
+<img alt="../../../../../_images/4b9e22033b9684f4716d748da2fbb32d0db27394bd4c561a9fa3fbeee896723c.png" src="../../../../../_images/4b9e22033b9684f4716d748da2fbb32d0db27394bd4c561a9fa3fbeee896723c.png" />
+</div>
+</div>
+<p>A less “hacky” way to accomplish the same thing is to define a function that clears the output of the network after each trial. This can be done by defining a suitable function to clear the value, and to call it after every trial in a similar fashion to how we called the vis_info function after each trial.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Hebb_mech</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">RecurrentTransferMechanism</span><span class="p">(</span>
+    <span class="n">input_shapes</span><span class="o">=</span><span class="n">size_f</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">Linear</span><span class="p">,</span>
+    <span class="n">integrator_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">integration_rate</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+    <span class="n">enable_learning</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Hebb_mech&#39;</span><span class="p">,</span>
+    <span class="n">auto</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">hetero</span><span class="o">=</span><span class="mi">0</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">clear_value</span><span class="p">():</span>
+    <span class="n">Hebb_mech</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">callback</span><span class="p">():</span>
+    <span class="n">vis_info</span><span class="p">()</span>
+    <span class="n">clear_value</span><span class="p">()</span>
+
+
+<span class="n">Hebb_comp</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">Composition</span><span class="p">()</span>
+
+<span class="n">Hebb_comp</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">Hebb_mech</span><span class="p">)</span>
+
+<span class="n">inputs_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">Hebb_mech</span><span class="p">:</span> <span class="p">[</span><span class="n">src</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="n">myr</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">}</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">Hebb_comp</span><span class="o">.</span><span class="n">learn</span><span class="p">(</span><span class="n">num_trials</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                      <span class="n">call_after_trial</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
+                      <span class="n">inputs</span><span class="o">=</span><span class="n">inputs_dict</span><span class="p">)</span>
+
+<span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Hebb_mech</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">base</span><span class="p">))</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="o">-</span><span class="n">ub</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">Hebb_mech</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">base</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">ub</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/core/compositions/composition.py:4652: UserWarning: NodeRole.LEARNING should be assigned with caution to Composition-3. Learning Components are generally constructed automatically as part of a learning Pathway. Doing so otherwise may cause unexpected results.
+  warnings.warn(f&quot;{role} should be assigned with caution to {self.name}. &quot;
+/opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/core/compositions/composition.py:11665: UserWarning: learn() method called on &#39;Composition-3&#39;, but it has no learning components; it will be run but no learning will occur.
+  warnings.warn(f&quot;learn() method called on &#39;{self.name}&#39;, but it has no learning components; &quot;
+</pre></div>
+</div>
+<img alt="../../../../../_images/749619a0d0d9f31fb379cc7e55c7a2251c24f6e8027f72b468e7b91fbd421807.png" src="../../../../../_images/749619a0d0d9f31fb379cc7e55c7a2251c24f6e8027f72b468e7b91fbd421807.png" />
+<img alt="../../../../../_images/1dbd5d6b61e786d60c2d4f25788229be25de3b8ce751a8cce8a19276c369d6a4.png" src="../../../../../_images/1dbd5d6b61e786d60c2d4f25788229be25de3b8ce751a8cce8a19276c369d6a4.png" />
+<img alt="../../../../../_images/86ef33142b78a741860d0f74e166c9f3a667a6acd32b5a005667aa03203ece52.png" src="../../../../../_images/86ef33142b78a741860d0f74e166c9f3a667a6acd32b5a005667aa03203ece52.png" />
+<img alt="../../../../../_images/1dbd5d6b61e786d60c2d4f25788229be25de3b8ce751a8cce8a19276c369d6a4.png" src="../../../../../_images/1dbd5d6b61e786d60c2d4f25788229be25de3b8ce751a8cce8a19276c369d6a4.png" />
+<img alt="../../../../../_images/68c24e352335ea4d785cac6843c8dd2e95dd7be915498b6070fcc7d9a0439601.png" src="../../../../../_images/68c24e352335ea4d785cac6843c8dd2e95dd7be915498b6070fcc7d9a0439601.png" />
+<img alt="../../../../../_images/1dbd5d6b61e786d60c2d4f25788229be25de3b8ce751a8cce8a19276c369d6a4.png" src="../../../../../_images/1dbd5d6b61e786d60c2d4f25788229be25de3b8ce751a8cce8a19276c369d6a4.png" />
+<img alt="../../../../../_images/8ba59715f3d108dee395c48e67cfc772722ae402aecab913265a992d139baaf0.png" src="../../../../../_images/8ba59715f3d108dee395c48e67cfc772722ae402aecab913265a992d139baaf0.png" />
+<img alt="../../../../../_images/1dbd5d6b61e786d60c2d4f25788229be25de3b8ce751a8cce8a19276c369d6a4.png" src="../../../../../_images/1dbd5d6b61e786d60c2d4f25788229be25de3b8ce751a8cce8a19276c369d6a4.png" />
+<img alt="../../../../../_images/580223d81f967499ba6838cb09e91a5f5692a3e638e74a76a6999d112b9031f9.png" src="../../../../../_images/580223d81f967499ba6838cb09e91a5f5692a3e638e74a76a6999d112b9031f9.png" />
+<img alt="../../../../../_images/1dbd5d6b61e786d60c2d4f25788229be25de3b8ce751a8cce8a19276c369d6a4.png" src="../../../../../_images/1dbd5d6b61e786d60c2d4f25788229be25de3b8ce751a8cce8a19276c369d6a4.png" />
+<img alt="../../../../../_images/457cf0398b771d6e72d544c500a143d7f67116cd0aef720c3ffbfe35e8448e76.png" src="../../../../../_images/457cf0398b771d6e72d544c500a143d7f67116cd0aef720c3ffbfe35e8448e76.png" />
+<img alt="../../../../../_images/09f3fcfbd60e5733ae9647735a7677572450e4a0ff5717f5795c2082a27ee7b4.png" src="../../../../../_images/09f3fcfbd60e5733ae9647735a7677572450e4a0ff5717f5795c2082a27ee7b4.png" />
+<img alt="../../../../../_images/96c31d4e12117c1d99bae37965d289cc6d794fff734a704946810c5f207e27e3.png" src="../../../../../_images/96c31d4e12117c1d99bae37965d289cc6d794fff734a704946810c5f207e27e3.png" />
+<img alt="../../../../../_images/09f3fcfbd60e5733ae9647735a7677572450e4a0ff5717f5795c2082a27ee7b4.png" src="../../../../../_images/09f3fcfbd60e5733ae9647735a7677572450e4a0ff5717f5795c2082a27ee7b4.png" />
+<img alt="../../../../../_images/6ecae4e8412e470a4e681607a291f0e3d1f139db1c3b1e9a40a69ba9e1bb3116.png" src="../../../../../_images/6ecae4e8412e470a4e681607a291f0e3d1f139db1c3b1e9a40a69ba9e1bb3116.png" />
+<img alt="../../../../../_images/09f3fcfbd60e5733ae9647735a7677572450e4a0ff5717f5795c2082a27ee7b4.png" src="../../../../../_images/09f3fcfbd60e5733ae9647735a7677572450e4a0ff5717f5795c2082a27ee7b4.png" />
+<img alt="../../../../../_images/cd4490491c4f222fcc3738d0552e9f802feba4f57b1b653b667c6628c341b2a3.png" src="../../../../../_images/cd4490491c4f222fcc3738d0552e9f802feba4f57b1b653b667c6628c341b2a3.png" />
+<img alt="../../../../../_images/09f3fcfbd60e5733ae9647735a7677572450e4a0ff5717f5795c2082a27ee7b4.png" src="../../../../../_images/09f3fcfbd60e5733ae9647735a7677572450e4a0ff5717f5795c2082a27ee7b4.png" />
+<img alt="../../../../../_images/ecf41acb1fa68d98325ef7173ffa13a76bdfd9bc3bcfd83ba4dc728ef656b90e.png" src="../../../../../_images/ecf41acb1fa68d98325ef7173ffa13a76bdfd9bc3bcfd83ba4dc728ef656b90e.png" />
+<img alt="../../../../../_images/09f3fcfbd60e5733ae9647735a7677572450e4a0ff5717f5795c2082a27ee7b4.png" src="../../../../../_images/09f3fcfbd60e5733ae9647735a7677572450e4a0ff5717f5795c2082a27ee7b4.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7fab6fd59950&gt;
+</pre></div>
+</div>
+<img alt="../../../../../_images/8336cab76ab789c7361def739142dfbdfb58e3fb8403b8af854502bc0c761522.png" src="../../../../../_images/8336cab76ab789c7361def739142dfbdfb58e3fb8403b8af854502bc0c761522.png" />
+</div>
+</div>
+<h4 style="background: #256ca2; color: #e9e9e9">🎯  Exercise 5</h4>
+<p>A colleague has a dataset were the behavior after exposing participants to different colors lead to different behaviors. They have analysed the behaviors and found that certain behaviors correlated. Now they want to model the behavior and propose one hot encoding the colors and using a Hebbian learning algorithm to learn the associations. What to you think of this plan? Why?</p>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 5</summary>
+<p>One hot encoded vectors form an orthogonal basis. This means all vectors are orthogonal and therefore uncorrelated. A hebbian learning algorithm, however, is designed to learn correlations between features. This means that the hebbian learning algorithm would not be able to learn anything from the data.</p>
+<p>Tip: This is true for every orthogonal basis, not just one hot encoded vectors. However, one could try to first transform the data into a different basis that is not orthogonal, and then apply the hebbian learning algorithm.</p>
+</details>
+<h4 style="background: #256ca2; color: #e9e9e9">🎯  Exercise 6</h4>
+<p><strong>Stump the Hebbian Learning Algorithm</strong></p>
+<p>Create a set of at least 9 unique stimuli using the same 9 features as above with properties that are impossible for the Hebbian Model #1 to learn and use for accurate inferences.  Even after exposure to the stimuli, the correlation matrix should be full of 0s. Explain why these results are produced. Try to come up with an interesting example that might map on to a real world situation (rather than just a mathematical gimic).</p>
+<details><summary style="background: #d6c89d; color: #e9e9e9">💡 Hint 1</summary>
+<p>Since the hebbian learning algorithm learns correlations between features, we can create an “unlearnable” set by ensuring that the features are not correlated. For example, we could create a set of “all possible” combinations (here for 3 features):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">all_combinations_3x3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> 
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> 
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">all_combination_corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">all_combinations_3x3</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+<span class="c1"># Set the diagonal to 0 (self-correlation is unavoidable)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">all_combination_corr</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Correlation Matrix for all Combinations of 3 Features&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">all_combination_corr</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>But a full set is not reasonable for the full set of 9 with the above described features (Why?).</p>
+</details>
+<details><summary style="background: #d6c89d; color: #e9e9e9">💡 Hint 2</summary>
+<p>Here are the two additional issues when using the above approach for 9 features:</p>
+<ol class="arabic simple">
+<li><p>We had to use all combinations of features. For 3 features this was only <span class="math notranslate nohighlight">\(2^3=8\)</span>, but for 9 features we will need <span class="math notranslate nohighlight">\(2^9=512\)</span>.</p></li>
+<li><p>Some of the features that we have been using are mutually exclusive. For example, it does not make sense to have an object that is both large and small. So even if we could write out all of the combinations, not all of them will be meaningful.</p></li>
+</ol>
+</details>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 6</summary>
+<p>We get circumvent these issues by using random sampling. This way we won’t have to explicitly write out all of the combinations, but because of the Law of Large Numbers, we’ll end up with a result that is very close to what it would be if we had written them all out. Also, when we do the sampling, we can make sure that we never sample inconsistent combinations like “small” and “big”. This will lead to some correlations but with a large number of samples, the correlations will be very close to 0.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set a seed for reproducibility</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">sampled_features</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+  <span class="n">feats</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+  <span class="c1">#first we sample a size (small,medium,large)</span>
+  <span class="n">size_feat</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+  <span class="n">feats</span><span class="p">[</span><span class="n">size_feat</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+  <span class="c1">#unlike sizes and shapes, colors are not mutually exclusive, so we can sample them independently</span>
+  <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">feats</span><span class="p">[</span><span class="mi">3</span><span class="o">+</span><span class="n">c</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+  <span class="c1">#sample a shape</span>
+  <span class="n">shape_feat</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+  <span class="n">feats</span><span class="p">[</span><span class="mi">6</span><span class="o">+</span><span class="n">shape_feat</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+  <span class="n">sampled_features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">feats</span><span class="p">)</span>
+<span class="n">sampled_features</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sampled_features</span><span class="p">)</span>
+<span class="n">sampled_features_cor</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">sampled_features</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+  <span class="n">sampled_features_cor</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Correlation Matrix using random samples&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">sampled_features_cor</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>We can see from the correlation matrix that the most of the entries are very close to 0. The exception is when either both features are a size, or both are a shape. For example, the (small,large) entry is a large negative value, but this is unavoidable because these features are mutually exclusive, meaning that the presence of one of these will always predict the absence of the other. If we showed the Hebbian network a small network, it would not be able to predict any other features of the object (except that it is not medium-sized and not large).</p>
+<p>A real world analogue of this example would be a deck of playing cards. We can represent a playing card using 17 binary features, with the first 13 corresponding to the value of the card and the last 4 corresponding to the suit.  If draw a card and tell you that it is an Ace, then that gives you no information about its suit. However, it does let you deduce that it is not a King.</p>
+</details>
+<p><h0 style="background: #256ca2; color: #e9e9e9">🎯 Bonus Exercise</h0></p>
+<p>To get yourself familiar, instead of calculating the correlation matrix directly, try using the PsyNeuLink model to learn the weights instead.</p>
+<h4 style="background: #256ca2; color: #e9e9e9">🎯  Exercise 7</h4>
+<p><strong>Pruning Instead of Connecting</strong></p>
+<p>A prominent feature of brain development from infancy to adulthood is the reduction of neurons and increase in glial cells (Burek &amp; Openheim, 1996; Low &amp; Cheng, 2006).  For example, one study inspecting a brain area for comparison between newborns and adults found that the adult brains had about 40% fewer neurons and 340% more glials cells (Abitz et al, 2007).  Weakening and elimination of connections is often called pruning, and might be more common than growing entirely new connections.  Imagine that a neuron somewhere near your forehead is firing correlated with a neuron somewhere near the back of your head – it would be difficult to grow an entirely new axon that connects the two.  Instead, during early development when the brain begins by occupying a tiny volume, it is easy to start with many neurons connected and preserve these connections as the brain grows larger. Later, neurons that are connected and fire together can strengthen their connections, while neurons that fire independently can weaken their connections or let the connections be pruned away entirely.</p>
+<p><strong>Exercise 7a</strong></p>
+<p>Build a new model based on Hebbian Model #2 that starts with every unit connected to every other neuron, all with equal positive weights (all 1s).  As this model receives stimuli it should preserve the connections between neurons that fire together, and gradually weaken the connections between neurons that do not fire together.</p>
+<p>Train this model 3 training trials of each stimulus (<code class="docutils literal notranslate"><span class="pre">src</span></code>, <code class="docutils literal notranslate"><span class="pre">myr</span></code>, <code class="docutils literal notranslate"><span class="pre">lbt</span></code>) and test it to make inferences on at least three different single-feature stimuli, such as triangle = [0,0,0,0,0,0,0,0,1].  How does it perform?</p>
+<p>Discuss the various choices that you made when creating this model.  For example, do you allow the connection weights between neurons to ever go below 0?  Why or why not?  What rate of pruning did you decide to implement, and why did you choose this number?</p>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 7a</summary>
+<p>To do the pruning, we will weaken the connection between two neurons whenever they don’t fire together. More precisely, given two features <span class="math notranslate nohighlight">\(x_i,x_j\)</span>, we will do nothing to the weight <span class="math notranslate nohighlight">\(w_{ij}\)</span> if <span class="math notranslate nohighlight">\(x_ix_j&gt;0\)</span>. But if <span class="math notranslate nohighlight">\(x_ix_j=0\)</span> then we will change the weight according to the learning rule</p>
+<div class="math notranslate nohighlight">
+\[\Delta w_{ij}=(1-\gamma) w_{ij}\]</div>
+<p>Here <span class="math notranslate nohighlight">\(\gamma\)</span> is a number between 0 and 1 that controls the speed of the pruning.</p>
+<p>Because we initialize the weights to be equal to 1, our definition of the pruning learning rule implies that they will never go below zero. This makes sense biologically, because a neuron cannot have a negative firing rate.</p>
+<p>After experimenting with several pruning factors, I ultimately chose a value of .5 because it seemed to give good results. In general, when increasing the number of stimuli, it would make sense to increase the pruning rate as well. Otherwise some of the weights may get extremely small before the model has had a chance to see all of the associations in the dataset, thus blocking the model from learning those associations later.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stim_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">([</span><span class="n">src</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="n">myr</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="n">lbt</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="n">pruning_model_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+
+<span class="n">pruning_factor</span> <span class="o">=</span> <span class="mf">.1</span>  <span class="c1">#gamma above</span>
+
+<span class="k">for</span> <span class="n">stim</span> <span class="ow">in</span> <span class="n">stim_mat</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">stim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">stim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="o">**</span> <span class="o">-</span><span class="mi">8</span><span class="p">:</span>
+                <span class="n">pruning_model_weights</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">pruning_factor</span>
+<span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">pruning_model_weights</span><span class="p">))</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="o">-</span><span class="n">ub</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">pruning_model_weights</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">ub</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">9</span><span class="p">),</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">9</span><span class="p">),</span> <span class="n">feature_names</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;weight matrix learned by pruning model&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</details>
+<p><strong>Exercise 7b</strong></p>
+<p>The above example show that weights can get small when pruning. Now, consider a training set of 1000 trials of each stimulus. How might you reasonably adjust the pruning rate to depend on the total number of expected stimuli (would you use the same rate for 3 stimuli and 3000 stimuli)?</p>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 7b</summary>
+<p>In order to understand how to change <span class="math notranslate nohighlight">\(\gamma\)</span> when we have more stimuli, let us assume that we will present the model with <span class="math notranslate nohighlight">\(3\)</span> small red circles, followed by some medium yellow rectangles. Suppose that we have found some value <span class="math notranslate nohighlight">\(\gamma_3\)</span> to be appropriate for this dataset. After seeing the first three stimuli, the value of the (medium,yellow) weight will be <span class="math notranslate nohighlight">\((1-\gamma_3)^3\)</span>, because this weight will have been pruned three times.</p>
+<p>Now let us consider another dataset where we first show the model 3000 small red circles, followed by some medium yellow rectangles. In order to allow the model to properly learn the later associations, we want to use a value <span class="math notranslate nohighlight">\(\gamma_{3000}\)</span> that ensures that the value of the <span class="math notranslate nohighlight">\((medium,yellow)\)</span> weight will be the same as what it was when we had only 3 small red circles. This means we should have <span class="math notranslate nohighlight">\((1-\gamma_{3000})^{3000}=(1-\gamma_3)^{3}\)</span>, which we can solve for <span class="math notranslate nohighlight">\(\gamma_{3000}\)</span> to obtain</p>
+<div class="math notranslate nohighlight">
+\[\gamma_{3000}=1-(1-\gamma_3)^{1/1000}\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stim_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">([</span><span class="n">src</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">+</span> <span class="p">[</span><span class="n">myr</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">+</span> <span class="p">[</span><span class="n">lbt</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="n">pruning_model_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+
+<span class="n">pruning_factor</span> <span class="o">=</span> <span class="mf">.1</span>  <span class="c1">#gamma above</span>
+
+<span class="k">for</span> <span class="n">stim</span> <span class="ow">in</span> <span class="n">stim_mat</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">stim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">stim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="o">**</span> <span class="o">-</span><span class="mi">8</span><span class="p">:</span>
+                <span class="n">pruning_model_weights</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">*=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pruning_factor</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">stim_mat</span><span class="p">))</span>
+<span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">pruning_model_weights</span><span class="p">))</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="o">-</span><span class="n">ub</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">pruning_model_weights</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">ub</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">9</span><span class="p">),</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">9</span><span class="p">),</span> <span class="n">feature_names</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;weight matrix learned by pruning model&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</details>
+<h4 style="background: #256ca2; color: #e9e9e9">🎯  Exercise 8</h4>
+<p><strong>Connecting &amp; Pruning</strong></p>
+<p>Combined Model</p>
+<p>Combine Hebbian Model #2 with your model created above to create a more sophisticated model that both strengthens connections between neurons that fire together and prunes away connections between neurons that fire independently. Use 3 trials of each stimulus to train your model. You will need to find a good balance between the rate of growing (strengthening) connections and the rate of pruning (weakening) connections to ensure that the model learns effectively. Explain how these rates interact and discuss the growing &amp; pruning rates that appear to optimize learning over the current set of stimuli.</p>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 8</summary>
+<p>We will combine the Hebbian learning rule that we used in Hebbian Model #2 with the Pruning learning rule used above. If some pair of features <span class="math notranslate nohighlight">\(x_i,x_j\)</span> occur together, then we will update <span class="math notranslate nohighlight">\(w_{ij}\)</span> using Hebb’s rule. But if they do not occur together, then we will prune <span class="math notranslate nohighlight">\(w_{ij}\)</span> using the Pruning learning rule.</p>
+<p>Mathematically speaking, if <span class="math notranslate nohighlight">\(x_ix_j=0\)</span>, then the weight update is defined as
+$<span class="math notranslate nohighlight">\(\Delta w_{ij}=(1-\gamma) w_{ij}\)</span>$</p>
+<p>But if <span class="math notranslate nohighlight">\(x_ix_j&gt;0\)</span>, then the weight update is instead
+$<span class="math notranslate nohighlight">\(\Delta w_{ij}=\alpha x_ix_j\)</span>$</p>
+<p>If the pruning rate is too large, then the model can “forget” some associations that it has previously learned. However, if the Hebbian learning rate is too large, then weights can grow so large that the pruning dynamics get drowned out. By trying out several values, we found that a pruning rate of .1 and a Hebbian learning rate of .05 appeared to strike a reasonable balance between the two processes.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stim_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">([</span><span class="n">src</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="n">myr</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="n">lbt</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="n">combined_connecting_model_weights</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
+
+<span class="n">pruning_factor</span><span class="o">=</span><span class="mf">.1</span>
+<span class="n">hebbian_lr</span><span class="o">=</span><span class="mf">.05</span>
+
+<span class="k">for</span> <span class="n">stim</span> <span class="ow">in</span> <span class="n">stim_mat</span><span class="p">:</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">stim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">stim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">10</span><span class="o">**-</span><span class="mi">8</span><span class="p">:</span>
+        <span class="n">combined_connecting_model_weights</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">*=</span><span class="mi">1</span><span class="o">-</span><span class="n">pruning_factor</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">combined_connecting_model_weights</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">+=</span><span class="n">hebbian_lr</span><span class="o">*</span><span class="n">stim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">stim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+<span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">combined_connecting_model_weights</span><span class="p">))</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="o">-</span><span class="n">ub</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">combined_connecting_model_weights</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">ub</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">9</span><span class="p">),</span><span class="n">feature_names</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">9</span><span class="p">),</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;weight matrix learned by pruning+connecting model&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</details>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "PrincetonUniversity/NEU-PSY-502",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/502B/Computation/Dynamics in Perception/notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">2 Dynamics in Perception</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="2%20Hopfield%20Networks.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">2.2 Hopfield Networks</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ubiquity-of-associations">The Ubiquity of Associations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-theory-of-learning">A Theory of Learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-learning">Unsupervised Learning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-to-group-properties-of-objects">Learning to group Properties of Objects</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hebbian-model-1">Hebbian Model #1</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stimulus-driven-activation">Stimulus Driven Activation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accumulating-evidence">Accumulating Evidence</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hebbian-model-2">Hebbian Model #2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hebbian-learning-processing">Hebbian Learning Processing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bounding-output">Bounding Output</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#normalize-the-activation-matrix">Normalize The Activation Matrix</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#normalize-the-correlation-matrix">Normalize The Correlation Matrix</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#self-correlation">Self-correlation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-in-psyneulink">Implementation In PsyNeuLink</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hebbian-model-3">Hebbian Model #3</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jonathan Cohen, Samuel Nastase, Alexander Ku & Younes Strittmatter
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

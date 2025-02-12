@@ -1,0 +1,1233 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>1.3 Perceptron and XOR &#8212; NEU-PSY-MOL-502</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/502B/Computation/Primer/notebooks/3 Perceptron and XOR';</script>
+    <link rel="canonical" href="https://princetonuniversity.github.io/NEU-PSY-502/content/502B/Computation/Primer/notebooks/3 Perceptron and XOR.html" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="2 Dynamics in Perception" href="../../Dynamics%20in%20Perception/intro.html" />
+    <link rel="prev" title="1.2 Logistic Function" href="2%20Logistic%20Function.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../../_static/logo.png" class="logo__image only-light" alt="NEU-PSY-MOL-502 - Home"/>
+    <img src="../../../../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="NEU-PSY-MOL-502 - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../../intro.html">
+                    NEU/PSY 502
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">502A</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/syllabus.html">Syllabus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/lectures.html">Lectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%201/index.html">1 Introduction and History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%202/index.html">2 Perception and Constraint Satisfaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%203/index.html">3 Associative Learning and Topography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%204/index.html">4 High Level Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%205/index.html">5 Dynamics of Integration and Decision Making</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%206/index.html">6 Optimization of Decision Making</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%207/index.html">7 Reward Systems and Psychodynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%208/index.html">8 Explore/Exploit and Noradrenergic Neuromodulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%209/index.html">9 Statistical Learning, Semantics and Neocortex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2010/index.html">10 Bayesian Approaches and Bounded Rationality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2011/index.html">11 Interactive Activation, Statistical Learning, and Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2012/index.html">12 Language and LLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Syllabus</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B Computation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../intro.html">1 Primer</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="1%20Scalars%2C%20Vectors%2C%20and%20Matrices.html">1.1 Scalars, Vectors, and Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2%20Logistic%20Function.html">1.2 Logistic Function</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">1.3 Perceptron and XOR</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Dynamics%20in%20Perception/intro.html">2 Dynamics in Perception</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Dynamics%20in%20Perception/notebooks/1%20Hebbian%20Learning.html">2.1 Hebbian Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Dynamics%20in%20Perception/notebooks/2%20Hopfield%20Networks.html">2.2 Hopfield Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Dynamics%20in%20Perception/notebooks/3%20Dynamic%20Systems%20and%20Bistable%20Perception.html">2.3 Dynamic Systems and Bistable Perception</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Decision%20Making/intro.html">3 Decision Making</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Decision%20Making/notebooks/1%20Drift%20Diffusion%20Models.html">3.1 Drift Diffusion Models</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Reinforcement%20Learning/intro.html">4 Reinforcement Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Reinforcement%20Learning/notebooks/1%20Reinforcement%20Learning.html">4.1 Reinforcement Learning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Statistical%20Learning%20and%20Backpropagation/intro.html">5 Statistical Learning and Backpropagation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B Empirical</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../Empirical/intro.html">Introduction</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/PrincetonUniversity/NEU-PSY-502/main?urlpath=tree/website/content/502B/Computation/Primer/notebooks/3 Perceptron and XOR.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../../../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/PrincetonUniversity/NEU-PSY-502/blob/main/website/content/502B/Computation/Primer/notebooks/3 Perceptron and XOR.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../../../../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/PrincetonUniversity/NEU-PSY-502" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/PrincetonUniversity/NEU-PSY-502/issues/new?title=Issue%20on%20page%20%2Fcontent/502B/Computation/Primer/notebooks/3 Perceptron and XOR.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../../../_sources/content/502B/Computation/Primer/notebooks/3 Perceptron and XOR.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>1.3 Perceptron and XOR</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#and-gate">AND Gate</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-weights-in-a-perceptron">Using Weights in a Perceptron</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-the-weights">Learning the Weights</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-layer-network-in-psyneulink">Two Layer Network in PsyNeuLink</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix-derivation-of-learning-rule-for-two-layer-network-with-sigmoidal-activation">Appendix: Derivation of Learning Rule for two-layer network with sigmoidal activation</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="perceptron-and-xor">
+<h1>1.3 Perceptron and XOR<a class="headerlink" href="#perceptron-and-xor" title="Link to this heading">#</a></h1>
+<p><img alt="perceptron" src="https://princetonuniversity.github.io/NEU-PSY-502/_static/images/502B/computation/primer/perceptron.png" /></p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>To first approximation, activity of a neuron in the brain is determined by the integration of excitatory and inhibitory impulses received by its dendrites and passed to the cell body. If excitatory signals outweigh inhibitory signals sufficiently to pass a threshold, the neuron will fire, sending out an action potential via its axon.</p>
+<p>Artificial neurons were conceived to behave in a similar manner to real ones. Early artificial neurons were dubbed perceptrons; they received multiple binary inputs, multiplied each one by an appropriate “weight”, added them together (this should sound familiar), and produced a single binary output that depends on whether the sum passes a certain threshold.  In short, they applied a step function to the transformed input.  This is referred to as an LBF (linear basis function) activation function.</p>
+<p><img alt="LBF" src="https://princetonuniversity.github.io/NEU-PSY-502/_static/images/lbf_perceptron.jpeg" /></p>
+<p>If we define the threshold <span class="math notranslate nohighlight">\( \equiv-b \)</span>, then we can rewrite our conditional output</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+ output=
+\begin{cases}
+ 0 &amp; if \: w \cdot x + b \leq 0
+\\
+1  &amp; if \: w \cdot x + b &gt;  0
+\end{cases}
+\end{equation}
+\end{split}\]</div>
+<p>The term <span class="math notranslate nohighlight">\(b\)</span> is called a bias, and perceptrons are a special kind of linear classifier called a binary classifier. It is known as a binary classifier because it is assigning one of two labels (the binary output) to the inputs it receives, according to their dot product with the weights (a linear operation). The line defined by <span class="math notranslate nohighlight">\( w \cdot x+b=0 \)</span> is the line that separates the classes from each other. Our “red square, blue circle” class example from earlier in the lab is an example of binarily classifiable data.</p>
+<p><img alt="multilayer ffn" src="https://princetonuniversity.github.io/NEU-PSY-502/_static/images/multilayer_ffn.jpeg" /></p>
+<p>In a multilayer feedforward network, artificial neurons are clustered into layers, where the output of one layer forms the input of the next. The first layer is known as the input layer, the last is the output layer, and the operational layers, where the dot products are computed, are called “hidden layers”.</p>
+<p>Binary classification is simple but powerful. We will show this by using them to construct a set of logic gates.</p>
+<p><strong>Installation and Setup</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">psyneulink</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">psyneulink</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pnl</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="and-gate">
+<h2>AND Gate<a class="headerlink" href="#and-gate" title="Link to this heading">#</a></h2>
+<p>An AND gate is a logic gate that answers the question:</p>
+<p>“Are A and B both simultaneously true?”.</p>
+<p>In this context, we represent “True” with <code class="docutils literal notranslate"><span class="pre">1</span></code> and “False” with <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<p>First, let’s define a <em>training set</em> that includes all possible input combinations of the boolean values True (<code class="docutils literal notranslate"><span class="pre">1</span></code>) and False (<code class="docutils literal notranslate"><span class="pre">0</span></code>) and their corresponding <em>labels</em>. Remember, AND(X, Y) is true if and only if both X and Y are true.</p>
+<p><em><strong>Note:</strong></em> In a machine learning context, we often refer to a <em>training set</em> as a collection of input-output pairs used to teach a model. A <em>label</em> as the correct output for a given input.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the training set</span>
+<span class="n">training_set</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="n">training_set</span> <span class="o">=</span> <span class="n">training_set</span><span class="o">.</span><span class="n">T</span>
+<span class="n">n_combos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">training_set</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">training_set</span><span class="p">))</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="o">-</span> <span class="n">ub</span>
+
+<span class="c1"># Create the labels</span>
+<span class="n">and_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">and_labels</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_combos</span><span class="p">)</span>
+
+<span class="c1"># </span>
+<span class="c1"># Reshape labeled_set to match a 2D grid</span>
+<span class="n">labeled_set</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># 2x2 grid for (A, B) inputs</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_combos</span><span class="p">):</span>
+    <span class="n">A</span><span class="p">,</span> <span class="n">B</span> <span class="o">=</span> <span class="n">training_set</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>  <span class="c1"># Extract each (A, B) pair</span>
+    <span class="n">labeled_set</span><span class="p">[</span><span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">and_labels</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>  <span class="c1"># Assign label at corresponding (B, A) position</span>
+
+<span class="c1"># Plot the labeled set</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Boolean Matrix&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_combos</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">labeled_set</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">ub</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/5ed8cae01e19462ac84929c943630d3bd33ebcb6a7a555b12eebe2615b94429e.png" src="../../../../../_images/5ed8cae01e19462ac84929c943630d3bd33ebcb6a7a555b12eebe2615b94429e.png" />
+</div>
+</div>
+<section id="using-weights-in-a-perceptron">
+<h3>Using Weights in a Perceptron<a class="headerlink" href="#using-weights-in-a-perceptron" title="Link to this heading">#</a></h3>
+<p>Given an input vector X (e.g., the values of A and B in an AND gate), the perceptron computes a weighted sum of these inputs using a weight matrix W and then applies a bias term to adjust the threshold for activation:</p>
+<div class="math notranslate nohighlight">
+\[
+Z = Wx + b
+\]</div>
+<p>Z is the weighted sum before applying an activation function.
+This weighted sum determines the perceptron’s output. If Z is greater than a certain threshold (often 0), the perceptron outputs 1 (True); otherwise, it outputs 0 (False).</p>
+<p>Here, we implement a random weight matrix with a fixed bias (<code class="docutils literal notranslate"><span class="pre">b</span></code>=-1):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set a random seed for reproducibility</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+
+<span class="c1"># Remember, the shape of the matrix is determined by its input shape (2 in this case), and its output shape (1 in this case)</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Set the bias</span>
+<span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+<span class="c1"># define a function that calculates the output of the perceptron</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="c1"># calculate the weighted sum</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">w</span> <span class="o">@</span> <span class="n">x</span> <span class="o">+</span> <span class="n">b</span>
+    <span class="c1"># check weather z is above the threshold</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Let&#39;s print the outputs of this random perceptron on the training set:</span>
+<span class="n">predicted_set</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># 2x2 grid for (A, B) inputs</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_combos</span><span class="p">):</span>
+    <span class="n">A</span><span class="p">,</span> <span class="n">B</span> <span class="o">=</span> <span class="n">training_set</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>  <span class="c1"># Extract each (A, B) pair</span>
+    <span class="n">predicted_set</span><span class="p">[</span><span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">training_set</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
+      <span class="c1"># Assign label at corresponding (B, A) position</span>
+
+
+<span class="c1"># Plot the predictions</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Boolean Matrix&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_combos</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">predicted_set</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">ub</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/72ead93dff8fd92e069ad5897ef1a9efaeb70d4f6d34cc8f5928f750f753a8d4.png" src="../../../../../_images/72ead93dff8fd92e069ad5897ef1a9efaeb70d4f6d34cc8f5928f750f753a8d4.png" />
+</div>
+</div>
+<h4 style="background: #256ca2; color: #e9e9e9">🎯  Exercise 1</h4>
+<p>The above implementation does not give the correct answer (it is not a and gate). Can you think about an algorithm that automatically “finds” the right weights?</p>
+<details><summary style="background: #d6c89d; color: #e9e9e9">💡 Hint</summary>
+<p>You can be inspired by the <a class="reference external" href="https://www.google.com/search?sca_esv=053903a76464d342&amp;amp;rlz=1C5GCCM_en&amp;amp;sxsrf=AHTn8zq_1Y3AoSWLlwKQhmfqMA_a_arNDA:1738512836603&amp;amp;q=pogo+sort&amp;amp;udm=7&amp;amp;fbs=ABzOT_CWdhQLP1FcmU5B0fn3xuWp6IcynRBrzjy_vjxR0KoDMs-NPkvpfnC0-Nvsd7HFz32b6_vVeH3Eh5LTn6vYQxgOy79dkH6TeiZNM9aLPSHRcxYTXxi8SKQDYJDO9qd6-gcAKe7AlCX8DiGxWpVr1AWEK_st4_2sOqSvy2q_T0FuN3a9CsFYiJFOmc5QD4AFJJ2g-eL4OU0xkk0cfwD6gzBQ2Mgs0g&amp;amp;sa=X&amp;amp;ved=2ahUKEwiotsCAsaWLAxWcF2IAHdigLm0QtKgLegQIGRAB&amp;amp;biw=1728&amp;amp;bih=870&amp;amp;dpr=2#fpstate=ive&amp;amp;vld=cid:9ee528e0,vid:DaPJkYo2quc,st:0">bogo sort algorithm</a>. It randomly picks permutations, and tests if they are sorted.</p>
+</details>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution</summary>
+<p>A simple (brute force) solution is to randomly initialize the weights until we find fitting ones:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">predicted_set</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">tries</span> <span class="o">=</span> <span class="mi">0</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">w</span> <span class="o">@</span> <span class="n">x</span> <span class="o">+</span> <span class="n">b</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+
+
+<span class="k">while</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">predicted_set</span><span class="p">,</span> <span class="n">labeled_set</span><span class="p">):</span>  <span class="c1"># as long as our predictions doesn&#39;t match the labels</span>
+    <span class="n">tries</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c1"># get new random weights</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_combos</span><span class="p">):</span>
+        <span class="n">A</span><span class="p">,</span> <span class="n">B</span> <span class="o">=</span> <span class="n">training_set</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+        <span class="n">predicted_set</span><span class="p">[</span><span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">training_set</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">w</span><span class="p">)</span>
+        
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found fitting weights after </span><span class="si">{</span><span class="n">tries</span><span class="si">}</span><span class="s2"> tries:&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Boolean Matrix&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_combos</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">predicted_set</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">ub</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</details>
+</section>
+<section id="learning-the-weights">
+<h3>Learning the Weights<a class="headerlink" href="#learning-the-weights" title="Link to this heading">#</a></h3>
+<p>For a simple gate like this, we could choose our weights and bias manually to correctly classify each example. However, we would rather the perceptron learn the weights itself. We can train it using supervised learning by showing it examples of the data with the appropriate labels (a truth table). If the weights were initialized randomly, these will generate a random answer at first, so the perceptron must change its weights when its output does not match the labels we gave it.</p>
+<p>For perceptrons, we use error-based learning, where the weights are adjusted in the correct direction, based on the size and direction of the error. This is given by the Perceptron Learning Rule, and is written mathematically as:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+w_{ij} \rightarrow w_{ij}+ \eta (desired \ label - predicted \ label) in_{i}
+\end{equation}
+\]</div>
+<p>Where <span class="math notranslate nohighlight">\(w_{ij}\)</span> is the weight connecting the <span class="math notranslate nohighlight">\(i-th\)</span> input to the <span class="math notranslate nohighlight">\(j-th\)</span> output, <span class="math notranslate nohighlight">\(in_{i}\)</span> is the <span class="math notranslate nohighlight">\(i{th}\)</span> input, and <span class="math notranslate nohighlight">\( \eta \)</span> is the learning rate. The learning rate is a positive parameter that determines the size of the weight update.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set a random seed for reproducibility</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Initializing the weights with random values.</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mf">.1</span>
+
+<span class="c1"># Set the bias and learning rate</span>
+<span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">eta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">.3</span><span class="p">,</span> <span class="mf">.3</span><span class="p">])</span>
+
+<span class="c1"># Variables to store the accuracy and loop count</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">loop_count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">acc_vec</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">while</span> <span class="n">accuracy</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+    <span class="n">summed_accuracy</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># Calculate the predicted value for each input and learn the weights </span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">training_set</span><span class="p">)[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="c1"># Set the predicted label to 0 if the predicted value is less than or equal to 0 </span>
+        <span class="c1"># and 1 otherwise</span>
+        <span class="k">if</span> <span class="n">w</span> <span class="o">@</span> <span class="n">training_set</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">predicted_label</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">predicted_label</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1"># Check if the predicted label is correct</span>
+        <span class="k">if</span> <span class="n">predicted_label</span> <span class="o">==</span> <span class="n">and_labels</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]:</span>
+            <span class="c1"># Summing the accuracy</span>
+            <span class="n">summed_accuracy</span> <span class="o">=</span> <span class="n">summed_accuracy</span> <span class="o">+</span> <span class="mi">100</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">and_labels</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">predicted_label</span><span class="p">)</span>
+            <span class="c1"># Update the weights if the predicted label is incorrect</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">+</span> <span class="n">eta</span> <span class="o">*</span> <span class="n">diff</span> <span class="o">*</span> <span class="n">training_set</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">accuracy</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">summed_accuracy</span> <span class="o">/</span> <span class="n">n_combos</span><span class="p">)</span>
+    <span class="n">acc_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">acc_vec</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">)</span>
+    <span class="n">loop_count</span> <span class="o">=</span> <span class="n">loop_count</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">lc</span> <span class="o">=</span> <span class="n">loop_count</span>
+
+<span class="c1"># Plot the accuracy over time</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">acc_vec</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Accuracy V. Loop Number&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Loop Number&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">lc</span><span class="p">)))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/c68ee78e3265162740f05e5eccc0afb5475f91dfbd15c82b37aecae13112920a.png" src="../../../../../_images/c68ee78e3265162740f05e5eccc0afb5475f91dfbd15c82b37aecae13112920a.png" />
+</div>
+</div>
+<h4 style="background: #256ca2; color: #e9e9e9">🎯  Exercise 1</h4>
+<p>Implement the OR gate using the perceptron learning rule. The OR gate is a logic gate that answers the question, “is A or B true?”. Remember, OR(X, Y) is true if either X or Y (or both) are true.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Implement your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 1</summary>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can use the same input_set but use different labels</span>
+<span class="n">or_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">or_labels</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_combos</span><span class="p">)</span>
+
+<span class="c1"># Set a random seed for reproducibility</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Initializing the weights with random values.</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mf">.1</span>
+
+
+<span class="c1"># Set the bia and learning rate</span>
+<span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">eta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">.3</span><span class="p">,</span> <span class="mf">.3</span><span class="p">])</span>
+
+<span class="c1"># Variables to store the accuracy and loop count</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">loop_count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">acc_vec</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">while</span> <span class="n">accuracy</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+    <span class="n">summed_accuracy</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># Calculate the predicted value for each input and learn the weights </span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">input_set</span><span class="p">)[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="c1"># Set the predicted label to 0 if the predicted value is less than or equal to 0 </span>
+        <span class="c1"># and 1 otherwise</span>
+        <span class="k">if</span> <span class="n">w</span> <span class="o">@</span> <span class="n">input_set</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">predicted_label</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">predicted_label</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1"># Check if the predicted label is correct</span>
+        <span class="k">if</span> <span class="n">predicted_label</span> <span class="o">==</span> <span class="n">or_labels</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]:</span>
+            <span class="c1"># Summing the accuracy</span>
+            <span class="n">summed_accuracy</span> <span class="o">=</span> <span class="n">summed_accuracy</span> <span class="o">+</span> <span class="mi">100</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">or_labels</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">predicted_label</span><span class="p">)</span>
+            <span class="c1"># Update the weights if the predicted label is incorrect</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">+</span> <span class="n">eta</span> <span class="o">*</span> <span class="n">diff</span> <span class="o">*</span> <span class="n">input_set</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">accuracy</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">summed_accuracy</span> <span class="o">/</span> <span class="n">n_combos</span><span class="p">)</span>
+    <span class="n">acc_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">acc_vec</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">)</span>
+    <span class="n">loop_count</span> <span class="o">=</span> <span class="n">loop_count</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">lc</span> <span class="o">=</span> <span class="n">loop_count</span>
+
+<span class="c1"># Plot the accuracy over time</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">acc_vec</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Accuracy V. Loop Number&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Loop Number&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">lc</span><span class="p">)))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</details>
+<p>This method works well for a single layer of perceptrons. Now, consider multiple layers of perceptrons, each operating linearly, but producing a step function output. When they produce an incorrect result, how do we know which layer is responsible for the mistake and what step size would be useful to correct it?</p>
+<p>Because of their binary output, linearly updating weights of perceptrons in a multilayer network produces unpredictable and problematic results. A natural solution is to replace the step function with a function that more gradually interpolates between 0 and 1. A good choice here is the <a class="reference external" href="https://princetonuniversity.github.io/NEU-PSY-502/content/Primers/notebooks/2%20Logistic%20Function.ipynb">logistic function</a>, which we have encountered in the previous section. It is possible to generalize the Perceptron Learning Rule to this case using calculus; the details are presented in the Appendix at the end of this notebook. We suggest that you skim the Appendix now, and then read it more carefully after you have finished this lab. Once you understand this derivation, you will be in good shape for when we discuss the Backpropagation algorithm in the next lab.</p>
+</section>
+</section>
+<section id="two-layer-network-in-psyneulink">
+<h2>Two Layer Network in PsyNeuLink<a class="headerlink" href="#two-layer-network-in-psyneulink" title="Link to this heading">#</a></h2>
+<p>It is reasonably straightforward to create a two layer logistic network in numpy. However, doing so in PNL is almost trivial. Here, we implement both the AND, and the OR gate in psyneulink. In addition, we also implement the XOR gate. Remember, XOR(X, Y) is true if X or Y is true, but not both.</p>
+<p><em><strong>Note:</strong></em>, a XOR gate is not linearly separable, so a single layer perceptron cannot learn it. However, a two-layer network can learn it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trials</span> <span class="o">=</span> <span class="mi">10_000</span>
+<span class="c1"># To give the network extra flexibility, we include an extra dimension in the input whose value is always equal to 1</span>
+<span class="c1"># this effectively allows the network to learn a bias term</span>
+
+<span class="n">input_set_pnl</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="n">input_length</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">input_set_pnl</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">n_combos_pnl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">input_set_pnl</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Note, PNL is capable of training biases, but to keep this tutorial simple using the method we will be incorporating for the</span>
+<span class="c1"># following exercises, the biases implemented by PNL would not be trained.</span>
+<span class="c1"># To resolve that issue, we implement the bias as an extra input, and train it as we would any other weight.</span>
+
+<span class="n">and_labels_pnl</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">or_labels_pnl</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">xor_labels_pnl</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+
+<span class="c1"># Specify which label set you would like to use.</span>
+<span class="n">labels_pnl</span> <span class="o">=</span> <span class="n">and_labels_pnl</span>  <span class="c1"># Change this to OR_labels_pnl or XOR_labels_pnl to see the network learn the OR or XOR gate</span>
+
+<span class="c1"># Creating a 2 layer net in PNL:</span>
+<span class="c1"># First, we create the input layer. This layer is simply a Transfer Mechanism that brings the examples into the network</span>
+<span class="c1"># We do not have to specify a function (it defaults to linear, slope = 1, intercept = 0), </span>
+<span class="c1"># but we do need to specify the size, which will be the size of our input array.</span>
+<span class="n">in_layer</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">TransferMechanism</span><span class="p">(</span><span class="n">input_shapes</span><span class="o">=</span><span class="n">input_length</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">Linear</span><span class="p">)</span>
+
+<span class="c1"># Next, we specify the output layer. This is where we do our logistic transformation by applying the Logistic function.</span>
+<span class="c1"># The size we specify for this layer is the number of output. In this case, we only have one output.</span>
+<span class="n">out_layer</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">TransferMechanism</span><span class="p">(</span><span class="n">input_shapes</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">Logistic</span><span class="p">)</span>
+
+<span class="c1"># Finally, we create a projection mapping from input to output. We will initialize with random weights.</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">MappingProjection</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;in_to_out&#39;</span><span class="p">,</span>
+                                <span class="n">matrix</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">input_length</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                                <span class="n">sender</span><span class="o">=</span><span class="n">in_layer</span><span class="p">,</span>
+                                <span class="n">receiver</span><span class="o">=</span><span class="n">out_layer</span><span class="p">)</span>
+
+<span class="c1"># The, we will put them together into an Autodiff Composition. These compositions are a faster option</span>
+<span class="c1"># for backpropagation learning that integrate PNL and pytorch.</span>
+<span class="n">logic_two_layer</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">AutodiffComposition</span><span class="p">(</span>
+    <span class="n">learning_rate</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># We will now add our layers and projection map into our composition</span>
+<span class="n">logic_two_layer</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">in_layer</span><span class="p">)</span>
+<span class="n">logic_two_layer</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">out_layer</span><span class="p">)</span>
+
+<span class="c1"># Here, we set the log conditions for the output layer. This will allow us to see the output of the network as it trains.</span>
+<span class="n">out_layer</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">set_log_conditions</span><span class="p">(</span><span class="n">pnl</span><span class="o">.</span><span class="n">VALUE</span><span class="p">)</span>
+
+<span class="c1"># We add the projection to the composition</span>
+<span class="n">logic_two_layer</span><span class="o">.</span><span class="n">add_projection</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="n">in_layer</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span> <span class="n">receiver</span><span class="o">=</span><span class="n">out_layer</span><span class="p">)</span>
+
+<span class="c1"># To learn our desired gates, we train the autodiff composition by giving it an input dictionary and running it</span>
+<span class="n">input_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;inputs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="n">in_layer</span><span class="p">:</span> <span class="n">input_set_pnl</span><span class="p">},</span> <span class="s2">&quot;targets&quot;</span><span class="p">:</span> <span class="p">{</span><span class="n">out_layer</span><span class="p">:</span> <span class="n">labels_pnl</span><span class="p">},</span> <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">}</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">logic_two_layer</span><span class="o">.</span><span class="n">learn</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">input_dict</span><span class="p">)</span>
+
+<span class="c1"># Here, we acquire a log of the losses over time so we can see how our network learned</span>
+<span class="c1">#This portion acquires and plots the losses</span>
+<span class="n">exec_id</span> <span class="o">=</span> <span class="n">logic_two_layer</span><span class="o">.</span><span class="n">default_execution_id</span>
+<span class="n">losses</span> <span class="o">=</span> <span class="n">logic_two_layer</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">torch_losses</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">exec_id</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The last loss was &quot;</span><span class="p">,</span> <span class="n">losses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">losses</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Losses of 2 layer net in PNL as a function of trials&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Epoch Number&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Loss&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1">#This portion acquires and plots the labels</span>
+
+<span class="c1"># The logged values of the output layer that were recorded during the training</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">out_layer</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">nparray</span><span class="p">()[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+
+<span class="c1"># Psyneulink stores the logged values as a list of length 200 (50 epochs x 4 inputs per epoch)</span>
+<span class="c1"># We will reshape this list into an array of shape 50 x 4, so that each column represents one of the training patterns</span>
+<span class="c1"># and each row represents one training epoch</span>
+<span class="n">length</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">data</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">rat</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">length</span> <span class="o">/</span> <span class="n">n_combos_pnl</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">rat</span><span class="p">,</span> <span class="n">n_combos_pnl</span><span class="p">))</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">labs_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">labs_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">labs_3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">labs_4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">labs_1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;first pattern&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">labs_2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;second pattern&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">labs_3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;third pattern&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">labs_4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;fourth pattern&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;labels 1 through 4 versus epoch number&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Epoch Number&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Label Value&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/library/compositions/autodiffcomposition.py:1436: UserWarning: The execution_mode argument was not specified in the learn() method of &#39;autodiff_composition&#39;; ExecutionMode.PyTorch will be used by default.
+  warnings.warn(f&quot;The execution_mode argument was not specified in the learn() method of &#39;{self.name}&#39;; &quot;
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The last loss was  [0.00134469]
+</pre></div>
+</div>
+<img alt="../../../../../_images/adeb72b43511232bc99f6e1c6d53b5dcc2744ccfd40a4ef3bd828e907ffc18cd.png" src="../../../../../_images/adeb72b43511232bc99f6e1c6d53b5dcc2744ccfd40a4ef3bd828e907ffc18cd.png" />
+<img alt="../../../../../_images/be82cc47ff65f24f2b18f4bf55ecb0f847ea78681890da07810cd406f3d5b63e.png" src="../../../../../_images/be82cc47ff65f24f2b18f4bf55ecb0f847ea78681890da07810cd406f3d5b63e.png" />
+</div>
+</div>
+<p>Explore the effectiveness of this 2 layer network by running it at different learning rates, for different numbers of trials, and on different label sets.</p>
+<p>Which sets does it learn effectively? Which sets doesn’t it?</p>
+<h3 style="background: #256ca2; color: #e9e9e9">🎯  Exercise 2</h3>
+<p>Try the running the two layer network on the XOR gate. You will observe that the network is not able to learn the XOR gate. Why do you think this is the case?</p>
+<p>Hint: Consider the following graph that shows the values of the XOR gate for different inputs:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert to numpy arrays, as required for plotting functions</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="c1"># We will plot each point as red if the XOR relation is satisfied, and blue if not </span>
+<span class="n">xor_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">]</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">xor_colors</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;XOR projected into 3-d&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/15516556ba4447d71ed0a3231decff2ce95e661cdf305c51b2c8755a71ad5f05.png" src="../../../../../_images/15516556ba4447d71ed0a3231decff2ce95e661cdf305c51b2c8755a71ad5f05.png" />
+</div>
+</div>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 2</summary>
+<p>The important difference between the XOR compared to AND, and OR is that XOR is not <em>linearly separable</em>, while the other two are. This means that in the graph above, that it is not possible to draw a straight line such that</p>
+<ol class="arabic simple">
+<li><p>Both red points are on the same side of the line</p></li>
+<li><p>Both blue points are on the same side of the line</p></li>
+<li><p>The red points are on the opposite side as the blue points.</p></li>
+</ol>
+<p>In 2 dimensions, this is clearer. Try running the following code to see the XOR gate in 2 dimensions (copy it into a code cell) and create a random line. You can convince yourself that no matter which line is chosen, at least one of the three conditions above will be violated.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#the third dimension is equal to 1 for all four points, so it makes no difference to ignore it</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">x</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">c</span><span class="o">=</span><span class="n">xor_colors</span><span class="p">)</span>
+
+<span class="c1">#randomly generate and plot a line </span>
+<span class="n">y_intercept</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span><span class="n">high</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">x_intercept</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span><span class="n">high</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">slope</span><span class="o">=-</span><span class="n">y_intercept</span><span class="o">/</span><span class="n">x_intercept</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="n">y_intercept</span><span class="p">,</span><span class="n">y_intercept</span><span class="o">+</span><span class="n">slope</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>In contrast, for the AND gate, a line that separates the blue and red dots exists:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">and_colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;red&#39;</span><span class="p">]</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">x</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">c</span><span class="o">=</span><span class="n">and_colors</span><span class="p">)</span>
+
+<span class="n">y_intercept</span><span class="o">=</span><span class="mf">1.5</span>
+<span class="n">x_intercept</span><span class="o">=</span><span class="mf">1.5</span>
+
+<span class="n">slope</span><span class="o">=-</span><span class="n">y_intercept</span><span class="o">/</span><span class="n">x_intercept</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="n">y_intercept</span><span class="p">,</span><span class="n">y_intercept</span><span class="o">+</span><span class="n">slope</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><em><strong>Optional:</strong></em> Convince yourself that the OR gate is also linearly separable by plotting it in 2 dimensions.</p>
+<p>Now, why is linear separability important here? On the one hand, our network is defined so that when it is given an input <span class="math notranslate nohighlight">\(x\)</span>, it produces an output of <span class="math notranslate nohighlight">\(1\)</span> if <span class="math notranslate nohighlight">\(w\cdot x+b&gt;0\)</span> and an output of 0 otherwise. It will be able to learn effectively provided that there exist some <span class="math notranslate nohighlight">\(w\)</span> and <span class="math notranslate nohighlight">\(b\)</span> such that <span class="math notranslate nohighlight">\(w\cdot x+b&gt;0\)</span> whenever <span class="math notranslate nohighlight">\(x\)</span> is red and <span class="math notranslate nohighlight">\(&lt;0\)</span> whenever <span class="math notranslate nohighlight">\(x\)</span> is blue (since we want the output to be positive whenever <span class="math notranslate nohighlight">\(x\)</span> is red and negative when blue).</p>
+<p>On the other hand, consider a line with a y-intercept of <span class="math notranslate nohighlight">\(y_0\)</span> and a slope of <span class="math notranslate nohighlight">\(m\)</span>. Then a point <span class="math notranslate nohighlight">\((a,b)\)</span> lies above this line if <span class="math notranslate nohighlight">\(b&gt;ma+y_0\)</span> and lies below the line otherwise. We can rearrange this condition to read <span class="math notranslate nohighlight">\((-m,1)\cdot (a,b) -y_0&gt;0\)</span> which is the same as the first equation,  provided we take <span class="math notranslate nohighlight">\(w=(-m,1)\)</span>, <span class="math notranslate nohighlight">\(b=-y_0\)</span>, and <span class="math notranslate nohighlight">\(x=(a,b)\)</span>. This means that our original condition <span class="math notranslate nohighlight">\(w\cdot x+b&gt;0\)</span> is equivalent to checking whether <span class="math notranslate nohighlight">\(x\)</span> is above or below some line (with the parameters of the line being determined by <span class="math notranslate nohighlight">\(w\)</span> and <span class="math notranslate nohighlight">\(b\)</span>, and vice versa). So in order for our network to learn effectively, it must be the case that all the red points are above some line, and all the blue points are below that same line, i.e. the points must be linearly separable. Since XOR does not satisfy this condition, our network cannot learn the labeling in this case.</p>
+</details>
+</section>
+<section id="appendix-derivation-of-learning-rule-for-two-layer-network-with-sigmoidal-activation">
+<h2>Appendix: Derivation of Learning Rule for two-layer network with sigmoidal activation<a class="headerlink" href="#appendix-derivation-of-learning-rule-for-two-layer-network-with-sigmoidal-activation" title="Link to this heading">#</a></h2>
+<p>Sigmoid neurons take inputs and produce outputs similar to perceptrons, however, the inputs and outputs are not binary. Additionally, rather than applying a simple dot product to the inputs such that</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+z(w,x) = w \cdot x + b
+\end{equation}
+\]</div>
+<p>these new types of neurons apply the sigmoid function, of the form</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+\sigma(z(w,x))=\frac{1}{1+e^{-z(w,x)}}
+\end{equation}
+\]</div>
+<p>This function is actually the same as a logistic function with a bias value of 0 and a gain value of 1. It has an upper bound at 1 and a lower bound at zero. This can be seen by examining the limits: <span class="math notranslate nohighlight">\(\lim_{z(w,x)\to\infty} \sigma(z(w,x))\)</span> and <span class="math notranslate nohighlight">\(\lim_{z(w,x)\to -\infty} \sigma(z(w,x))\)</span>. Although its equation looks complex, a logistic function can quickly become intuitive when you try modifying the parameters, as shown in <a class="reference external" href="https://princetonuniversity.github.io/NEU-PSY-502/content/Primers/notebooks/2%20Logistic%20Function.ipynb">logistic function</a>.</p>
+<p>In a multilayer network, the output of multiple sigmoid functions in the first non-input layer forms the input to the next layer. However, because of its bounded structure, a sigmoid function only outputs 1 or 0 at the limits (when rounding error kicks in). Typically its output will be somewhere in between. Therefore, there will always be some error between the desired output of a logical function (1 or 0) and the output of a sigmoid. The error of a single output is given by</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+E=desired \ output - \sigma(z(w,x))
+\end{equation}
+\]</div>
+<p>A common measure of error is called the mean squared error, and is given by</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+E =
+\frac{1}{n} \ \sum_{i=1}^{n} (desired \ output_{i} - \sigma(z(w,x))_{i})^2
+\end{equation}
+\]</div>
+<p>Although we cannot drive this value to zero (when our desired output is binary), we can minimize it. Because it is a sum of squares, we can minimize it by minimizing each term. Because each term is a convex function of the weights, it is minimized when its derivative as a function of the weights is zero. We can train our neural net to do this using the delta rule, which is very similar to the perceptron learning rule.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+w^{t+1} = \underbrace{w^t}_\text{current weight} + \underbrace{\Delta w^t}_\text{weight change}
+\end{equation}
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+\Delta w^t = - \alpha \underbrace{\frac{\partial E^t}{\partial w^t}}_\text{change in error terms as a function of the weights}
+\end{equation}
+\]</div>
+<p>As you can see, when the derivative of the error is zero, the weights stop changing. The error is, at this point, minimized.</p>
+<p>In order to calculate the derviative of the error, we simply employ the chain rule. We will aslo be using a modified form of the error. Instead of scaling each term by <span class="math notranslate nohighlight">\(\frac{1}{n}\)</span>, we will scale by <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span></p>
+<p>So, each error term is given by</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+E_{i} =
+\frac{1}{2} (desired \ output_{i} - \sigma(h(x))_{i})^2
+\end{equation} 
+\]</div>
+<p>and its derivative is given by</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+\frac{\partial E_{i}}{\partial w} = \underbrace{\frac{\partial E_{i}}{\partial \sigma(h(w,x))}}_\text{derivative 1} \quad
+\underbrace{\frac{\partial \sigma(h(w,x))}{\partial h(w,x)}}_\text{derivative 2} \quad
+\underbrace{\frac{\partial h(w,x)}{\partial w}}_\text{derivative 3}
+\end{equation}
+\]</div>
+<p>Now, because <span class="math notranslate nohighlight">\(h(w,x)\)</span> is a vector equation, its derivative is also a vector. This produces our vector of weight changes, each term of which is determined by derivative 3</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+\quad
+\underbrace{\frac{\partial h(w,x)}{\partial w_{i}}}_\text{derivative 3}
+\end{equation}  
+\]</div>
+<p>This comes out surprisingly tidily:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+{\frac{\partial E^t}{\partial w_{i}^t}}=(desired \ output - \sigma) (\sigma (1 - \sigma))x_{i}
+\end{equation}
+\]</div>
+<p>Now</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+\Delta w^t_{i} = - \alpha (desired \ output - \sigma) (\sigma (1 - \sigma))x_{i}
+\end{equation}
+\]</div>
+<p>Biases are updated in much the same fashion, using</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}
+\Delta b^t_{i} = - \alpha (desired \ output - \sigma) (\sigma (1 - \sigma))1
+\end{equation}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">and_colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;red&#39;</span><span class="p">]</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">x</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">c</span><span class="o">=</span><span class="n">and_colors</span><span class="p">)</span>
+
+<span class="n">y_intercept</span><span class="o">=</span><span class="mf">1.5</span>
+<span class="n">x_intercept</span><span class="o">=</span><span class="mf">1.5</span>
+
+<span class="n">slope</span><span class="o">=-</span><span class="n">y_intercept</span><span class="o">/</span><span class="n">x_intercept</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="n">y_intercept</span><span class="p">,</span><span class="n">y_intercept</span><span class="o">+</span><span class="n">slope</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f70e5f27350&gt;]
+</pre></div>
+</div>
+<img alt="../../../../../_images/789b79a010616bf54a50331e8cbe35cc0fc57a65c06982fa437039db83bd56cc.png" src="../../../../../_images/789b79a010616bf54a50331e8cbe35cc0fc57a65c06982fa437039db83bd56cc.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "PrincetonUniversity/NEU-PSY-502",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/502B/Computation/Primer/notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2%20Logistic%20Function.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">1.2 Logistic Function</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../Dynamics%20in%20Perception/intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">2 Dynamics in Perception</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#and-gate">AND Gate</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-weights-in-a-perceptron">Using Weights in a Perceptron</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-the-weights">Learning the Weights</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-layer-network-in-psyneulink">Two Layer Network in PsyNeuLink</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix-derivation-of-learning-rule-for-two-layer-network-with-sigmoidal-activation">Appendix: Derivation of Learning Rule for two-layer network with sigmoidal activation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jonathan Cohen, Samuel Nastase, Alexander Ku & Younes Strittmatter
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

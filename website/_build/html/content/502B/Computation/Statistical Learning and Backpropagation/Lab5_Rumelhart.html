@@ -1,0 +1,1612 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lab5: Rumelhart Semantic Network &#8212; NEU-PSY-MOL-502</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/502B/Computation/Statistical Learning and Backpropagation/Lab5_Rumelhart';</script>
+    <link rel="canonical" href="https://princetonuniversity.github.io/NEU-PSY-502/content/502B/Computation/Statistical Learning and Backpropagation/Lab5_Rumelhart.html" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../_static/logo.png" class="logo__image only-light" alt="NEU-PSY-MOL-502 - Home"/>
+    <img src="../../../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="NEU-PSY-MOL-502 - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../intro.html">
+                    NEU/PSY 502
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">502A</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../502A/syllabus.html">Syllabus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../502A/lectures.html">Lectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../502A/Class%201/index.html">1 Introduction and History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../502A/Class%202/index.html">2 Perception and Constraint Satisfaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../502A/Class%203/index.html">3 Associative Learning and Topography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../502A/Class%204/index.html">4 High Level Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../502A/Class%205/index.html">5 Dynamics of Integration and Decision Making</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../502A/Class%206/index.html">6 Optimization of Decision Making</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../502A/Class%207/index.html">7 Reward Systems and Psychodynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../502A/Class%208/index.html">8 Explore/Exploit and Noradrenergic Neuromodulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../502A/Class%209/index.html">9 Statistical Learning, Semantics and Neocortex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../502A/Class%2010/index.html">10 Bayesian Approaches and Bounded Rationality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../502A/Class%2011/index.html">11 Interactive Activation, Statistical Learning, and Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../502A/Class%2012/index.html">12 Language and LLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Syllabus</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B Computation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Primer/intro.html">1 Primer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Primer/notebooks/1%20Scalars%2C%20Vectors%2C%20and%20Matrices.html">1.1 Scalars, Vectors, and Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Primer/notebooks/2%20Logistic%20Function.html">1.2 Logistic Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Primer/notebooks/3%20Perceptron%20and%20XOR.html">1.3 Perceptron and XOR</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Dynamics%20in%20Perception/intro.html">2 Dynamics in Perception</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Dynamics%20in%20Perception/notebooks/1%20Hebbian%20Learning.html">2.1 Hebbian Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dynamics%20in%20Perception/notebooks/2%20Hopfield%20Networks.html">2.2 Hopfield Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dynamics%20in%20Perception/notebooks/3%20Dynamic%20Systems%20and%20Bistable%20Perception.html">2.3 Dynamic Systems and Bistable Perception</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Decision%20Making/intro.html">3 Decision Making</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Decision%20Making/notebooks/1%20Drift%20Diffusion%20Models.html">3.1 Drift Diffusion Models</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Reinforcement%20Learning/intro.html">4 Reinforcement Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Reinforcement%20Learning/notebooks/1%20Reinforcement%20Learning.html">4.1 Reinforcement Learning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="intro.html">5 Statistical Learning and Backpropagation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B Empirical</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Empirical/intro.html">Introduction</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/PrincetonUniversity/NEU-PSY-502/main?urlpath=tree/website/content/502B/Computation/Statistical Learning and Backpropagation/Lab5_Rumelhart.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/PrincetonUniversity/NEU-PSY-502/blob/main/website/content/502B/Computation/Statistical Learning and Backpropagation/Lab5_Rumelhart.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../../../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/PrincetonUniversity/NEU-PSY-502" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/PrincetonUniversity/NEU-PSY-502/issues/new?title=Issue%20on%20page%20%2Fcontent/502B/Computation/Statistical Learning and Backpropagation/Lab5_Rumelhart.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../../_sources/content/502B/Computation/Statistical Learning and Backpropagation/Lab5_Rumelhart.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lab5: Rumelhart Semantic Network</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lab5: Rumelhart Semantic Network</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multilayer-nn-in-pscyhology-semantics">Multilayer NN in Pscyhology: Semantics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rumelhart-s-semantic-network"><a id="m4">Rumelhart’s Semantic Network</a></a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-reverse-engineer-the-semantic-network-model"><a id="e5">Exercise 1: Reverse Engineer the Semantic Network Model</a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-demonstrate-acquisition-of-semantic-structure"><a id="e6">Exercise 2: Demonstrate Acquisition of Semantic Structure</a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-create-a-new-semantic-network"><a id="e7">Exercise 3: Create a New Semantic Network</a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build">BUILD</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lab5-rumelhart-semantic-network">
+<h1>Lab5: Rumelhart Semantic Network<a class="headerlink" href="#lab5-rumelhart-semantic-network" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>psyneulink
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: psyneulink in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (0.15.3.0)
+Requirement already satisfied: beartype&lt;0.20.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (0.19.0)
+Requirement already satisfied: dill&lt;0.3.10 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (0.3.9)
+Requirement already satisfied: fastkde&lt;2.0.2,&gt;=2.0.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (2.0.1)
+Requirement already satisfied: graph-scheduler&lt;1.3.0,&gt;=1.2.1 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (1.2.2)
+Requirement already satisfied: graphviz&lt;0.21.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (0.20.3)
+Requirement already satisfied: grpcio&lt;1.69.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (1.68.1)
+Requirement already satisfied: leabra-psyneulink&lt;0.3.3 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (0.3.2)
+Requirement already satisfied: llvmlite&lt;0.44 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (0.43.0)
+Requirement already satisfied: matplotlib&lt;3.7.6 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (3.7.5)
+Requirement already satisfied: networkx&lt;3.5 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (3.4.2)
+Requirement already satisfied: numpy&lt;1.26.5,&gt;=1.21.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (1.26.4)
+Requirement already satisfied: optuna&lt;4.2.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (4.1.0)
+Requirement already satisfied: packaging&lt;25.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (24.2)
+Requirement already satisfied: pandas&lt;2.2.4 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (2.2.3)
+Requirement already satisfied: pillow&lt;11.1.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (11.0.0)
+Requirement already satisfied: pint&lt;0.22.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (0.21.1)
+Requirement already satisfied: protobuf&lt;3.20.4 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (3.20.2)
+Requirement already satisfied: rich&lt;10.13,&gt;=10.1 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (10.12.0)
+Requirement already satisfied: scipy&lt;1.15,&gt;=1.7.3 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (1.14.1)
+Requirement already satisfied: toposort&lt;1.11 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (1.10)
+Requirement already satisfied: modeci-mdf&lt;0.5,&gt;=0.4.3 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (0.4.11)
+Requirement already satisfied: torch&lt;2.6.0,&gt;=1.10.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from psyneulink) (2.5.1)
+Requirement already satisfied: xarray in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from fastkde&lt;2.0.2,&gt;=2.0.0-&gt;psyneulink) (2025.1.2)
+Requirement already satisfied: bokeh&gt;=0.12.6 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (3.6.3)
+Requirement already satisfied: ipywidgets&gt;=7.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (8.1.5)
+Requirement already satisfied: jupyter in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (1.1.1)
+Requirement already satisfied: contourpy&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from matplotlib&lt;3.7.6-&gt;psyneulink) (1.3.1)
+Requirement already satisfied: cycler&gt;=0.10 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from matplotlib&lt;3.7.6-&gt;psyneulink) (0.12.1)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from matplotlib&lt;3.7.6-&gt;psyneulink) (4.56.0)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from matplotlib&lt;3.7.6-&gt;psyneulink) (1.4.8)
+Requirement already satisfied: pyparsing&gt;=2.3.1 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from matplotlib&lt;3.7.6-&gt;psyneulink) (3.2.1)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from matplotlib&lt;3.7.6-&gt;psyneulink) (2.9.0.post0)
+Requirement already satisfied: h5py in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (3.12.1)
+Requirement already satisfied: onnxruntime in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (1.20.1)
+Requirement already satisfied: onnx in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (1.17.0)
+Requirement already satisfied: skl2onnx in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (1.18.0)
+Requirement already satisfied: attrs&gt;=21.1.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (25.1.0)
+Requirement already satisfied: cattrs in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (24.1.2)
+Requirement already satisfied: modelspec&lt;0.4,&gt;=0.3.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (0.3.5)
+Requirement already satisfied: glom in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (24.11.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: alembic&gt;=1.5.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from optuna&lt;4.2.0-&gt;psyneulink) (1.14.1)
+Requirement already satisfied: colorlog in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from optuna&lt;4.2.0-&gt;psyneulink) (6.9.0)
+Requirement already satisfied: sqlalchemy&gt;=1.4.2 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from optuna&lt;4.2.0-&gt;psyneulink) (2.0.38)
+Requirement already satisfied: tqdm in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from optuna&lt;4.2.0-&gt;psyneulink) (4.67.1)
+Requirement already satisfied: PyYAML in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from optuna&lt;4.2.0-&gt;psyneulink) (6.0.2)
+Requirement already satisfied: pytz&gt;=2020.1 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from pandas&lt;2.2.4-&gt;psyneulink) (2025.1)
+Requirement already satisfied: tzdata&gt;=2022.7 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from pandas&lt;2.2.4-&gt;psyneulink) (2025.1)
+Requirement already satisfied: colorama&lt;0.5.0,&gt;=0.4.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from rich&lt;10.13,&gt;=10.1-&gt;psyneulink) (0.4.6)
+Requirement already satisfied: commonmark&lt;0.10.0,&gt;=0.9.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from rich&lt;10.13,&gt;=10.1-&gt;psyneulink) (0.9.1)
+Requirement already satisfied: pygments&lt;3.0.0,&gt;=2.6.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from rich&lt;10.13,&gt;=10.1-&gt;psyneulink) (2.19.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: filelock in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from torch&lt;2.6.0,&gt;=1.10.0-&gt;psyneulink) (3.17.0)
+Requirement already satisfied: typing-extensions&gt;=4.8.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from torch&lt;2.6.0,&gt;=1.10.0-&gt;psyneulink) (4.12.2)
+Requirement already satisfied: jinja2 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from torch&lt;2.6.0,&gt;=1.10.0-&gt;psyneulink) (3.1.5)
+Requirement already satisfied: fsspec in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from torch&lt;2.6.0,&gt;=1.10.0-&gt;psyneulink) (2025.2.0)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.4.127 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from torch&lt;2.6.0,&gt;=1.10.0-&gt;psyneulink) (12.4.127)
+Requirement already satisfied: nvidia-cuda-runtime-cu12==12.4.127 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from torch&lt;2.6.0,&gt;=1.10.0-&gt;psyneulink) (12.4.127)
+Requirement already satisfied: nvidia-cuda-cupti-cu12==12.4.127 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from torch&lt;2.6.0,&gt;=1.10.0-&gt;psyneulink) (12.4.127)
+Requirement already satisfied: nvidia-cudnn-cu12==9.1.0.70 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from torch&lt;2.6.0,&gt;=1.10.0-&gt;psyneulink) (9.1.0.70)
+Requirement already satisfied: nvidia-cublas-cu12==12.4.5.8 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from torch&lt;2.6.0,&gt;=1.10.0-&gt;psyneulink) (12.4.5.8)
+Requirement already satisfied: nvidia-cufft-cu12==11.2.1.3 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from torch&lt;2.6.0,&gt;=1.10.0-&gt;psyneulink) (11.2.1.3)
+Requirement already satisfied: nvidia-curand-cu12==10.3.5.147 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from torch&lt;2.6.0,&gt;=1.10.0-&gt;psyneulink) (10.3.5.147)
+Requirement already satisfied: nvidia-cusolver-cu12==11.6.1.9 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from torch&lt;2.6.0,&gt;=1.10.0-&gt;psyneulink) (11.6.1.9)
+Requirement already satisfied: nvidia-cusparse-cu12==12.3.1.170 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from torch&lt;2.6.0,&gt;=1.10.0-&gt;psyneulink) (12.3.1.170)
+Requirement already satisfied: nvidia-nccl-cu12==2.21.5 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from torch&lt;2.6.0,&gt;=1.10.0-&gt;psyneulink) (2.21.5)
+Requirement already satisfied: nvidia-nvtx-cu12==12.4.127 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from torch&lt;2.6.0,&gt;=1.10.0-&gt;psyneulink) (12.4.127)
+Requirement already satisfied: nvidia-nvjitlink-cu12==12.4.127 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from torch&lt;2.6.0,&gt;=1.10.0-&gt;psyneulink) (12.4.127)
+Requirement already satisfied: triton==3.1.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from torch&lt;2.6.0,&gt;=1.10.0-&gt;psyneulink) (3.1.0)
+Requirement already satisfied: sympy==1.13.1 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from torch&lt;2.6.0,&gt;=1.10.0-&gt;psyneulink) (1.13.1)
+Requirement already satisfied: mpmath&lt;1.4,&gt;=1.1.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from sympy==1.13.1-&gt;torch&lt;2.6.0,&gt;=1.10.0-&gt;psyneulink) (1.3.0)
+Requirement already satisfied: Mako in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from alembic&gt;=1.5.0-&gt;optuna&lt;4.2.0-&gt;psyneulink) (1.3.9)
+Requirement already satisfied: tornado&gt;=6.2 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from bokeh&gt;=0.12.6-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (6.4.2)
+Requirement already satisfied: xyzservices&gt;=2021.09.1 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from bokeh&gt;=0.12.6-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (2025.1.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: comm&gt;=0.1.3 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from ipywidgets&gt;=7.0-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.2.2)
+Requirement already satisfied: ipython&gt;=6.1.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from ipywidgets&gt;=7.0-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (8.32.0)
+Requirement already satisfied: traitlets&gt;=4.3.1 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from ipywidgets&gt;=7.0-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (5.14.3)
+Requirement already satisfied: widgetsnbextension~=4.0.12 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from ipywidgets&gt;=7.0-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (4.0.13)
+Requirement already satisfied: jupyterlab-widgets~=3.0.12 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from ipywidgets&gt;=7.0-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (3.0.13)
+Requirement already satisfied: MarkupSafe&gt;=2.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jinja2-&gt;torch&lt;2.6.0,&gt;=1.10.0-&gt;psyneulink) (3.0.2)
+Requirement already satisfied: pymongo in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from modelspec&lt;0.4,&gt;=0.3.0-&gt;modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (4.11.1)
+Requirement already satisfied: tabulate in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from modelspec&lt;0.4,&gt;=0.3.0-&gt;modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (0.9.0)
+Requirement already satisfied: docstring-parser in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from modelspec&lt;0.4,&gt;=0.3.0-&gt;modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (0.16)
+Requirement already satisfied: six&gt;=1.5 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib&lt;3.7.6-&gt;psyneulink) (1.17.0)
+Requirement already satisfied: greenlet!=0.4.17 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from sqlalchemy&gt;=1.4.2-&gt;optuna&lt;4.2.0-&gt;psyneulink) (3.1.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: boltons&gt;=19.3.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from glom-&gt;modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (25.0.0)
+Requirement already satisfied: face&gt;=20.1.1 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from glom-&gt;modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (24.0.0)
+Requirement already satisfied: notebook in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (7.3.2)
+Requirement already satisfied: jupyter-console in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (6.6.3)
+Requirement already satisfied: nbconvert in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (7.16.6)
+Requirement already satisfied: ipykernel in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (6.29.5)
+Requirement already satisfied: jupyterlab in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (4.3.5)
+Requirement already satisfied: coloredlogs in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from onnxruntime-&gt;modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (15.0.1)
+Requirement already satisfied: flatbuffers in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from onnxruntime-&gt;modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (25.2.10)
+Requirement already satisfied: scikit-learn&gt;=1.1 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from skl2onnx-&gt;modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (1.6.1)
+Requirement already satisfied: onnxconverter-common&gt;=1.7.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from skl2onnx-&gt;modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (1.14.0)
+Requirement already satisfied: decorator in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets&gt;=7.0-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (5.1.1)
+Requirement already satisfied: jedi&gt;=0.16 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets&gt;=7.0-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.19.2)
+Requirement already satisfied: matplotlib-inline in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets&gt;=7.0-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.1.7)
+Requirement already satisfied: pexpect&gt;4.3 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets&gt;=7.0-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (4.9.0)
+Requirement already satisfied: prompt_toolkit&lt;3.1.0,&gt;=3.0.41 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets&gt;=7.0-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (3.0.50)
+Requirement already satisfied: stack_data in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets&gt;=7.0-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.6.3)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: joblib&gt;=1.2.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from scikit-learn&gt;=1.1-&gt;skl2onnx-&gt;modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (1.4.2)
+Requirement already satisfied: threadpoolctl&gt;=3.1.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from scikit-learn&gt;=1.1-&gt;skl2onnx-&gt;modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (3.5.0)
+Requirement already satisfied: humanfriendly&gt;=9.1 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from coloredlogs-&gt;onnxruntime-&gt;modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (10.0)
+Requirement already satisfied: debugpy&gt;=1.6.5 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from ipykernel-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (1.8.12)
+Requirement already satisfied: jupyter-client&gt;=6.1.12 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from ipykernel-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (8.6.3)
+Requirement already satisfied: jupyter-core!=5.0.*,&gt;=4.12 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from ipykernel-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (5.7.2)
+Requirement already satisfied: nest-asyncio in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from ipykernel-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (1.6.0)
+Requirement already satisfied: psutil in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from ipykernel-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (6.1.1)
+Requirement already satisfied: pyzmq&gt;=24 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from ipykernel-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (26.2.1)
+Requirement already satisfied: async-lru&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (2.0.4)
+Requirement already satisfied: httpx&gt;=0.25.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.28.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: jupyter-lsp&gt;=2.0.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (2.2.5)
+Requirement already satisfied: jupyter-server&lt;3,&gt;=2.4.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (2.15.0)
+Requirement already satisfied: jupyterlab-server&lt;3,&gt;=2.27.1 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (2.27.3)
+Requirement already satisfied: notebook-shim&gt;=0.2 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.2.4)
+Requirement already satisfied: setuptools&gt;=40.8.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (65.5.0)
+Requirement already satisfied: beautifulsoup4 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from nbconvert-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (4.13.3)
+Requirement already satisfied: bleach!=5.0.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from bleach[css]!=5.0.0-&gt;nbconvert-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (6.2.0)
+Requirement already satisfied: defusedxml in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from nbconvert-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.7.1)
+Requirement already satisfied: jupyterlab-pygments in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from nbconvert-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.3.0)
+Requirement already satisfied: mistune&lt;4,&gt;=2.0.3 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from nbconvert-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (3.1.1)
+Requirement already satisfied: nbclient&gt;=0.5.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from nbconvert-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.10.2)
+Requirement already satisfied: nbformat&gt;=5.7 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from nbconvert-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (5.10.4)
+Requirement already satisfied: pandocfilters&gt;=1.4.1 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from nbconvert-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (1.5.1)
+Requirement already satisfied: dnspython&lt;3.0.0,&gt;=1.16.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from pymongo-&gt;modelspec&lt;0.4,&gt;=0.3.0-&gt;modeci-mdf&lt;0.5,&gt;=0.4.3-&gt;psyneulink) (2.7.0)
+Requirement already satisfied: webencodings in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from bleach!=5.0.0-&gt;bleach[css]!=5.0.0-&gt;nbconvert-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.5.1)
+Requirement already satisfied: tinycss2&lt;1.5,&gt;=1.1.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from bleach[css]!=5.0.0-&gt;nbconvert-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (1.4.0)
+Requirement already satisfied: anyio in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from httpx&gt;=0.25.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (4.8.0)
+Requirement already satisfied: certifi in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from httpx&gt;=0.25.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (2025.1.31)
+Requirement already satisfied: httpcore==1.* in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from httpx&gt;=0.25.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (1.0.7)
+Requirement already satisfied: idna in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from httpx&gt;=0.25.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (3.10)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: h11&lt;0.15,&gt;=0.13 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from httpcore==1.*-&gt;httpx&gt;=0.25.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.14.0)
+Requirement already satisfied: parso&lt;0.9.0,&gt;=0.8.4 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jedi&gt;=0.16-&gt;ipython&gt;=6.1.0-&gt;ipywidgets&gt;=7.0-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.8.4)
+Requirement already satisfied: platformdirs&gt;=2.5 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyter-core!=5.0.*,&gt;=4.12-&gt;ipykernel-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (4.3.6)
+Requirement already satisfied: argon2-cffi&gt;=21.1 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (23.1.0)
+Requirement already satisfied: jupyter-events&gt;=0.11.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.12.0)
+Requirement already satisfied: jupyter-server-terminals&gt;=0.4.4 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.5.3)
+Requirement already satisfied: overrides&gt;=5.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (7.7.0)
+Requirement already satisfied: prometheus-client&gt;=0.9 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.21.1)
+Requirement already satisfied: send2trash&gt;=1.8.2 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (1.8.3)
+Requirement already satisfied: terminado&gt;=0.8.3 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.18.1)
+Requirement already satisfied: websocket-client&gt;=1.7 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (1.8.0)
+Requirement already satisfied: babel&gt;=2.10 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyterlab-server&lt;3,&gt;=2.27.1-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (2.17.0)
+Requirement already satisfied: json5&gt;=0.9.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyterlab-server&lt;3,&gt;=2.27.1-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.10.0)
+Requirement already satisfied: jsonschema&gt;=4.18.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyterlab-server&lt;3,&gt;=2.27.1-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (4.23.0)
+Requirement already satisfied: requests&gt;=2.31 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyterlab-server&lt;3,&gt;=2.27.1-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (2.32.3)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: fastjsonschema&gt;=2.15 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from nbformat&gt;=5.7-&gt;nbconvert-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (2.21.1)
+Requirement already satisfied: ptyprocess&gt;=0.5 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from pexpect&gt;4.3-&gt;ipython&gt;=6.1.0-&gt;ipywidgets&gt;=7.0-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.7.0)
+Requirement already satisfied: wcwidth in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from prompt_toolkit&lt;3.1.0,&gt;=3.0.41-&gt;ipython&gt;=6.1.0-&gt;ipywidgets&gt;=7.0-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.2.13)
+Requirement already satisfied: soupsieve&gt;1.2 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from beautifulsoup4-&gt;nbconvert-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (2.6)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: executing&gt;=1.2.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from stack_data-&gt;ipython&gt;=6.1.0-&gt;ipywidgets&gt;=7.0-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (2.2.0)
+Requirement already satisfied: asttokens&gt;=2.1.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from stack_data-&gt;ipython&gt;=6.1.0-&gt;ipywidgets&gt;=7.0-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (3.0.0)
+Requirement already satisfied: pure-eval in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from stack_data-&gt;ipython&gt;=6.1.0-&gt;ipywidgets&gt;=7.0-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.2.3)
+Requirement already satisfied: sniffio&gt;=1.1 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from anyio-&gt;httpx&gt;=0.25.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (1.3.1)
+Requirement already satisfied: argon2-cffi-bindings in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from argon2-cffi&gt;=21.1-&gt;jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (21.2.0)
+Requirement already satisfied: jsonschema-specifications&gt;=2023.03.6 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jsonschema&gt;=4.18.0-&gt;jupyterlab-server&lt;3,&gt;=2.27.1-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (2024.10.1)
+Requirement already satisfied: referencing&gt;=0.28.4 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jsonschema&gt;=4.18.0-&gt;jupyterlab-server&lt;3,&gt;=2.27.1-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.36.2)
+Requirement already satisfied: rpds-py&gt;=0.7.1 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jsonschema&gt;=4.18.0-&gt;jupyterlab-server&lt;3,&gt;=2.27.1-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.22.3)
+Requirement already satisfied: python-json-logger&gt;=2.0.4 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyter-events&gt;=0.11.0-&gt;jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (3.2.1)
+Requirement already satisfied: rfc3339-validator in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyter-events&gt;=0.11.0-&gt;jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.1.4)
+Requirement already satisfied: rfc3986-validator&gt;=0.1.1 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jupyter-events&gt;=0.11.0-&gt;jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (0.1.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: charset-normalizer&lt;4,&gt;=2 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from requests&gt;=2.31-&gt;jupyterlab-server&lt;3,&gt;=2.27.1-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (3.4.1)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from requests&gt;=2.31-&gt;jupyterlab-server&lt;3,&gt;=2.27.1-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (2.3.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: fqdn in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jsonschema[format-nongpl]&gt;=4.18.0-&gt;jupyter-events&gt;=0.11.0-&gt;jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (1.5.1)
+Requirement already satisfied: isoduration in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jsonschema[format-nongpl]&gt;=4.18.0-&gt;jupyter-events&gt;=0.11.0-&gt;jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (20.11.0)
+Requirement already satisfied: jsonpointer&gt;1.13 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jsonschema[format-nongpl]&gt;=4.18.0-&gt;jupyter-events&gt;=0.11.0-&gt;jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (3.0.0)
+Requirement already satisfied: uri-template in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jsonschema[format-nongpl]&gt;=4.18.0-&gt;jupyter-events&gt;=0.11.0-&gt;jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (1.3.0)
+Requirement already satisfied: webcolors&gt;=24.6.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from jsonschema[format-nongpl]&gt;=4.18.0-&gt;jupyter-events&gt;=0.11.0-&gt;jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (24.11.1)
+Requirement already satisfied: cffi&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from argon2-cffi-bindings-&gt;argon2-cffi&gt;=21.1-&gt;jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (1.17.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pycparser in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from cffi&gt;=1.0.1-&gt;argon2-cffi-bindings-&gt;argon2-cffi&gt;=21.1-&gt;jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (2.22)
+Requirement already satisfied: arrow&gt;=0.15.0 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from isoduration-&gt;jsonschema[format-nongpl]&gt;=4.18.0-&gt;jupyter-events&gt;=0.11.0-&gt;jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (1.3.0)
+Requirement already satisfied: types-python-dateutil&gt;=2.8.10 in /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages (from arrow&gt;=0.15.0-&gt;isoduration-&gt;jsonschema[format-nongpl]&gt;=4.18.0-&gt;jupyter-events&gt;=0.11.0-&gt;jupyter-server&lt;3,&gt;=2.4.0-&gt;jupyterlab-&gt;jupyter-&gt;leabra-psyneulink&lt;0.3.3-&gt;psyneulink) (2.9.0.20241206)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">la</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.axes</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ax</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpl_toolkits</span><span class="w"> </span><span class="kn">import</span> <span class="n">mplot3d</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">psyneulink</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pnl</span>
+
+<span class="c1"># This couple of lines sets our color palette</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sb</span>
+<span class="n">sb</span><span class="o">.</span><span class="n">palplot</span><span class="p">(</span><span class="n">sb</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s2">&quot;RdBu_r&quot;</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">sb</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;RdBu_r&quot;</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">sb</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Imports Successful&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This will be our color palette&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">10</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">import</span><span class="w"> </span><span class="nn">psyneulink</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pnl</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="c1"># This couple of lines sets our color palette</span>
+<span class="ne">---&gt; </span><span class="mi">10</span> <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sb</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">sb</span><span class="o">.</span><span class="n">palplot</span><span class="p">(</span><span class="n">sb</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s2">&quot;RdBu_r&quot;</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">sb</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;RdBu_r&quot;</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;seaborn&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="multilayer-nn-in-pscyhology-semantics">
+<h2>Multilayer NN in Pscyhology: Semantics<a class="headerlink" href="#multilayer-nn-in-pscyhology-semantics" title="Link to this heading">#</a></h2>
+<p>Our minds are full of associations, presumably implemented as connection strengths between concepts.  But associations can have a wide variety of structure – they are not merely symmetric (e.g. “dog” and “mail carrier” are associated but have an asymmetric relationship – the mail carrier is less likely to bite the dog than vice a versa).   Semantic networks are graphs used to model the relationships between concepts in the mind, and are a commonly used representation of knowledge. They are depicted as graphs, whose vertices are concepts and whose edges represent connections between concepts. A concept that is a noun is connected to its characteristics, but also to categories that it is a member of. Nouns that share a category (e.g. birds and dogs are both animals) both have a connection to that category, and share a higher-order connection between that category and a category to which it belongs (e.g. animals belong to the category living things).</p>
+<p>In this way, semantic nets can contain a deductive logical heirarchy. One of the key features arising from this heirarchy is the “inheritance” property, which states that a concept belonging to a subcategory will inherit the properties of that subcategory and, by extension, any category to which the subcategory belongs.</p>
+<p>To clarify, consider hearing the phrase “Blue-Footed Booby” for the first time. Initially, it contains very little information. If you are then told that it is the name of a bird, you’ll know that it must necessarily have feathers, a beak, feet, and eyes. You will also know that it is a living thing, and therefore grows and is comprised of cells. This is the inheritance property at work.</p>
+<img src="https://drive.google.com/uc?id=1gmcwDlxGRogRKFoG_Xhy5K2moTzHXfVh">  
+<p>Dave Rumelhart used neural networks to model semantic networks, recreating structured knowledge representations using hidden layers and backprop learning.</p>
+<p>In order to represent the semantic net computationally, Rumelhart came up with a particularly clever structure of a multi-layer network, with two input layers, two hidden layers, and four output layers.</p>
+<img src="https://drive.google.com/uc?id=1tbB4TGeT9JWFG-BOpfNXk8q5u-aD0cQ3">  
+<p>When training networks of this structure, it was found that the represenational nodes, when adequately trained, came to represent distinguishing features of their inputs. They were internal representations of the concepts similar to those created in the human mind.</p>
+<p>Let us explore his idea by building it ourselves.</p>
+</section>
+<section id="rumelhart-s-semantic-network">
+<h2><a id='m4'>Rumelhart’s Semantic Network</a><a class="headerlink" href="#rumelhart-s-semantic-network" title="Link to this heading">#</a></h2>
+<p>The first thing we will do is create a data set with examples and labels that we can train the net on. We’ll be using a similar data set to the one in Rumelhart’s original paper on the semantic net (Rumelhart, Hinton, &amp; Williams, 1986).</p>
+<p>The “nouns” inputs are provided to you in a list, as are the “relations”. The relations consist of “I”, which is simply the list of nouns, “is” which is a list of larget categories to which the noun can belong, “has”, which are potential physical attributes, and “can”, which are abilities each noun possesses.</p>
+<p>The network takes as input a pair of nouns and relations, which form a priming statement, such as “daisy is a”, and should produce a response from the network that includes both a list of what a daisy is, and lists of what a daisy has and can do, as well as the actual term “daisy”. This response mimics the brain’s priming response, by creating activation for concepts related to the one explicitly stated.</p>
+<p>This is a slighly simplified model of Rumelhart’s network, which learned associations through internal structure only, not through explicit updating for every output.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Stimuli and Relations</span>
+<span class="c1"># [Use for Homework 1a.]</span>
+
+<span class="n">nouns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;oak&#39;</span><span class="p">,</span> <span class="s1">&#39;pine&#39;</span><span class="p">,</span> <span class="s1">&#39;rose&#39;</span><span class="p">,</span> <span class="s1">&#39;daisy&#39;</span><span class="p">,</span> <span class="s1">&#39;canary&#39;</span><span class="p">,</span> <span class="s1">&#39;robin&#39;</span><span class="p">,</span> <span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;sunfish&#39;</span><span class="p">]</span>
+<span class="n">relations</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="s1">&#39;has&#39;</span><span class="p">,</span> <span class="s1">&#39;can&#39;</span><span class="p">]</span>
+<span class="n">is_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;living&#39;</span><span class="p">,</span> <span class="s1">&#39;living thing&#39;</span><span class="p">,</span> <span class="s1">&#39;plant&#39;</span><span class="p">,</span> <span class="s1">&#39;animal&#39;</span><span class="p">,</span> <span class="s1">&#39;tree&#39;</span><span class="p">,</span> <span class="s1">&#39;flower&#39;</span><span class="p">,</span> <span class="s1">&#39;bird&#39;</span><span class="p">,</span> <span class="s1">&#39;fish&#39;</span><span class="p">,</span> <span class="s1">&#39;big&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;yellow&#39;</span><span class="p">]</span>
+<span class="n">has_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;roots&#39;</span><span class="p">,</span> <span class="s1">&#39;leaves&#39;</span><span class="p">,</span> <span class="s1">&#39;bark&#39;</span><span class="p">,</span> <span class="s1">&#39;branches&#39;</span><span class="p">,</span> <span class="s1">&#39;skin&#39;</span><span class="p">,</span> <span class="s1">&#39;feathers&#39;</span><span class="p">,</span> <span class="s1">&#39;wings&#39;</span><span class="p">,</span> <span class="s1">&#39;gills&#39;</span><span class="p">,</span> <span class="s1">&#39;scales&#39;</span><span class="p">]</span>
+<span class="n">can_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;grow&#39;</span><span class="p">,</span> <span class="s1">&#39;move&#39;</span><span class="p">,</span> <span class="s1">&#39;swim&#39;</span><span class="p">,</span> <span class="s1">&#39;fly&#39;</span><span class="p">,</span> <span class="s1">&#39;breathe&#39;</span><span class="p">,</span> <span class="s1">&#39;breathe underwater&#39;</span><span class="p">,</span> <span class="s1">&#39;breathe air&#39;</span><span class="p">,</span> <span class="s1">&#39;walk&#39;</span><span class="p">,</span> <span class="s1">&#39;photosynthesize&#39;</span><span class="p">]</span>
+<span class="n">descriptors</span> <span class="o">=</span> <span class="p">[</span><span class="n">nouns</span><span class="p">,</span> <span class="n">is_list</span><span class="p">,</span> <span class="n">has_list</span><span class="p">,</span> <span class="n">can_list</span><span class="p">]</span>
+
+<span class="n">truth_nouns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nouns</span><span class="p">))</span>
+
+<span class="n">truth_is</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">nouns</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">is_list</span><span class="p">)))</span>
+
+<span class="n">truth_is</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">truth_is</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">truth_is</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">truth_is</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">truth_is</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">truth_is</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">truth_is</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">truth_is</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="n">truth_has</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">nouns</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">has_list</span><span class="p">)))</span>
+
+<span class="n">truth_has</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">truth_has</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">truth_has</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">truth_has</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">truth_has</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">truth_has</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">truth_has</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">truth_has</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="n">truth_can</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">nouns</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">can_list</span><span class="p">)))</span>
+
+<span class="n">truth_can</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">truth_can</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">truth_can</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">truth_can</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">truth_can</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">truth_can</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">truth_can</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">truth_can</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="n">truths</span> <span class="o">=</span> <span class="p">[[</span><span class="n">truth_nouns</span><span class="p">],</span> <span class="p">[</span><span class="n">truth_is</span><span class="p">],</span> <span class="p">[</span><span class="n">truth_has</span><span class="p">],</span> <span class="p">[</span><span class="n">truth_can</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">gen_input_vals</span><span class="p">(</span><span class="n">nouns</span><span class="p">,</span> <span class="n">relations</span><span class="p">):</span>
+
+    <span class="n">rumel_nouns_bias</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nouns</span><span class="p">)),</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">nouns</span><span class="p">)))))</span>
+    <span class="n">rumel_nouns_bias</span><span class="o">=</span><span class="n">rumel_nouns_bias</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="n">rumel_rels_bias</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">relations</span><span class="p">)),</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">relations</span><span class="p">)))))</span>
+    <span class="n">rumel_rels_bias</span><span class="o">=</span><span class="n">rumel_rels_bias</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">rumel_nouns_bias</span><span class="p">,</span> <span class="n">rumel_rels_bias</span><span class="p">)</span>
+
+<span class="n">nouns_onehot</span><span class="p">,</span> <span class="n">rels_onehot</span> <span class="o">=</span> <span class="n">gen_input_vals</span><span class="p">(</span><span class="n">nouns</span><span class="p">,</span> <span class="n">relations</span><span class="p">)</span>
+
+<span class="n">r_nouns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">nouns_onehot</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">c_nouns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">nouns_onehot</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">r_rels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">rels_onehot</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">c_rels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">rels_onehot</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build Transfer Mechanisms</span>
+
+<span class="c1">#In order to build in biases, we add an extra node to every layer, including the inputs</span>
+
+<span class="c1">#For the input layers, we will use linear transfer mechanisms</span>
+
+<span class="n">n_units</span><span class="o">=</span><span class="mi">16</span><span class="p">;</span>
+
+<span class="c1">#This number of hidden units is taken directly from Rumelhart&#39;s paper</span>
+
+<span class="n">nouns_in</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">TransferMechanism</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;nouns_in&quot;</span><span class="p">,</span> 
+                                 <span class="n">default_variable</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">c_nouns</span><span class="p">)</span>
+                                <span class="p">)</span>
+
+<span class="n">rels_in</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">TransferMechanism</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;rels_in&quot;</span><span class="p">,</span> 
+                                <span class="n">default_variable</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">c_rels</span><span class="p">)</span>
+                               <span class="p">)</span>
+
+<span class="c1">#For the hidden layers, we will be using logistic functions</span>
+
+<span class="n">hn</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">TransferMechanism</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;hidden_nouns&quot;</span><span class="p">,</span>
+                           <span class="n">size</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+                           <span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">Logistic</span><span class="p">()</span>
+                            <span class="p">)</span>
+
+<span class="n">hm</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">TransferMechanism</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;hidden_mixed&quot;</span><span class="p">,</span>
+                           <span class="n">size</span><span class="o">=</span><span class="n">n_units</span><span class="p">,</span>
+                           <span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">Logistic</span><span class="p">()</span>
+                            <span class="p">)</span>
+
+<span class="n">out_sig_I</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">TransferMechanism</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;sig_outs_I&quot;</span><span class="p">,</span>
+                                  <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">nouns</span><span class="p">),</span>
+                                  <span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">Logistic</span><span class="p">()</span>
+                                    <span class="p">)</span>
+
+<span class="n">out_sig_is</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">TransferMechanism</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;sig_outs_is&quot;</span><span class="p">,</span>
+                                   <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">is_list</span><span class="p">),</span>
+                                   <span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">Logistic</span><span class="p">()</span>
+                                    <span class="p">)</span>
+
+<span class="n">out_sig_has</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">TransferMechanism</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;sig_outs_has&quot;</span><span class="p">,</span>
+                                    <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">has_list</span><span class="p">),</span>
+                                    <span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">Logistic</span><span class="p">()</span>
+                                    <span class="p">)</span>
+
+<span class="n">out_sig_can</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">TransferMechanism</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;sig_outs_can&quot;</span><span class="p">,</span>
+                                    <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">can_list</span><span class="p">),</span>
+                                    <span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">Logistic</span><span class="p">()</span>
+                                    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ComponentError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">21</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="n">rels_in</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">TransferMechanism</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;rels_in&quot;</span><span class="p">,</span> 
+<span class="g g-Whitespace">     </span><span class="mi">16</span>                                 <span class="n">default_variable</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">c_rels</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>                                <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="c1">#For the hidden layers, we will be using logistic functions</span>
+<span class="ne">---&gt; </span><span class="mi">21</span> <span class="n">hn</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">TransferMechanism</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;hidden_nouns&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span>                            <span class="n">size</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>                            <span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">Logistic</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span>                             <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="n">hm</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">TransferMechanism</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;hidden_mixed&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span>                            <span class="n">size</span><span class="o">=</span><span class="n">n_units</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span>                            <span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">Logistic</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span>                             <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span> <span class="n">out_sig_I</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">TransferMechanism</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;sig_outs_I&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span>                                   <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">nouns</span><span class="p">),</span>
+<span class="g g-Whitespace">     </span><span class="mi">33</span>                                   <span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">Logistic</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">34</span>                                     <span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/core/globals/parameters.py:506,</span> in <span class="ni">check_user_specified.&lt;locals&gt;.check_user_specified_wrapper</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">503</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_prev_constructor</span> <span class="o">=</span> <span class="n">constructor</span>
+<span class="g g-Whitespace">    </span><span class="mi">505</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+<span class="ne">--&gt; </span><span class="mi">506</span> <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">orig_kwargs</span><span class="p">)</span>
+
+<span class="nn">File &lt;@beartype(psyneulink.core.components.mechanisms.processing.transfermechanism.TransferMechanism.__init__) at 0x7f87eac18180&gt;:176,</span> in <span class="ni">__init__</span><span class="nt">(__beartype_object_140221736303920, __beartype_get_violation, __beartype_conf, __beartype_object_140225044567360, __beartype_object_140225342434112, __beartype_object_140225988012200, __beartype_object_140221736414320, __beartype_object_140225988012312, __beartype_object_140221735217904, __beartype_object_140221735217456, __beartype_object_140221735217968, __beartype_object_140221736155200, __beartype_object_140223804463936, __beartype_object_140225044460240, __beartype_object_140225044570800, __beartype_object_140225044570864, __beartype_object_140225044460320, __beartype_object_140225044570928, __beartype_object_140225044460400, __beartype_args_name_keywordable, __beartype_check_meta, __beartype_func, *args, **kwargs)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/core/components/mechanisms/processing/transfermechanism.py:1321,</span> in <span class="ni">TransferMechanism.__init__</span><span class="nt">(self, default_variable, input_shapes, input_ports, function, noise, clip, integrator_mode, integrator_function, initial_value, integration_rate, on_resume_integrator_mode, termination_measure, termination_threshold, termination_comparison_op, output_ports, params, name, prefs, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1317</span> <span class="n">initial_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_arg_initial_value</span><span class="p">(</span><span class="n">initial_value</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1319</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_variable_index</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="ne">-&gt; </span><span class="mi">1321</span> <span class="nb">super</span><span class="p">(</span><span class="n">TransferMechanism</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1322</span>     <span class="n">default_variable</span><span class="o">=</span><span class="n">default_variable</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1323</span>     <span class="n">input_shapes</span><span class="o">=</span><span class="n">input_shapes</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1324</span>     <span class="n">input_ports</span><span class="o">=</span><span class="n">input_ports</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1325</span>     <span class="n">output_ports</span><span class="o">=</span><span class="n">output_ports</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1326</span>     <span class="n">initial_value</span><span class="o">=</span><span class="n">initial_value</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1327</span>     <span class="n">noise</span><span class="o">=</span><span class="n">noise</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1328</span>     <span class="n">integration_rate</span><span class="o">=</span><span class="n">integration_rate</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1329</span>     <span class="n">integrator_mode</span><span class="o">=</span><span class="n">integrator_mode</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1330</span>     <span class="n">clip</span><span class="o">=</span><span class="n">clip</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1331</span>     <span class="n">termination_measure</span><span class="o">=</span><span class="n">termination_measure</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1332</span>     <span class="n">termination_threshold</span><span class="o">=</span><span class="n">termination_threshold</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1333</span>     <span class="n">termination_comparison_op</span><span class="o">=</span><span class="n">termination_comparison_op</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1334</span>     <span class="n">integrator_function</span><span class="o">=</span><span class="n">integrator_function</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1335</span>     <span class="n">on_resume_integrator_mode</span><span class="o">=</span><span class="n">on_resume_integrator_mode</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1336</span>     <span class="n">function</span><span class="o">=</span><span class="n">function</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1337</span>     <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1338</span>     <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1339</span>     <span class="n">prefs</span><span class="o">=</span><span class="n">prefs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1340</span>     <span class="o">**</span><span class="n">kwargs</span>
+<span class="g g-Whitespace">   </span><span class="mi">1341</span> <span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/core/globals/parameters.py:506,</span> in <span class="ni">check_user_specified.&lt;locals&gt;.check_user_specified_wrapper</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">503</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_prev_constructor</span> <span class="o">=</span> <span class="n">constructor</span>
+<span class="g g-Whitespace">    </span><span class="mi">505</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+<span class="ne">--&gt; </span><span class="mi">506</span> <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">orig_kwargs</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/core/components/mechanisms/processing/processingmechanism.py:293,</span> in <span class="ni">ProcessingMechanism_Base.__init__</span><span class="nt">(self, default_variable, input_shapes, input_ports, function, output_ports, params, name, prefs, context, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">270</span> <span class="nd">@check_user_specified</span>
+<span class="g g-Whitespace">    </span><span class="mi">271</span> <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">272</span>              <span class="n">default_variable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">281</span>              <span class="o">**</span><span class="n">kwargs</span>
+<span class="g g-Whitespace">    </span><span class="mi">282</span>              <span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">283</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Abstract class for processing mechanisms</span>
+<span class="g g-Whitespace">    </span><span class="mi">284</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">285</span><span class="sd">     :param variable: (value)</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">    </span><span class="mi">290</span><span class="sd">     :param context: (str)</span>
+<span class="g g-Whitespace">    </span><span class="mi">291</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">293</span>     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">default_variable</span><span class="o">=</span><span class="n">default_variable</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">294</span>                      <span class="n">input_shapes</span><span class="o">=</span><span class="n">input_shapes</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">295</span>                      <span class="n">input_ports</span><span class="o">=</span><span class="n">input_ports</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">296</span>                      <span class="n">function</span><span class="o">=</span><span class="n">function</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">297</span>                      <span class="n">output_ports</span><span class="o">=</span><span class="n">output_ports</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">298</span>                      <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">299</span>                      <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">300</span>                      <span class="n">prefs</span><span class="o">=</span><span class="n">prefs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">301</span>                      <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">302</span>                      <span class="o">**</span><span class="n">kwargs</span>
+<span class="g g-Whitespace">    </span><span class="mi">303</span>                      <span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/core/globals/parameters.py:506,</span> in <span class="ni">check_user_specified.&lt;locals&gt;.check_user_specified_wrapper</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">503</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_prev_constructor</span> <span class="o">=</span> <span class="n">constructor</span>
+<span class="g g-Whitespace">    </span><span class="mi">505</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+<span class="ne">--&gt; </span><span class="mi">506</span> <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">orig_kwargs</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/core/components/mechanisms/mechanism.py:1762,</span> in <span class="ni">Mechanism_Base.__init__</span><span class="nt">(self, default_variable, input_shapes, input_ports, input_labels, function, output_ports, output_labels, params, name, prefs, context, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1756</span> <span class="kn">from</span><span class="w"> </span><span class="nn">psyneulink.core.components.ports.outputport</span><span class="w"> </span><span class="kn">import</span> <span class="n">OutputPort</span>
+<span class="g g-Whitespace">   </span><span class="mi">1757</span> <span class="n">register_category</span><span class="p">(</span><span class="n">entry</span><span class="o">=</span><span class="n">OutputPort</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1758</span>                   <span class="n">base_class</span><span class="o">=</span><span class="n">Port_Base</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1759</span>                   <span class="n">registry</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_portRegistry</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1760</span>                   <span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1762</span> <span class="nb">super</span><span class="p">(</span><span class="n">Mechanism_Base</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1763</span>     <span class="n">default_variable</span><span class="o">=</span><span class="n">default_variable</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1764</span>     <span class="n">input_shapes</span><span class="o">=</span><span class="n">input_shapes</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1765</span>     <span class="n">function</span><span class="o">=</span><span class="n">function</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1766</span>     <span class="n">param_defaults</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1767</span>     <span class="n">prefs</span><span class="o">=</span><span class="n">prefs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1768</span>     <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1769</span>     <span class="n">input_ports</span><span class="o">=</span><span class="n">input_ports</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1770</span>     <span class="n">output_ports</span><span class="o">=</span><span class="n">output_ports</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1771</span>     <span class="n">input_labels_dict</span><span class="o">=</span><span class="n">input_labels</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1772</span>     <span class="n">output_labels_dict</span><span class="o">=</span><span class="n">output_labels</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1773</span>     <span class="o">**</span><span class="n">kwargs</span>
+<span class="g g-Whitespace">   </span><span class="mi">1774</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1776</span> <span class="c1"># FIX: 10/3/17 - IS THIS CORRECT?  SHOULD IT BE INITIALIZED??</span>
+<span class="g g-Whitespace">   </span><span class="mi">1777</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">INITIALIZING</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/core/globals/parameters.py:506,</span> in <span class="ni">check_user_specified.&lt;locals&gt;.check_user_specified_wrapper</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">503</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_prev_constructor</span> <span class="o">=</span> <span class="n">constructor</span>
+<span class="g g-Whitespace">    </span><span class="mi">505</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+<span class="ne">--&gt; </span><span class="mi">506</span> <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">orig_kwargs</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/core/components/shellclasses.py:82,</span> in <span class="ni">Mechanism.__init__</span><span class="nt">(self, default_variable, input_shapes, function, param_defaults, name, prefs, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">73</span> <span class="nd">@check_user_specified</span>
+<span class="g g-Whitespace">     </span><span class="mi">74</span> <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">75</span>              <span class="n">default_variable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">80</span>              <span class="n">prefs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">81</span>              <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">82</span>     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">default_variable</span><span class="o">=</span><span class="n">default_variable</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">83</span>                      <span class="n">input_shapes</span><span class="o">=</span><span class="n">input_shapes</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">84</span>                      <span class="n">function</span><span class="o">=</span><span class="n">function</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">85</span>                      <span class="n">param_defaults</span><span class="o">=</span><span class="n">param_defaults</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">86</span>                      <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">87</span>                      <span class="n">prefs</span><span class="o">=</span><span class="n">prefs</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">88</span>                      <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/core/globals/parameters.py:506,</span> in <span class="ni">check_user_specified.&lt;locals&gt;.check_user_specified_wrapper</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">503</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_prev_constructor</span> <span class="o">=</span> <span class="n">constructor</span>
+<span class="g g-Whitespace">    </span><span class="mi">505</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+<span class="ne">--&gt; </span><span class="mi">506</span> <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">orig_kwargs</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/core/components/component.py:1146,</span> in <span class="ni">Component.__init__</span><span class="nt">(self, default_variable, param_defaults, input_shapes, function, name, reset_stateful_function_when, prefs, function_params, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1143</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1144</span>     <span class="bp">self</span><span class="o">.</span><span class="n">reset_stateful_function_when</span> <span class="o">=</span> <span class="n">Never</span><span class="p">()</span>
+<span class="ne">-&gt; </span><span class="mi">1146</span> <span class="n">parameter_values</span><span class="p">,</span> <span class="n">function_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_arguments</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1147</span>     <span class="n">default_variable</span><span class="p">,</span> <span class="n">param_defaults</span><span class="p">,</span> <span class="n">input_shapes</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">function_params</span><span class="p">,</span> <span class="n">kwargs</span>
+<span class="g g-Whitespace">   </span><span class="mi">1148</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1150</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_parameters</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1151</span>     <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1152</span>     <span class="o">**</span><span class="n">parameter_values</span>
+<span class="g g-Whitespace">   </span><span class="mi">1153</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1155</span> <span class="n">var</span> <span class="o">=</span> <span class="n">call_with_pruned_args</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1156</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_handle_default_variable</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1157</span>     <span class="o">**</span><span class="n">parameter_values</span>
+<span class="g g-Whitespace">   </span><span class="mi">1158</span> <span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/core/components/component.py:2253,</span> in <span class="ni">Component._parse_arguments</span><span class="nt">(self, default_variable, param_defaults, input_shapes, function, function_params, kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2248</span>     <span class="n">function_params</span> <span class="o">=</span> <span class="p">{</span>
+<span class="g g-Whitespace">   </span><span class="mi">2249</span>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2250</span>         <span class="o">**</span><span class="n">function_params</span>
+<span class="g g-Whitespace">   </span><span class="mi">2251</span>     <span class="p">}</span>
+<span class="g g-Whitespace">   </span><span class="mi">2252</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">2253</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_validate_arguments</span><span class="p">(</span><span class="n">parameter_values</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2255</span> <span class="c1"># self.parameters here still references &lt;class&gt;.parameters, but</span>
+<span class="g g-Whitespace">   </span><span class="mi">2256</span> <span class="c1"># only unchanging attributes are needed here</span>
+<span class="g g-Whitespace">   </span><span class="mi">2257</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/core/components/component.py:2198,</span> in <span class="ni">Component._validate_arguments</span><span class="nt">(self, parameter_values)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2196</span> <span class="c1"># raise deprecated argument errors</span>
+<span class="g g-Whitespace">   </span><span class="mi">2197</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">deprecated_args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">2198</span>     <span class="k">raise</span> <span class="n">create_illegal_argument_error</span><span class="p">([</span>
+<span class="g g-Whitespace">   </span><span class="mi">2199</span>         <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">arg</span><span class="si">}</span><span class="s2">&#39; is deprecated. Use &#39;</span><span class="si">{</span><span class="n">new_arg</span><span class="si">}</span><span class="s2">&#39; instead&quot;</span>
+<span class="nn">   2200         for arg, new_arg</span> in <span class="ni">deprecated_args.items</span><span class="nt">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">2201</span>     <span class="p">])</span>
+<span class="g g-Whitespace">   </span><span class="mi">2203</span> <span class="c1"># raise generic illegal argument error</span>
+<span class="g g-Whitespace">   </span><span class="mi">2204</span> <span class="n">unknown_args</span> <span class="o">=</span> <span class="n">illegal_passed_args</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">unused_constructor_args</span><span class="p">)</span>
+
+<span class="ne">ComponentError</span>: hidden_nouns: Illegal argument in constructor (type: TransferMechanism):
+	<span class="s1">&#39;size&#39;</span> <span class="ow">is</span> <span class="n">deprecated</span><span class="o">.</span> <span class="n">Use</span> <span class="s1">&#39;input_shapes&#39;</span> <span class="n">instead</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here we create random matrices to connect the mechanisms to each other</span>
+
+
+<span class="n">map_nouns_hn</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">MappingProjection</span><span class="p">(</span>
+                                <span class="n">matrix</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">c_nouns</span><span class="p">,</span><span class="n">c_nouns</span><span class="p">),</span>
+                                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;map_nouns_hn&quot;</span><span class="p">,</span>
+                                <span class="n">sender</span><span class="o">=</span><span class="n">nouns_in</span><span class="p">,</span>
+                                <span class="n">receiver</span><span class="o">=</span><span class="n">hn</span>
+                                <span class="p">)</span>
+
+<span class="n">map_rels_hm</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">MappingProjection</span><span class="p">(</span>
+                                <span class="n">matrix</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">c_rels</span><span class="p">,</span><span class="n">n_units</span><span class="p">),</span>
+                                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;map_rel_hm&quot;</span><span class="p">,</span>
+                                <span class="n">sender</span><span class="o">=</span><span class="n">rels_in</span><span class="p">,</span>
+                                <span class="n">receiver</span><span class="o">=</span><span class="n">hm</span>
+                                <span class="p">)</span>
+
+<span class="n">map_hn_hm</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">MappingProjection</span><span class="p">(</span>
+                                <span class="n">matrix</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">c_nouns</span><span class="p">,</span><span class="n">n_units</span><span class="p">),</span>
+                                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;map_hn_hm&quot;</span><span class="p">,</span>
+                                <span class="n">sender</span><span class="o">=</span><span class="n">hn</span><span class="p">,</span>
+                                <span class="n">receiver</span><span class="o">=</span><span class="n">hm</span>
+                                <span class="p">)</span>
+
+<span class="n">map_hm_I</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">MappingProjection</span><span class="p">(</span>
+                                <span class="n">matrix</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_units</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">nouns</span><span class="p">)),</span>
+                                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;map_hm_I&quot;</span><span class="p">,</span>
+                                <span class="n">sender</span><span class="o">=</span><span class="n">hm</span><span class="p">,</span>
+                                <span class="n">receiver</span><span class="o">=</span><span class="n">out_sig_I</span>
+                                <span class="p">)</span>
+
+<span class="n">map_hm_is</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">MappingProjection</span><span class="p">(</span>
+                                <span class="n">matrix</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_units</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">is_list</span><span class="p">)),</span>
+                                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;map_hm_is&quot;</span><span class="p">,</span>
+                                <span class="n">sender</span><span class="o">=</span><span class="n">hm</span><span class="p">,</span>
+                                <span class="n">receiver</span><span class="o">=</span><span class="n">out_sig_is</span>
+                                <span class="p">)</span>
+
+<span class="n">map_hm_has</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">MappingProjection</span><span class="p">(</span>
+                                <span class="n">matrix</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_units</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">has_list</span><span class="p">)),</span>
+                                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;map_hm_has&quot;</span><span class="p">,</span>
+                                <span class="n">sender</span><span class="o">=</span><span class="n">hm</span><span class="p">,</span>
+                                <span class="n">receiver</span><span class="o">=</span><span class="n">out_sig_has</span>
+                                <span class="p">)</span>
+
+<span class="n">map_hm_can</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">MappingProjection</span><span class="p">(</span>
+                                <span class="n">matrix</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_units</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">can_list</span><span class="p">)),</span>
+                                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;map_hm_can&quot;</span><span class="p">,</span>
+                                <span class="n">sender</span><span class="o">=</span><span class="n">hm</span><span class="p">,</span>
+                                <span class="n">receiver</span><span class="o">=</span><span class="n">out_sig_can</span>
+                                <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">8</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Here we create random matrices to connect the mechanisms to each other</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">map_nouns_hn</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">MappingProjection</span><span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                                 <span class="n">matrix</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">c_nouns</span><span class="p">,</span><span class="n">c_nouns</span><span class="p">),</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>                                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;map_nouns_hn&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>                                 <span class="n">sender</span><span class="o">=</span><span class="n">nouns_in</span><span class="p">,</span>
+<span class="ne">----&gt; </span><span class="mi">8</span>                                 <span class="n">receiver</span><span class="o">=</span><span class="n">hn</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>                                 <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">map_rels_hm</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">MappingProjection</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>                                 <span class="n">matrix</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">c_rels</span><span class="p">,</span><span class="n">n_units</span><span class="p">),</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>                                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;map_rel_hm&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>                                 <span class="n">sender</span><span class="o">=</span><span class="n">rels_in</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>                                 <span class="n">receiver</span><span class="o">=</span><span class="n">hm</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span>                                 <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="n">map_hn_hm</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">MappingProjection</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>                                 <span class="n">matrix</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">c_nouns</span><span class="p">,</span><span class="n">n_units</span><span class="p">),</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span>                                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;map_hn_hm&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span>                                 <span class="n">sender</span><span class="o">=</span><span class="n">hn</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span>                                 <span class="n">receiver</span><span class="o">=</span><span class="n">hm</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>                                 <span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;hn&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#This block of code constructs the network</span>
+
+<span class="n">RumelNet</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">AutodiffComposition</span><span class="p">(</span>
+        <span class="n">learning_rate</span><span class="o">=</span><span class="mi">1</span>
+        <span class="p">)</span>
+    
+    
+<span class="n">RumelNet</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">nouns_in</span><span class="p">)</span>
+<span class="n">RumelNet</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">rels_in</span><span class="p">)</span>
+<span class="n">RumelNet</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">hn</span><span class="p">)</span>
+<span class="n">RumelNet</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">hm</span><span class="p">)</span>
+<span class="n">RumelNet</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">out_sig_I</span><span class="p">)</span>
+<span class="n">RumelNet</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">out_sig_is</span><span class="p">)</span>
+<span class="n">RumelNet</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">out_sig_has</span><span class="p">)</span>
+<span class="n">RumelNet</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">out_sig_can</span><span class="p">)</span>
+
+<span class="n">RumelNet</span><span class="o">.</span><span class="n">add_projection</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="n">nouns_in</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">map_nouns_hn</span><span class="p">,</span> <span class="n">receiver</span><span class="o">=</span><span class="n">hn</span><span class="p">)</span>
+<span class="n">RumelNet</span><span class="o">.</span><span class="n">add_projection</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="n">rels_in</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">map_rels_hm</span><span class="p">,</span> <span class="n">receiver</span><span class="o">=</span><span class="n">hm</span><span class="p">)</span>
+<span class="n">RumelNet</span><span class="o">.</span><span class="n">add_projection</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="n">hn</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">map_hn_hm</span><span class="p">,</span> <span class="n">receiver</span><span class="o">=</span><span class="n">hm</span><span class="p">)</span>
+<span class="n">RumelNet</span><span class="o">.</span><span class="n">add_projection</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="n">hm</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">map_hm_I</span><span class="p">,</span> <span class="n">receiver</span><span class="o">=</span><span class="n">out_sig_I</span><span class="p">)</span>
+<span class="n">RumelNet</span><span class="o">.</span><span class="n">add_projection</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="n">hm</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">map_hm_is</span><span class="p">,</span> <span class="n">receiver</span><span class="o">=</span><span class="n">out_sig_is</span><span class="p">)</span>
+<span class="n">RumelNet</span><span class="o">.</span><span class="n">add_projection</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="n">hm</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">map_hm_has</span><span class="p">,</span> <span class="n">receiver</span><span class="o">=</span><span class="n">out_sig_has</span><span class="p">)</span>
+<span class="n">RumelNet</span><span class="o">.</span><span class="n">add_projection</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="n">hm</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">map_hm_can</span><span class="p">,</span> <span class="n">receiver</span><span class="o">=</span><span class="n">out_sig_can</span><span class="p">)</span>
+
+
+
+<span class="n">out_sig_I</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">set_log_conditions</span><span class="p">(</span><span class="n">pnl</span><span class="o">.</span><span class="n">VALUE</span><span class="p">)</span>
+<span class="n">out_sig_is</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">set_log_conditions</span><span class="p">(</span><span class="n">pnl</span><span class="o">.</span><span class="n">VALUE</span><span class="p">)</span>
+<span class="n">out_sig_has</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">set_log_conditions</span><span class="p">(</span><span class="n">pnl</span><span class="o">.</span><span class="n">VALUE</span><span class="p">)</span>
+<span class="n">out_sig_can</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">set_log_conditions</span><span class="p">(</span><span class="n">pnl</span><span class="o">.</span><span class="n">VALUE</span><span class="p">)</span>
+
+
+<span class="n">RumelNet</span><span class="o">.</span><span class="n">show_graph</span><span class="p">(</span><span class="n">output_fmt</span><span class="o">=</span><span class="s1">&#39;jupyter&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">10</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">RumelNet</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">nouns_in</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">RumelNet</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">rels_in</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">10</span> <span class="n">RumelNet</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">hn</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">RumelNet</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">hm</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">RumelNet</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">out_sig_I</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;hn&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We wish to train our network on pairs of inputs: a noun and a relation.</span>
+<span class="c1"># On each run, we would like to set the targets for the RELEVANT outputs to be </span>
+<span class="c1"># the associated truth tables and the targets for the IRRELEVANT outputs to be</span>
+<span class="c1"># a set of &quot;neutral&quot; targets, producing a somewhat &quot;nonsense&quot; response. </span>
+
+<span class="c1"># To get a better grasp on this concept:</span>
+<span class="c1"># Consider the case that a person asks you which out of the &quot;has&quot; list a robin</span>
+<span class="c1"># posseses. You will respond, likely correctly, with some of those attributes and</span>
+<span class="c1"># you will not list any of the &quot;can&quot; attributes, because they&#39;re not related to</span>
+<span class="c1"># the question. </span>
+
+<span class="c1"># This is a skill we learn early in life. When asked a simple, closed-form</span>
+<span class="c1"># question in elementary school, we were not rewarded in the same way for giving</span>
+<span class="c1"># an answer that was related to the question, but did not actually answer it. </span>
+<span class="c1"># If the question was, &quot;can a canary fly?&quot; and we gave the answer, &quot;a canary is </span>
+<span class="c1"># a yellow living thing with wings that can breathe air&quot;, we wouldn&#39;t technically</span>
+<span class="c1"># be wrong, but we would also not have answered the question. </span>
+
+<span class="c1"># We want to train the network in a similar fashion.</span>
+
+<span class="c1"># This block of code creates the targets that will be assigned to outputs irrelevant</span>
+<span class="c1"># to the input pairs. </span>
+
+
+<span class="n">irrel_is</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">nouns</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">is_list</span><span class="p">)))</span><span class="o">*</span><span class="mf">.5</span>
+<span class="n">irrel_has</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">nouns</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">has_list</span><span class="p">)))</span><span class="o">*</span><span class="mf">.5</span>
+<span class="n">irrel_can</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">nouns</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">can_list</span><span class="p">)))</span><span class="o">*</span><span class="mf">.5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This block of code trains the network using a set of three loops. The innermost</span>
+<span class="c1"># pair of loops takes each noun and creates the appropriate training inputs and outputs associated</span>
+<span class="c1"># with its &quot;is&quot;, &quot;has&quot;, and &quot;can&quot; relations. It will also be associated with an </span>
+<span class="c1"># identity output. </span>
+
+<span class="c1"># After constructing the dictionaries, the middle loop, associated with the nouns,</span>
+<span class="c1"># trains the network on the dictionaries for n_epochs. </span>
+
+<span class="c1"># The outermost loop simply repeats the training on each noun for a set number of</span>
+<span class="c1"># repetitions. </span>
+
+<span class="c1"># You are encouraged to experiment with changing the number of repetitions and </span>
+<span class="c1"># epochs to see how the network learns best. </span>
+
+<span class="c1"># You will find that this code takes a few minutes to run. We have placed flags</span>
+<span class="c1"># in the loops so you can see that it&#39;s not stuck.</span>
+
+<span class="n">n_epochs</span><span class="o">=</span><span class="mi">5</span>
+<span class="n">tot_reps</span><span class="o">=</span><span class="mi">200</span>
+
+<span class="k">for</span> <span class="n">reps</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tot_reps</span><span class="p">):</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Training rep: &#39;</span><span class="p">,</span><span class="n">reps</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39; of: &#39;</span><span class="p">,</span><span class="n">tot_reps</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">noun</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nouns</span><span class="p">)):</span>
+    
+    <span class="n">inputs_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">targets_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">targets_dict</span><span class="p">[</span><span class="n">out_sig_is</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">targets_dict</span><span class="p">[</span><span class="n">out_sig_has</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">targets_dict</span><span class="p">[</span><span class="n">out_sig_can</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">inputs_dict</span><span class="p">[</span><span class="n">nouns_in</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">targets_dict</span><span class="p">[</span><span class="n">out_sig_I</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">inputs_dict</span><span class="p">[</span><span class="n">rels_in</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">relations</span><span class="p">)):</span>
+
+      <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+        <span class="n">rel</span> <span class="o">=</span> <span class="s1">&#39;is&#39;</span>
+
+        <span class="n">targ_is</span> <span class="o">=</span> <span class="n">truth_is</span><span class="p">[</span><span class="n">noun</span><span class="p">],</span>
+        <span class="n">targ_has</span> <span class="o">=</span> <span class="n">irrel_has</span><span class="p">[</span><span class="n">noun</span><span class="p">],</span>
+        <span class="n">targ_can</span> <span class="o">=</span> <span class="n">irrel_can</span><span class="p">[</span><span class="n">noun</span><span class="p">],</span>
+        
+        <span class="n">targ_is</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">targ_is</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">targ_is</span><span class="p">)))</span>
+        <span class="n">targ_has</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">targ_has</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">targ_has</span><span class="p">)))</span>
+        <span class="n">targ_can</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">targ_can</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">targ_can</span><span class="p">)))</span>
+
+      <span class="k">elif</span> <span class="n">i</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">rel</span> <span class="o">=</span> <span class="s1">&#39;has&#39;</span>
+
+        <span class="n">targ_is</span> <span class="o">=</span> <span class="n">irrel_is</span><span class="p">[</span><span class="n">noun</span><span class="p">]</span> <span class="p">,</span>
+        <span class="n">targ_has</span> <span class="o">=</span> <span class="n">truth_has</span><span class="p">[</span><span class="n">noun</span><span class="p">],</span>
+        <span class="n">targ_can</span> <span class="o">=</span> <span class="n">irrel_can</span><span class="p">[</span><span class="n">noun</span><span class="p">],</span>
+        
+        <span class="n">targ_is</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">targ_is</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">targ_is</span><span class="p">)))</span>
+        <span class="n">targ_has</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">targ_has</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">targ_has</span><span class="p">)))</span>
+        <span class="n">targ_can</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">targ_can</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">targ_can</span><span class="p">)))</span>
+
+
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">rel</span> <span class="o">=</span> <span class="s1">&#39;can&#39;</span>
+
+        <span class="n">targ_is</span> <span class="o">=</span> <span class="n">irrel_is</span><span class="p">[</span><span class="n">noun</span><span class="p">]</span> <span class="p">,</span>
+        <span class="n">targ_has</span> <span class="o">=</span> <span class="n">irrel_has</span><span class="p">[</span><span class="n">noun</span><span class="p">],</span>
+        <span class="n">targ_can</span> <span class="o">=</span> <span class="n">truth_can</span><span class="p">[</span><span class="n">noun</span><span class="p">],</span>
+        
+        <span class="n">targ_is</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">targ_is</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">targ_is</span><span class="p">)))</span>
+        <span class="n">targ_has</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">targ_has</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">targ_has</span><span class="p">)))</span>
+        <span class="n">targ_can</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">targ_can</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">targ_can</span><span class="p">)))</span>
+
+
+      <span class="n">targets_dict</span><span class="p">[</span><span class="n">out_sig_is</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">targ_is</span><span class="p">)</span>
+      <span class="n">targets_dict</span><span class="p">[</span><span class="n">out_sig_has</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">targ_has</span><span class="p">)</span>
+      <span class="n">targets_dict</span><span class="p">[</span><span class="n">out_sig_can</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">targ_can</span><span class="p">)</span>
+
+      <span class="n">inputs_dict</span><span class="p">[</span><span class="n">nouns_in</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nouns_onehot</span><span class="p">[</span><span class="n">noun</span><span class="p">])</span>
+      <span class="n">targets_dict</span><span class="p">[</span><span class="n">out_sig_I</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">truth_nouns</span><span class="p">[</span><span class="n">noun</span><span class="p">])</span>
+      <span class="n">inputs_dict</span><span class="p">[</span><span class="n">rels_in</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rels_onehot</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    
+    <span class="n">result</span> <span class="o">=</span> <span class="n">RumelNet</span><span class="o">.</span><span class="n">learn</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">[{</span><span class="s1">&#39;inputs&#39;</span><span class="p">:</span> <span class="n">inputs_dict</span><span class="p">,</span>
+                                <span class="s1">&#39;targets&#39;</span><span class="p">:</span> <span class="n">targets_dict</span><span class="p">,</span>
+                                <span class="s1">&#39;epochs&#39;</span><span class="p">:</span> <span class="n">n_epochs</span><span class="p">}])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Training rep:  1  of:  200
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">28</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="n">inputs_dict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span> <span class="n">targets_dict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="ne">---&gt; </span><span class="mi">28</span> <span class="n">targets_dict</span><span class="p">[</span><span class="n">out_sig_is</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span> <span class="n">targets_dict</span><span class="p">[</span><span class="n">out_sig_has</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span> <span class="n">targets_dict</span><span class="p">[</span><span class="n">out_sig_can</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="ne">NameError</span>: name &#39;out_sig_is&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># As with previous nets, this cell prints the losses of the network over time. </span>
+<span class="c1"># Make sure you understand why the losses are noisy. </span>
+
+<span class="c1"># If you find your loss isn&#39;t to your satisfaction, you can run the previous cell again</span>
+<span class="c1"># to train your network for another batch.</span>
+
+<span class="n">exec_id</span> <span class="o">=</span> <span class="n">RumelNet</span><span class="o">.</span><span class="n">default_execution_id</span>
+<span class="n">losses</span> <span class="o">=</span> <span class="n">RumelNet</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">exec_id</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Update Number&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Loss Value&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Losses for the Rumelhart Network&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">losses</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;last lost was: &#39;</span><span class="p">,</span><span class="n">losses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">8</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># As with previous nets, this cell prints the losses of the network over time. </span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># Make sure you understand why the losses are noisy. </span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> 
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># If you find your loss isn&#39;t to your satisfaction, you can run the previous cell again</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># to train your network for another batch.</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">exec_id</span> <span class="o">=</span> <span class="n">RumelNet</span><span class="o">.</span><span class="n">default_execution_id</span>
+<span class="ne">----&gt; </span><span class="mi">8</span> <span class="n">losses</span> <span class="o">=</span> <span class="n">RumelNet</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">exec_id</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Update Number&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Loss Value&#39;</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/core/globals/parameters.py:2323,</span> in <span class="ni">ParametersBase.__getattr__</span><span class="nt">(self, attr)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2321</span> <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">2322</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_nonexistent_attr_cache</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">2323</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_throw_attr_error</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/psyneulink/core/globals/parameters.py:2302,</span> in <span class="ni">ParametersBase._throw_attr_error</span><span class="nt">(self, attr)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2299</span> <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">2300</span>     <span class="n">owner_string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="ne">-&gt; </span><span class="mi">2302</span> <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">2303</span>     <span class="sa">f</span><span class="s2">&quot;No attribute &#39;</span><span class="si">{</span><span class="n">attr</span><span class="si">}</span><span class="s2">&#39; exists in the parameter hierarchy</span><span class="si">{</span><span class="n">owner_string</span><span class="si">}</span><span class="s2">.&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">2304</span> <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="kc">None</span>
+
+<span class="ne">AttributeError</span>: No attribute &#39;losses&#39; exists in the parameter hierarchy of autodiff_composition.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#We can check what associations have been  learned by running each noun  through the network </span>
+<span class="n">noun_id</span><span class="o">=</span><span class="mi">0</span> <span class="c1">#indexes which noun to use </span>
+<span class="n">rels_onehot</span><span class="p">[</span><span class="n">noun_id</span><span class="p">]</span>
+<span class="n">dd</span><span class="o">=</span><span class="p">{</span><span class="n">nouns_in</span><span class="p">:</span><span class="n">nouns_onehot</span><span class="p">[</span><span class="n">noun_id</span><span class="p">]}</span>
+<span class="n">noun_out_I</span><span class="p">,</span><span class="n">noun_out_is</span><span class="p">,</span><span class="n">noun_out_has</span><span class="p">,</span><span class="n">noun_out_can</span><span class="o">=</span><span class="n">RumelNet</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">dd</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">rels_onehot</span><span class="p">[</span><span class="n">noun_id</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">dd</span><span class="o">=</span><span class="p">{</span><span class="n">nouns_in</span><span class="p">:</span><span class="n">nouns_onehot</span><span class="p">[</span><span class="n">noun_id</span><span class="p">]}</span>
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">noun_out_I</span><span class="p">,</span><span class="n">noun_out_is</span><span class="p">,</span><span class="n">noun_out_has</span><span class="p">,</span><span class="n">noun_out_can</span><span class="o">=</span><span class="n">RumelNet</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">dd</span><span class="p">)</span>
+
+<span class="ne">ValueError</span>: not enough values to unpack (expected 4, got 2)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">noun_out_I</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span><span class="n">nouns</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">nouns</span><span class="p">[</span><span class="n">noun_id</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;strength of association&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">noun_out_is</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">is_list</span><span class="p">)),</span><span class="n">is_list</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">nouns</span><span class="p">[</span><span class="n">noun_id</span><span class="p">]</span> <span class="o">+</span><span class="s1">&#39; is&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;strength of association&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">noun_out_has</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">has_list</span><span class="p">)),</span><span class="n">has_list</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">nouns</span><span class="p">[</span><span class="n">noun_id</span><span class="p">]</span><span class="o">+</span> <span class="s1">&#39; has&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;strength of association&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">noun_out_can</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">can_list</span><span class="p">)),</span><span class="n">can_list</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">nouns</span><span class="p">[</span><span class="n">noun_id</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39; can&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;strength of association&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">noun_out_I</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span><span class="n">nouns</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">nouns</span><span class="p">[</span><span class="n">noun_id</span><span class="p">])</span>
+
+<span class="ne">NameError</span>: name &#39;noun_out_I&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercises">
+<h1>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h1>
+<p>We have provided a fairly sophisticated working model reproducing the primary functionality of Rumelhart’s Semantic Network.  Your first challenge for homework is to fully reverse engineer this model – to understand and explain all of the different components, annotating how it runs and what each part does.  The second challenge is to demonstrate that the model acquired the desired semantic structure.  The third challence is to build an analogous model using the provided model as a template.</p>
+<section id="exercise-1-reverse-engineer-the-semantic-network-model">
+<h2><a id='e5'>Exercise 1: Reverse Engineer the Semantic Network Model</a><a class="headerlink" href="#exercise-1-reverse-engineer-the-semantic-network-model" title="Link to this heading">#</a></h2>
+<p>1a. Refer back to the cell beginning # STIMULI &amp; RELATIONS.  Provide a prose description of the meaning of the values for truth_is, truth_has, and truth_can, using specific details.  For example, how should we interpret the following line?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">truth_is</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>    
+</pre></div>
+</div>
+<p>1b. Explain what the following line does and why, including an explanation of “nouns_onehot”</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">r_nouns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">nouns_onehot</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>1c. In the cell that starts # Build Transfer Mechanisms, why is the size of hm set to 16?</p>
+<p>1d. Which of the transfer mechanisms uses a Linear function (as opposed to a sigmoid Logistic function)?</p>
+</section>
+<section id="exercise-2-demonstrate-acquisition-of-semantic-structure">
+<h2><a id='e6'>Exercise 2: Demonstrate Acquisition of Semantic Structure</a><a class="headerlink" href="#exercise-2-demonstrate-acquisition-of-semantic-structure" title="Link to this heading">#</a></h2>
+<p>The figures provided show learning and the minimization of error over training, but this is only the start.  Use reporting and whatever techniques are effective to convincingly demonstrate that the network has acquired the desired semantic structure by the end of training.</p>
+</section>
+<section id="exercise-3-create-a-new-semantic-network">
+<h2><a id='e7'>Exercise 3: Create a New Semantic Network</a><a class="headerlink" href="#exercise-3-create-a-new-semantic-network" title="Link to this heading">#</a></h2>
+<p>Use the provided PNL code as a template.  Constraints: 1) You must create your own lists of stimuli and truth tables that make sense and are all different from the provided model.  2)  Your model must include the relations “is” “has” “can”, and you are allowed to add more relations if you like.  3) The dimensionality of each feature list (nouns, is, has, can) of your network must be different than the dimensionality of the example provided, by 1 to 2.  E.g. The provided model has 8 nouns, so your model can have 6, 7, 9, or 10 nouns.</p>
+<p>Once your model is working, demonstrate that it learns and acquires the desired semantic structure.</p>
+</section>
+<section id="build">
+<h2>BUILD<a class="headerlink" href="#build" title="Link to this heading">#</a></h2>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "PrincetonUniversity/NEU-PSY-502",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/502B/Computation/Statistical Learning and Backpropagation"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lab5: Rumelhart Semantic Network</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multilayer-nn-in-pscyhology-semantics">Multilayer NN in Pscyhology: Semantics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rumelhart-s-semantic-network"><a id="m4">Rumelhart’s Semantic Network</a></a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-reverse-engineer-the-semantic-network-model"><a id="e5">Exercise 1: Reverse Engineer the Semantic Network Model</a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-demonstrate-acquisition-of-semantic-structure"><a id="e6">Exercise 2: Demonstrate Acquisition of Semantic Structure</a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-create-a-new-semantic-network"><a id="e7">Exercise 3: Create a New Semantic Network</a></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build">BUILD</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jonathan Cohen, Samuel Nastase, Alexander Ku & Younes Strittmatter
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

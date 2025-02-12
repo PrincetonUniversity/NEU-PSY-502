@@ -1,0 +1,1370 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3.1 Drift Diffusion Models &#8212; NEU-PSY-MOL-502</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/502B/Computation/Decision Making/notebooks/1 Drift Diffusion Models';</script>
+    <link rel="canonical" href="https://princetonuniversity.github.io/NEU-PSY-502/content/502B/Computation/Decision Making/notebooks/1 Drift Diffusion Models.html" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="4 Reinforcement Learning" href="../../Reinforcement%20Learning/intro.html" />
+    <link rel="prev" title="3 Decision Making" href="../intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../../_static/logo.png" class="logo__image only-light" alt="NEU-PSY-MOL-502 - Home"/>
+    <img src="../../../../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="NEU-PSY-MOL-502 - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../../intro.html">
+                    NEU/PSY 502
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">502A</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/syllabus.html">Syllabus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/lectures.html">Lectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%201/index.html">1 Introduction and History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%202/index.html">2 Perception and Constraint Satisfaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%203/index.html">3 Associative Learning and Topography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%204/index.html">4 High Level Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%205/index.html">5 Dynamics of Integration and Decision Making</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%206/index.html">6 Optimization of Decision Making</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%207/index.html">7 Reward Systems and Psychodynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%208/index.html">8 Explore/Exploit and Noradrenergic Neuromodulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%209/index.html">9 Statistical Learning, Semantics and Neocortex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2010/index.html">10 Bayesian Approaches and Bounded Rationality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2011/index.html">11 Interactive Activation, Statistical Learning, and Language Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2012/index.html">12 Language and LLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Syllabus</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B Computation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Primer/intro.html">1 Primer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Primer/notebooks/1%20Scalars%2C%20Vectors%2C%20and%20Matrices.html">1.1 Scalars, Vectors, and Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Primer/notebooks/2%20Logistic%20Function.html">1.2 Logistic Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Primer/notebooks/3%20Perceptron%20and%20XOR.html">1.3 Perceptron and XOR</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Dynamics%20in%20Perception/intro.html">2 Dynamics in Perception</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Dynamics%20in%20Perception/notebooks/1%20Hebbian%20Learning.html">2.1 Hebbian Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Dynamics%20in%20Perception/notebooks/2%20Hopfield%20Networks.html">2.2 Hopfield Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Dynamics%20in%20Perception/notebooks/3%20Dynamic%20Systems%20and%20Bistable%20Perception.html">2.3 Dynamic Systems and Bistable Perception</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../intro.html">3 Decision Making</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">3.1 Drift Diffusion Models</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Reinforcement%20Learning/intro.html">4 Reinforcement Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Reinforcement%20Learning/notebooks/1%20Reinforcement%20Learning.html">4.1 Reinforcement Learning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Statistical%20Learning%20and%20Backpropagation/intro.html">5 Statistical Learning and Backpropagation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B Empirical</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../Empirical/intro.html">Introduction</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/PrincetonUniversity/NEU-PSY-502/main?urlpath=tree/website/content/502B/Computation/Decision Making/notebooks/1 Drift Diffusion Models.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../../../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/PrincetonUniversity/NEU-PSY-502/blob/main/website/content/502B/Computation/Decision Making/notebooks/1 Drift Diffusion Models.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../../../../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/PrincetonUniversity/NEU-PSY-502" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/PrincetonUniversity/NEU-PSY-502/issues/new?title=Issue%20on%20page%20%2Fcontent/502B/Computation/Decision Making/notebooks/1 Drift Diffusion Models.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../../../_sources/content/502B/Computation/Decision Making/notebooks/1 Drift Diffusion Models.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>3.1 Drift Diffusion Models</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-are-drift-diffusion-models-useful">Why are drift diffusion models useful?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-alternative-forced-choice-2afc-tafc-task">The Two Alternative Forced Choice (2AFC / TAFC) Task</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#to-err-on-the-side-of-caution-or-respond-quickly">To err on the side of caution or respond quickly?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-walk">Random Walk</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-walk-in-the-context-of-ddm">Random Walk in the context of DDM</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#drift-diffusion-model-in-psyneulink">Drift Diffusion Model in PsyNeuLink</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analytical-solutions-to-the-ddm">Analytical Solutions to the DDM</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="drift-diffusion-models">
+<h1>3.1 Drift Diffusion Models<a class="headerlink" href="#drift-diffusion-models" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>There is an old philosophical thought experiment that illustrates indecision: a donkey placed equidistant between two piles of hay will starve to death because it cannot choose between them (<a class="reference external" href="https://en.wikipedia.org/wiki/Buridan%27s_ass">Budiran’s Ass</a>). This scenario, while hypothetical, highlights the importance of decision-making mechanisms. A computational model of this behavior could even be demonstrated using a simple tree stump to represent the donkey. Notably, if the donkey’s decision-making process incorporated some degree of noise or randomness, it would ultimately have chosen a pile and survived. Real-world decisions are rarely so static; they are complex, dynamic processes that evolve over time, offering far more intriguing opportunities for modeling than a scenario of perpetual indecision.</p>
+<p>How many decisions do you make each day? Depending on your perspective and the criteria for defining a decision, the number could range from hundreds to thousands. How about a squirrel? Likely, a squirrel makes even more decisions—being in constant motion as it forages, evades predators, and navigates the four fundamental drivers of survival: feeding, fighting, fleeing, and reproduction. Like humans, animals continuously make decisions throughout their waking lives, evaluating evidence across multiple dimensions and timescales. Although human decision-making often involves reason and the capacity to consider vastly more dimensions and extended timescales, studying simpler decision-making processes provides an essential starting point. Interestingly, many of our simpler decisions might rely on the same neural mechanisms that evolved in our near and distant ancestors.</p>
+<section id="why-are-drift-diffusion-models-useful">
+<h3>Why are drift diffusion models useful?<a class="headerlink" href="#why-are-drift-diffusion-models-useful" title="Link to this heading">#</a></h3>
+<p>Decisions typically involve two or more options, one of which is correct or better than the others.  Decision making performance can be quantified in terms of accuracy (how often the correct or best option chosen) as well as speed (how long it takes to decide).  Accuracy and speed are typically at odds – deciding faster means making more errors (a “speed/accuracy tradeoff” explored in this lab).  We can evaluate decision making in terms of speed, accuracy, and reward.</p>
+<p>Drift diffusion models use mathematics originally developed in physics.  You start with a particle of gas in a confined space that jitters from Brownian motion (noise), then add a direction of motion to the air surrounding the particle (drift rate), and explore the time course of how the particle moves and when it is statistically likely to move a particular distance (cross a threshold).  The same parameters can be mapped onto key elements of decision making, replacing the particle with an undecided state, e.g. equidistant between two decision options (thresholds), the motion of air instead becomes the accumulation of evidence moving toward either of the options, and crossing a threshold is making a decision.  These simple parameters allow us to explore decision making speed and accuracy in considerable detail.  For example, we can define the optimal balance between speed and accuracy to maximize reward.  With optimality operationalized it is then possible to evaluate behavioral performance in terms of distance from optimal (the closer to optimal the better, of course).</p>
+<p>The required readings for this week are especially informative and relevant. Here’s the link to Bogacz et al.: <a class="reference external" href="https://sites.engineering.ucsb.edu/~moehlis/moehlis_papers/psych.pdf">https://sites.engineering.ucsb.edu/~moehlis/moehlis_papers/psych.pdf</a></p>
+<p>As Bogacz et al. (2006, see <a class="reference external" href="https://princetonuniversity.github.io/NEU-PSY-502/content/Decision%20Making/intro.md#additional-resources">additional resources</a>) explain,</p>
+<p>“It has been known since Hernstein’s (1961, 1997) work that animals do not achieve optimality under all conditions, and in behavioral economics, humans often fail to choose optimally (e.g., Kahneman &amp; Tversky, 1984; Loewenstein &amp; Thaler, 1989). For example, in selecting among two items of comparable value and a cash payment worth less than either, participants often opt for cash, possibly to avoid a harder decision between two more valuable but similar items (Shafir &amp; Tversky, 1995). <strong>Such findings raise important questions: Is human decision making always suboptimal?</strong> If it is not, under what conditions is it optimal? When it is suboptimal, does this reflect inherent deficiencies in decision-making mechanisms or other sources of systematic bias? Answers to such questions may provide insights into underlying neural mechanisms. However, to consider them, one must first describe optimal performance, against which actual behavior can be compared.”</p>
+<p><strong>Installation and Setup</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">psyneulink</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">psyneulink</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pnl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="the-two-alternative-forced-choice-2afc-tafc-task">
+<h2>The Two Alternative Forced Choice (2AFC / TAFC) Task<a class="headerlink" href="#the-two-alternative-forced-choice-2afc-tafc-task" title="Link to this heading">#</a></h2>
+<p>The simplest form of decision making involves only two options (A OR B, deliberately excluding options of neither nor both). We refer to this scenario as the <em>Two Alternative Forced Choice</em> (2AFC / TAFC) Task. Some survival-relevant examples of 2AFC are explore vs. exploit, and fight vs. flight. A common lab 2AFC task involves lots of dots moving on a screen (Random dot kinematogram, RDK). Some are moving leftward and some are moving rightward. The participant’s task on each trial is to determine which direction has more motion, LEFT or RIGHT. The experimenter can manipulate the amount of evidence available: 51% left / 49% right is difficult, while 99% left / 1% right is very easy. It is a good experiment for manipulating task difficulty and measuring performance. Experimenters can also vary the reward rate for correct trials (and/or penalty rate for incorrect trials) and the time delay between trials. All of these experimental parameters can be accounted for in a drift diffusion model.</p>
+<p>Drift diffusion models (DDMs) allow you to simulate behavioral performance on a 2AFC task – adjusting the parameters can produce data that are more-or-less indistinguishable from human performance on a variety of 2AFC tasks. Below is a simple diagram of how the DDM works. Imagine, a human has to respond to a RDK showing most a dots moving to the left. They have to make a decision between “left” (correct response) “right” (wrong response). In this example, the human sees the stimulus (<em>stimulus onset</em>), and then takes some time to process that visual information. Basic visual processing at the start of a trial and motor response processing at the end of a trial (as opposed to decision-relevant processing) is grouped together and called <em>non-decision time</em> (all depicted at the start of the trial in the diagram below). Once the stimulus is perceived, the agent accumulates evidence about the stimulus until it reaches a <em>threshold</em> and is sufficiently confident to choose decision 1 or decision 2. Overall the evidence drifts towards one or the other decision (in this example, typically to the correct response) with a specific <em>drift rate</em> that is dependent on the task difficulty (easier tasks have higher drift rates). In addition, this is a noisy process that unfolds over time so there is some variability in how long it takes the agent to accumulate sufficient evidence to make decisions.</p>
+<p><img alt="Drift Diffusion Model" src="https://princetonuniversity.github.io/NEU-PSY-502/_static/images/ddm.png" /></p>
+<section id="to-err-on-the-side-of-caution-or-respond-quickly">
+<h3>To err on the side of caution or respond quickly?<a class="headerlink" href="#to-err-on-the-side-of-caution-or-respond-quickly" title="Link to this heading">#</a></h3>
+<p>How do you know how quickly to respond? Bogacz et al. (2006) state,</p>
+<p>“The DDM is optimal in the sense that it is the fastest decision maker for a given level of accuracy. This assumes a fixed decision threshold, yet the model does not specify what this should be. Absent noise, thresholds have no effect on accuracy. However, with noisy data, accuracy increases as thresholds and decision times (DTs) rise because there is more time to average out uncorrelated noise. This produces a speed–accuracy trade-off: Lower thresholds produce faster but less accurate responding, whereas higher thresholds produce more accurate but slower responses. This speed–accuracy trade-off is critical for interpreting the results of most psychological experiments (Pachella, 1974; Wickelgren, 1977). For example, a manipulation intended to influence task difficulty, and thereby accuracy, could instead simply induce a change in response threshold, thereby changing RTs.”</p>
+<h4 style="background: #256ca2; color: #e9e9e9">🎯  Exercise 1</h4>
+<p>In your own words, define the following terms:</p>
+<ol class="arabic simple">
+<li><p>Decision threshold</p></li>
+<li><p>The speed/accuracy tradeoff</p></li>
+<li><p>Is this correct: The higher the decision threshold, the faster the decision is made?</p></li>
+<li><p>Is this correct: The higher the decision threshold, the more accurate the decision is?</p></li>
+</ol>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 1</summary>
+<ol class="arabic simple">
+<li><p>The decision threshold is the amount of evidence that must be accumulated before a decision is made. If the evidence reaches the threshold for decision 1, the agent will choose decision 1. If the evidence reaches the threshold for decision 2, the agent will choose decision 2. The decision threshold is a parameter that can be manipulated through factors like the reward for being accurate on any given trial.</p></li>
+<li><p>The speed/accuracy tradeoff is the relationship between how quickly a decision is made and how accurate that decision is. In general, the faster a decision is made, the less accurate it is. Conversely, the more accurate a decision is, the longer it takes to make that decision. The speed/accuracy tradeoff is a fundamental aspect of decision-making that can be manipulated through the decision threshold parameter in the drift diffusion model.</p></li>
+<li><p>No, this is not correct. The higher the decision threshold, the slower the decision is made. This is because more evidence must be accumulated before a decision is made. Conversely, the lower the decision threshold, the faster the decision is made. This is because less evidence must be accumulated before a decision is made.</p></li>
+<li><p>Yes, this is correct. The higher the decision threshold, the more accurate the decision is. This is because more evidence must be accumulated before a decision is made, which means that the agent is more confident in their decision. Conversely, the lower the decision threshold, the less accurate the decision is. This is because less evidence must be accumulated before a decision is made, which means that the agent is less confident in their decision.</p></li>
+</ol>
+</details>
+<p>As Bogacz et al. (2006) explain,</p>
+<p>“..the TAFC and DDM have played important roles in human history: “In applying the DDM to the TAFC, we assume that the difference in the (noisy) information favoring each alternative is integrated over each trial and that a decision is reached when the resulting accumulated value crosses a critical threshold. Discrete analogues of the DDM were first applied to decision making in World War II, via the sequential probability ratio test (SPRT), the theory being developed independently by Barnard (1946) and Wald (1947; cf. Lehmann, 1959). (For histories, see DeGroot, 1988; Good, 1979; Wallis, 1980.) It was subsequently shown that the DDM and its discrete analogue, a directed random walk, describe accuracy and reaction times (RTs) in humans performing TAFC tasks (Laming, 1968; Ratcliff, 1978; Stone, 1960). In particular, DDM first passages account for a robust feature of human performance: RT distributions are heavily skewed toward longer times.”</p>
+</section>
+</section>
+<section id="random-walk">
+<h2>Random Walk<a class="headerlink" href="#random-walk" title="Link to this heading">#</a></h2>
+<p>A random walk starts at some point (<em>bias</em>) and at each time step moves some amount chosen at random - usually the randomness is drawn from a bounded distribution centered around 0. This process is cumulative, and it is possible to move far away from the starting point but if the random distribution is centered around 0 then moving far away typically takes many steps. The following cell generates a random walk. Run the cell multiple times to observe the variety of trajectories that can be generated. Experiment with the parameters—such as the probability, bias, and threshold—to understand how they influence the behavior of the random walk. For example:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">probability</span></code>: Adjust this to control the likelihood of moving in one direction versus the other.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bias</span></code>: Introduce a bias in the starting point.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">threshold</span></code>: Set the limits at which the random walk stops.</p></li>
+</ul>
+<p>These changes will help you get a better intuition for how random walks behave under different conditions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Defining the probability to move up (probability to move down is (1 - probability))</span>
+<span class="n">probability</span> <span class="o">=</span> <span class="mf">.5</span>
+
+<span class="c1"># Defining the starting position </span>
+<span class="n">bias</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">positions</span> <span class="o">=</span> <span class="p">[</span><span class="n">bias</span><span class="p">]</span>
+
+<span class="c1"># Defining the maximum number of steps</span>
+<span class="n">n_steps</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># Defining the threshold of the walk</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="c1"># Creating a list of random numbers to decide the direction of the walk</span>
+<span class="n">random_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n_steps</span><span class="p">)</span>
+<span class="n">direction</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">probability</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">random_list</span><span class="p">]</span>
+
+<span class="c1"># Bounds the walk at +/-threshold</span>
+<span class="k">for</span> <span class="n">dr</span> <span class="ow">in</span> <span class="n">direction</span><span class="p">:</span>
+    <span class="n">positions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">positions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dr</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">positions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">threshold</span> <span class="ow">or</span> <span class="n">positions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">threshold</span><span class="p">:</span>
+        <span class="k">break</span>
+
+<span class="c1"># plotting down the graph of the random walk in 1D</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;step&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Random walk starting at </span><span class="si">{</span><span class="n">bias</span><span class="si">}</span><span class="s1"> for </span><span class="si">{</span><span class="n">n_steps</span><span class="si">}</span><span class="s1"> time steps or until +/-</span><span class="si">{</span><span class="n">threshold</span><span class="si">}</span><span class="s1"> is reached.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/a2124bac640a75ef77a2a2ff85f8bcda7994166da98ebbd3f04304f3fef652d9.png" src="../../../../../_images/a2124bac640a75ef77a2a2ff85f8bcda7994166da98ebbd3f04304f3fef652d9.png" />
+</div>
+</div>
+<section id="random-walk-in-the-context-of-ddm">
+<h3>Random Walk in the context of DDM<a class="headerlink" href="#random-walk-in-the-context-of-ddm" title="Link to this heading">#</a></h3>
+<p>Within a DDM the noise parameter is a random walk - and a higher value of noise means taking bigger steps. When we add a drift rate that adds a non-random motion component, so the drift rate moves the walk in a particular direction. You can think of drift rate as accumulating signal, with noise added on top as a random component.</p>
+<h4 style="background: #256ca2; color: #e9e9e9">🎯  Exercise 2</h4>
+<p>Add a constant drift rate to the above implementation of a random walk and observe how it changes the behavior of the random walk. Experiment with different values of the drift rate and observe how it influences the behavior of the random walk.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Defining the probability to move up (probability to move down is 1 - prob)</span>
+<span class="n">probability</span> <span class="o">=</span> <span class="mf">.5</span>
+
+<span class="c1"># Defining the starting position </span>
+<span class="n">bias</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">positions</span> <span class="o">=</span> <span class="p">[</span><span class="n">bias</span><span class="p">]</span>
+
+<span class="c1"># Defining the maximum number of steps</span>
+<span class="n">n_steps</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># Defining the threshold of the walk</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="c1"># Defining the drift rate (constant drift in one direction)</span>
+<span class="n">drift_rate</span> <span class="o">=</span>  <span class="c1"># TODO: Your code here</span>
+
+<span class="c1"># Creating a list of random numbers to decide the direction of the walk</span>
+<span class="n">random_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n_steps</span><span class="p">)</span>
+<span class="n">direction</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">probability</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">random_list</span><span class="p">]</span>
+
+<span class="c1"># Adjust your random walk to include the drift rate</span>
+<span class="k">for</span> <span class="n">dr</span> <span class="ow">in</span> <span class="n">direction</span><span class="p">:</span>
+    <span class="c1"># TODO: Your code here</span>
+
+<span class="c1"># plotting down the graph of the random walk in 1D</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;step&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Random walk starting at </span><span class="si">{</span><span class="n">bias</span><span class="si">}</span><span class="s1"> for </span><span class="si">{</span><span class="n">n_steps</span><span class="si">}</span><span class="s1"> time steps or until +/-</span><span class="si">{</span><span class="n">threshold</span><span class="si">}</span><span class="s1"> is reached.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">15</span>
+    <span class="n">drift_rate</span> <span class="o">=</span>  <span class="c1"># TODO: Your code here</span>
+                  <span class="o">^</span>
+<span class="ne">SyntaxError</span>: invalid syntax
+</pre></div>
+</div>
+</div>
+</div>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 2</summary>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Defining the probability to move up (probability to move down is 1 - prob)</span>
+<span class="n">probability</span> <span class="o">=</span> <span class="mf">.5</span>
+ 
+<span class="c1"># Defining the starting position </span>
+<span class="n">bias</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">positions</span> <span class="o">=</span> <span class="p">[</span><span class="n">bias</span><span class="p">]</span>
+
+<span class="c1"># Defining the maximum number of steps</span>
+<span class="n">n_steps</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># Defining the threshold of the walk</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="c1"># Defining the drift rate (constant drift in one direction)</span>
+<span class="n">drift_rate</span> <span class="o">=</span> <span class="mf">.1</span>  <span class="c1"># play with this value to see how it influences the behavior of the random walk, also try negative values</span>
+
+<span class="c1"># Creating a list of random numbers to decide the direction of the walk</span>
+<span class="n">random_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n_steps</span><span class="p">)</span>
+<span class="n">direction</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">probability</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">random_list</span><span class="p">]</span>
+ 
+<span class="c1"># Bounds the walk at +/-threshold</span>
+<span class="k">for</span> <span class="n">dr</span> <span class="ow">in</span> <span class="n">direction</span><span class="p">:</span>
+    <span class="n">positions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">positions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dr</span> <span class="o">+</span> <span class="n">drift_rate</span><span class="p">)</span>  <span class="c1"># add the drift rate to the position</span>
+    <span class="k">if</span> <span class="n">positions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">threshold</span> <span class="ow">or</span> <span class="n">positions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">threshold</span><span class="p">:</span>
+        <span class="k">break</span>
+ 
+
+<span class="c1"># plotting down the graph of the random walk in 1D</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;step&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Random walk starting at </span><span class="si">{</span><span class="n">bias</span><span class="si">}</span><span class="s1"> for </span><span class="si">{</span><span class="n">n_steps</span><span class="si">}</span><span class="s1"> time steps or until +/-</span><span class="si">{</span><span class="n">threshold</span><span class="si">}</span><span class="s1"> is reached.&#39;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</details>
+</section>
+</section>
+<section id="drift-diffusion-model-in-psyneulink">
+<h2>Drift Diffusion Model in PsyNeuLink<a class="headerlink" href="#drift-diffusion-model-in-psyneulink" title="Link to this heading">#</a></h2>
+<p>The input to a DDM reflects the stimulus, which can be neutral or provide evidence in favor of a decision - evidence that accumulates over successive time steps.</p>
+<p>Imagine the experiment in which subjects described above where have to respond with one of two buttons. They click the “l” button if they see more dots moving to the left, they click the “r” button if they see more dots moving to the right.</p>
+<p>Your integrator will get evidence from the visual system about the movement direction of dots on the screen. Since DDMs model two choice decisions, we can model left moving dots as evidence towards the L-boundary. Let’s assume the L-boundary is above the starting point (aka positive bound) and the R-boundary is below the starting point (aka negative bound).</p>
+<p>Let’s now assume a trial where most dots are moving to the left. The valence of the stimulus determines which direction the integrator drifts. Positive evidence (aka a dot moving to the left) drifts towards the L-boundary, negative evidence drifts towards the R boundary.</p>
+<p>For simplicity, we can assume that the visual system “samples” one dot at a time. Here, are a few concrete examples of how the integrator might work in different situations:</p>
+<ol class="arabic simple">
+<li><p>All dots are moving to the left:
+The visual system samples the following sequence of evidence: <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">1,</span> <span class="pre">1,</span> <span class="pre">1,</span> <span class="pre">1]</span></code></p></li>
+<li><p>All dots are moving to the right:
+The visual system samples the following sequence of evidence: <code class="docutils literal notranslate"><span class="pre">[-1,</span> <span class="pre">-1,</span> <span class="pre">-1,</span> <span class="pre">-1,</span> <span class="pre">-1]</span></code></p></li>
+<li><p>70% of the dots are moving to the left, 30% to the right:
+A possible sequence of evidence the visual might sample: <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">-1,</span> <span class="pre">1,</span> <span class="pre">-1,</span> <span class="pre">1]</span></code></p></li>
+</ol>
+<h4 style="background: #256ca2; color: #e9e9e9">🎯  Exercise 3</h4>
+<p>Think about these questions as you go through the exercises. If you don’t know the answer to any of the questions, see if the following exercises help you understand the answers better.</p>
+<ol class="arabic simple">
+<li><p>Tasks vary in difficulty. Under what task conditions would it be most realistic for your DDM to have a high drift rate?  What about a low drift rate?</p></li>
+<li><p>Assuming that you are modeling lots of individual trials, which kind of integrator would most likely produce the single fastest response time (minimum of all response times): A integrator with high noise or low noise? Why?</p></li>
+<li><p>How does raising your threshold affect your accuracy? Under which task conditions would it be adaptive to raise your threshold?</p></li>
+</ol>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 3</summary>
+<ol class="arabic simple">
+<li><p>A high drift rate is most realistic under conditions where the task is easy. In this case, the evidence in favor of one decision is strong, and the agent can accumulate evidence quickly. A low drift rate is most realistic under conditions where the task is difficult. In this case, the evidence in favor of one decision is weak, and the agent accumulates evidence slowly.</p></li>
+<li><p>An integrator with high noise would most likely produce the single fastest response time. This is because the noise would cause the integrator to reach the decision threshold more quickly. However, with a very high noise, the decision is practically random and not based on the evidence.</p></li>
+<li><p>Raising your threshold increases your accuracy. It would be adaptive to raise your threshold under conditions where the stakes for getting the answer right is high. For example, if you decide whether to invest a large sum of money in stocks.On the other hand, if a fast decision is more important, you would lower the threshold. For example, if you decide whether to brake to avoid a car accident.</p></li>
+</ol>
+</details>
+<p>In the following cell, we demonstrate the implementation of a drift diffusion integrator in PsyNeuLink:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_trials</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># Instate the DDM mechanism</span>
+<span class="n">ddm_integrator</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">DDM</span><span class="p">(</span><span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">DriftDiffusionIntegrator</span><span class="p">(</span>
+    <span class="n">noise</span><span class="o">=</span><span class="mf">.25</span><span class="p">,</span>
+    <span class="n">starting_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">non_decision_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">rate</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># Tell the DDM to store its outputs at each trial</span>
+<span class="n">ddm_integrator</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">set_log_conditions</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">DECISION_VARIABLE</span><span class="p">,</span> <span class="n">pnl</span><span class="o">.</span><span class="n">RESPONSE_TIME</span><span class="p">])</span>
+
+<span class="c1"># Create a compositions with only the integrator</span>
+<span class="n">DDM</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">Composition</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;DDM&#39;</span><span class="p">)</span>
+<span class="n">DDM</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="o">=</span><span class="n">ddm_integrator</span><span class="p">)</span>
+
+<span class="c1"># Run it</span>
+<span class="n">DDM</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">{</span><span class="n">ddm_integrator</span><span class="p">:</span> <span class="mf">1.</span><span class="p">},</span> <span class="n">num_trials</span><span class="o">=</span><span class="n">num_trials</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;execid&#39;</span><span class="p">)</span>
+
+<span class="c1"># Extract the logged data</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">ddm_integrator</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">nparray_dictionary</span><span class="p">()[</span><span class="s1">&#39;execid&#39;</span><span class="p">]</span>
+<span class="n">decision_pos</span> <span class="o">=</span> <span class="n">log</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">DECISION_VARIABLE</span><span class="p">]</span>
+<span class="n">time_pos</span> <span class="o">=</span> <span class="n">log</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">RESPONSE_TIME</span><span class="p">]</span>
+
+<span class="c1"># For each decision variable, plot the response time frequency</span>
+<span class="n">time_pos_pos_decision</span> <span class="o">=</span> <span class="n">time_pos</span><span class="p">[</span><span class="n">decision_pos</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">time_pos_neg_decision</span> <span class="o">=</span> <span class="n">time_pos</span><span class="p">[</span><span class="n">decision_pos</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">time_pos_pos_decision</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Positive Decisions&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">time_pos_neg_decision</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Negative Decisions&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Response Time Distribution for Positive and Negative Decisions&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Response Time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/7f43ef8c88c1f7900ba998660ab2a13fd81e15f778158907f4b649b253312942.png" src="../../../../../_images/7f43ef8c88c1f7900ba998660ab2a13fd81e15f778158907f4b649b253312942.png" />
+</div>
+</div>
+<p>The default behaviour of the <code class="docutils literal notranslate"><span class="pre">DDM</span></code> is to execute multiple time steps per call until the threshold is reached. This behavior can be changed by setting the <code class="docutils literal notranslate"><span class="pre">execute_until_finished</span></code> attribute to <code class="docutils literal notranslate"><span class="pre">False</span></code>. Then, the integrator will only execute one time step per call.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_trials</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># Instate the DDM mechanism with execute_until_finished=False</span>
+<span class="n">ddm_integrator_one_step</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">DDM</span><span class="p">(</span><span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">DriftDiffusionIntegrator</span><span class="p">(</span>
+    <span class="n">noise</span><span class="o">=</span><span class="mf">.25</span><span class="p">,</span>
+    <span class="n">starting_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">non_decision_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">rate</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span>
+<span class="p">),</span> <span class="n">execute_until_finished</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Tell the DDM to store its outputs at each trial</span>
+<span class="n">ddm_integrator_one_step</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">set_log_conditions</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">DECISION_VARIABLE</span><span class="p">])</span>
+
+<span class="c1"># Create a compositions with only the integrator</span>
+<span class="n">DDM_one_step</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">Composition</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;DDM One Step&#39;</span><span class="p">)</span>
+<span class="n">DDM_one_step</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="o">=</span><span class="n">ddm_integrator_one_step</span><span class="p">)</span>
+
+<span class="c1"># Run it</span>
+<span class="n">DDM_one_step</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">{</span><span class="n">ddm_integrator_one_step</span><span class="p">:</span> <span class="mf">1.</span><span class="p">},</span> <span class="n">num_trials</span><span class="o">=</span><span class="n">num_trials</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;execid&#39;</span><span class="p">)</span>
+
+<span class="c1"># Extract the logged data</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">ddm_integrator_one_step</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">nparray_dictionary</span><span class="p">()[</span><span class="s1">&#39;execid&#39;</span><span class="p">]</span>
+<span class="n">decision_pos</span> <span class="o">=</span> <span class="n">log</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">DECISION_VARIABLE</span><span class="p">]</span>
+
+<span class="c1"># For each time step plot the decision variable</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">decision_pos</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;.--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Decision Progress Versus Time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Decision Variable&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">num_trials</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">num_trials</span><span class="o">/</span><span class="mi">5</span><span class="p">)))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/eb0f587e57fb5335d8082e6eb18b9f6bcd75d22ca70192de14427847b75b2589.png" src="../../../../../_images/eb0f587e57fb5335d8082e6eb18b9f6bcd75d22ca70192de14427847b75b2589.png" />
+</div>
+</div>
+<p>Try changing the <code class="docutils literal notranslate"><span class="pre">rate</span></code> in the above cell to see how it affects the decision-making process.</p>
+<p>You probably would have expected that changing the rate would add a constant drift over time, but the default behavior for a <code class="docutils literal notranslate"><span class="pre">DDM</span></code> is to reset its internal state at the beginning of each trial. This behavior can be changed by setting the <code class="docutils literal notranslate"><span class="pre">reset_stateful_function_when</span></code> attribute to <code class="docutils literal notranslate"><span class="pre">Never</span></code> in the <code class="docutils literal notranslate"><span class="pre">DriftDiffusionIntegrator</span></code> function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_trials</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># Instate the DDM mechanism with execute_until_finished=False</span>
+<span class="n">ddm_integrator_one_step_no_reset</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">DDM</span><span class="p">(</span><span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">DriftDiffusionIntegrator</span><span class="p">(</span>
+    <span class="n">noise</span><span class="o">=</span><span class="mf">.25</span><span class="p">,</span>
+    <span class="n">starting_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">non_decision_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">rate</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span>
+<span class="p">),</span> 
+    <span class="n">execute_until_finished</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">reset_stateful_function_when</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">Never</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="c1"># Tell the DDM to store its outputs at each trial</span>
+<span class="n">ddm_integrator_one_step_no_reset</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">set_log_conditions</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">DECISION_VARIABLE</span><span class="p">])</span>
+
+<span class="c1"># Create a compositions with only the integrator</span>
+<span class="n">DDM_one_step_no_reset</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">Composition</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;DDM One Step no reset&#39;</span><span class="p">)</span>
+<span class="n">DDM_one_step_no_reset</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="o">=</span><span class="n">ddm_integrator_one_step_no_reset</span><span class="p">)</span>
+
+<span class="c1"># Run it</span>
+<span class="n">DDM_one_step_no_reset</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">{</span><span class="n">ddm_integrator_one_step_no_reset</span><span class="p">:</span> <span class="mf">1.</span><span class="p">},</span> <span class="n">num_trials</span><span class="o">=</span><span class="n">num_trials</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;execid&#39;</span><span class="p">)</span>
+
+<span class="c1"># Extract the logged data</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">ddm_integrator_one_step_no_reset</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">nparray_dictionary</span><span class="p">()[</span><span class="s1">&#39;execid&#39;</span><span class="p">]</span>
+<span class="n">decision_pos</span> <span class="o">=</span> <span class="n">log</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">DECISION_VARIABLE</span><span class="p">]</span>
+
+<span class="c1"># For each time step plot the decision variable</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">decision_pos</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;.--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Decision Progress Versus Time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Decision Variable&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">num_trials</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">num_trials</span><span class="o">/</span><span class="mi">5</span><span class="p">)))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/b41183501ebb23fff962d13604692ff0b0fdade2bcbb69808df0a4a6ca862466.png" src="../../../../../_images/b41183501ebb23fff962d13604692ff0b0fdade2bcbb69808df0a4a6ca862466.png" />
+</div>
+</div>
+<p>The above cell simulates the random walk implemented in the beginning.</p>
+<section id="analytical-solutions-to-the-ddm">
+<h3>Analytical Solutions to the DDM<a class="headerlink" href="#analytical-solutions-to-the-ddm" title="Link to this heading">#</a></h3>
+<p>PsyNeuLink also allows to calculate the analytic solutions to the DDM described in <a class="reference external" href="https://sites.engineering.ucsb.edu/~moehlis/moehlis_papers/psych.pdf">Bogacz et al (2006</a>. The <code class="docutils literal notranslate"><span class="pre">DriftDiffusionAnalytical</span></code> function can be used to calculate the analytic solutions to the DDM. The function returns the <code class="docutils literal notranslate"><span class="pre">DECISION_VARIABLE</span></code>, <code class="docutils literal notranslate"><span class="pre">RESPONSE_TIME</span></code>, accuracy, and (<code class="docutils literal notranslate"><span class="pre">PROBABILITY_UPPER_THRESHOLD</span></code> error rate (<code class="docutils literal notranslate"><span class="pre">PROBABIILITY_LOWER_THRESHOLD</span></code>. It also returns the moments (mean, variance, and skew) for conditional (correct/positive or incorrect/negative) response time distributions (<code class="docutils literal notranslate"><span class="pre">RT_CORRECT_MEAN</span></code>, <code class="docutils literal notranslate"><span class="pre">RT_CORRECT_VARIANCE</span></code>, <code class="docutils literal notranslate"><span class="pre">RT_CORRECT_SKEW</span></code>).</p>
+<p>Here, we will use an additional pacakge <code class="docutils literal notranslate"><span class="pre">scipy</span></code> to plot the probability density function of the response time distributions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">scipy</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">pearson3</span>
+<span class="n">num_trials</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># Instate the DDM mechanism</span>
+<span class="n">ddm_integrator</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">DDM</span><span class="p">(</span><span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">DriftDiffusionAnalytical</span><span class="p">(</span>
+    <span class="n">noise</span><span class="o">=</span><span class="mf">.25</span><span class="p">,</span>
+    <span class="n">starting_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">non_decision_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">drift_rate</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">output_ports</span><span class="o">=</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">PROBABILITY_UPPER_THRESHOLD</span><span class="p">,</span> <span class="n">pnl</span><span class="o">.</span><span class="n">PROBABILITY_LOWER_THRESHOLD</span><span class="p">,</span> <span class="n">pnl</span><span class="o">.</span><span class="n">RT_CORRECT_MEAN</span><span class="p">,</span> <span class="n">pnl</span><span class="o">.</span><span class="n">RT_CORRECT_VARIANCE</span><span class="p">,</span> <span class="n">pnl</span><span class="o">.</span><span class="n">RT_CORRECT_SKEW</span><span class="p">,</span> <span class="n">pnl</span><span class="o">.</span><span class="n">RT_INCORRECT_MEAN</span><span class="p">,</span> <span class="n">pnl</span><span class="o">.</span><span class="n">RT_INCORRECT_VARIANCE</span><span class="p">,</span> <span class="n">pnl</span><span class="o">.</span><span class="n">RT_INCORRECT_SKEW</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Create a compositions with only the integrator</span>
+<span class="n">DDM</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">Composition</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;DDM&#39;</span><span class="p">)</span>
+<span class="n">DDM</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="o">=</span><span class="n">ddm_integrator</span><span class="p">)</span>
+
+<span class="c1"># Run it</span>
+<span class="n">DDM</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">{</span><span class="n">ddm_integrator</span><span class="p">:</span> <span class="mf">.5</span><span class="p">},</span> <span class="n">num_trials</span><span class="o">=</span><span class="n">num_trials</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;execid&#39;</span><span class="p">)</span>
+
+<span class="c1"># Extract the data (here we access the values directly)</span>
+<span class="c1"># vals = DDM.parameters.value</span>
+<span class="n">probability_correct</span> <span class="o">=</span> <span class="n">ddm_integrator</span><span class="o">.</span><span class="n">output_ports</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">PROBABILITY_UPPER_THRESHOLD</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">probability_incorrect</span> <span class="o">=</span> <span class="n">ddm_integrator</span><span class="o">.</span><span class="n">output_ports</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">PROBABILITY_LOWER_THRESHOLD</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">rt_correct_mean</span> <span class="o">=</span> <span class="n">ddm_integrator</span><span class="o">.</span><span class="n">output_ports</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">RT_CORRECT_MEAN</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">rt_correct_variance</span> <span class="o">=</span> <span class="n">ddm_integrator</span><span class="o">.</span><span class="n">output_ports</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">RT_CORRECT_VARIANCE</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">rt_correct_skew</span> <span class="o">=</span> <span class="n">ddm_integrator</span><span class="o">.</span><span class="n">output_ports</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">RT_CORRECT_SKEW</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">rt_correct_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rt_correct_variance</span><span class="p">)</span>
+
+<span class="n">rt_incorrect_mean</span> <span class="o">=</span> <span class="n">ddm_integrator</span><span class="o">.</span><span class="n">output_ports</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">RT_INCORRECT_MEAN</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">rt_incorrect_variance</span> <span class="o">=</span> <span class="n">ddm_integrator</span><span class="o">.</span><span class="n">output_ports</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">RT_INCORRECT_VARIANCE</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">rt_incorrect_skew</span> <span class="o">=</span> <span class="n">ddm_integrator</span><span class="o">.</span><span class="n">output_ports</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">RT_INCORRECT_SKEW</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">rt_incorrect_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rt_incorrect_variance</span><span class="p">)</span>
+
+<span class="c1"># Generate the Pearson Type III distributions</span>
+<span class="n">x_correct</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">rt_correct_mean</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">rt_correct_std</span><span class="p">,</span> <span class="n">rt_correct_mean</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">rt_correct_std</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">pdf_correct</span> <span class="o">=</span> <span class="n">pearson3</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x_correct</span><span class="p">,</span> <span class="n">rt_correct_skew</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">rt_correct_mean</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">rt_correct_std</span><span class="p">)</span> <span class="o">*</span> <span class="n">probability_correct</span>
+
+<span class="n">x_incorrect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">rt_incorrect_mean</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">rt_incorrect_std</span><span class="p">,</span> <span class="n">rt_incorrect_mean</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">rt_incorrect_std</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">pdf_incorrect</span> <span class="o">=</span> <span class="n">pearson3</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x_incorrect</span><span class="p">,</span> <span class="n">rt_incorrect_skew</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">rt_incorrect_mean</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">rt_incorrect_std</span><span class="p">)</span> <span class="o">*</span> <span class="n">probability_incorrect</span>
+
+<span class="c1"># Plot the distribution</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_correct</span><span class="p">,</span> <span class="n">pdf_correct</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Correct&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_incorrect</span><span class="p">,</span> <span class="n">pdf_incorrect</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Incorrect&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Analytical RT distributions&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;RT&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Density&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/26c2ef8d4e4f084613bd8c6f6552eb09d40ba6745e613c402bc93ab9679ea596.png" src="../../../../../_images/26c2ef8d4e4f084613bd8c6f6552eb09d40ba6745e613c402bc93ab9679ea596.png" />
+</div>
+</div>
+<h4 style="background: #256ca2; color: #e9e9e9">🎯  Exercise 4</h4>
+<p>Why did we use <code class="docutils literal notranslate"><span class="pre">num_trials</span> <span class="pre">=</span> <span class="pre">1</span></code> in th above cell? What would happen if we set <code class="docutils literal notranslate"><span class="pre">num_trials</span> <span class="pre">=</span> <span class="pre">100</span></code>?</p>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 4</summary>
+<p>This is an analytical solution for the DDM which means we are expecting the exact same output for each trial. Running the DDM for multiple trials would not change the output. We would get the same output for each trial. This is why we use <code class="docutils literal notranslate"><span class="pre">num_trials</span> <span class="pre">=</span> <span class="pre">1</span></code> in this case. As output we get the moments of the response time distributions an not (as in <code class="docutils literal notranslate"><span class="pre">DriftDiffusionIntegrater</span></code>) a single decision and reaction time.</p>
+</details>
+<h4 style="background: #256ca2; color: #e9e9e9">🎯  Exercise 5</h4>
+<p>How do the parameters of the DDM map on to reaction times in lab experiments and real life decision-making?</p>
+<p>Here, we work with hypothetical experimental data from two experiments (A and B). Each experiment has two conditions (1 and 2). The task was a <a class="reference internal" href="#the-two-alternative-forced-choice-2afc-tafc-task"><span class="xref myst">2AFC task</span></a> as described earlier. The subjects had to respond to the direction of moving stimuli.</p>
+<hr class="docutils" />
+<p><strong>Experiment : Penalty Manipulation</strong></p>
+<ol class="arabic simple">
+<li><p>In the <em>zero penalty</em> condition, subjects got no penalties for wrong answers.</p></li>
+<li><p>In the <em>high penalty</em> condition, subjects got a penalty for responding incorrectly.</p></li>
+</ol>
+<hr class="docutils" />
+<p><strong>Experiment 2: Coherence Manipulation</strong></p>
+<ol class="arabic simple">
+<li><p>In the <em>high coherence</em> condition, subjects saw stimuli with high <em>coherence</em> (most dots moved in the same direction).</p></li>
+<li><p>In the <em>low coherence</em> condition subjects saw stimuli with low coherence(most dots moved randomly and only a few of them moved in the target direction).</p></li>
+</ol>
+<hr class="docutils" />
+<p>Here, you see the reaction time distributions for the two experiments:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Paths to the data</span>
+<span class="n">penalties_path</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/younesStrittmatter/502B/raw/refs/heads/main/data/drift_diffusion_models/penalties.pkl&quot;</span>
+<span class="n">coherence_path</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/younesStrittmatter/502B/raw/refs/heads/main/data/drift_diffusion_models/coherence.pkl&quot;</span>
+
+    
+<span class="c1"># Load and prepare the data for Experiment A</span>
+<span class="n">penalties_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="n">penalties_path</span><span class="p">)</span>
+<span class="n">max_rt</span> <span class="o">=</span> <span class="n">penalties_df</span><span class="o">.</span><span class="n">rt</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+<span class="c1"># Filter the data</span>
+<span class="c1"># Low penalties</span>
+<span class="n">penalties_zero_penalty_df</span> <span class="o">=</span> <span class="n">penalties_df</span><span class="p">[</span><span class="n">penalties_df</span><span class="o">.</span><span class="n">condition</span> <span class="o">==</span> <span class="s1">&#39;ZeroPenalty&#39;</span><span class="p">]</span>
+<span class="c1"># Correct</span>
+<span class="n">rt_zero_penalty_correct</span> <span class="o">=</span> <span class="n">penalties_zero_penalty_df</span><span class="o">.</span><span class="n">rt</span><span class="p">[</span><span class="n">penalties_zero_penalty_df</span><span class="o">.</span><span class="n">response</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+<span class="c1"># Incorrect</span>
+<span class="n">rt_zero_penalty_incorrect</span> <span class="o">=</span> <span class="n">penalties_zero_penalty_df</span><span class="o">.</span><span class="n">rt</span><span class="p">[</span><span class="n">penalties_zero_penalty_df</span><span class="o">.</span><span class="n">response</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># High penalties</span>
+<span class="n">penalties_high_penalty_df</span> <span class="o">=</span> <span class="n">penalties_df</span><span class="p">[</span><span class="n">penalties_df</span><span class="o">.</span><span class="n">condition</span> <span class="o">==</span> <span class="s1">&#39;HighPenalty&#39;</span><span class="p">]</span>
+<span class="c1"># Correct</span>
+<span class="n">rt_high_penalty_correct</span> <span class="o">=</span> <span class="n">penalties_high_penalty_df</span><span class="o">.</span><span class="n">rt</span><span class="p">[</span><span class="n">penalties_high_penalty_df</span><span class="o">.</span><span class="n">response</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+<span class="c1"># Incorrect</span>
+<span class="n">rt_high_penalty_incorrect</span> <span class="o">=</span> <span class="n">penalties_high_penalty_df</span><span class="o">.</span><span class="n">rt</span><span class="p">[</span><span class="n">penalties_high_penalty_df</span><span class="o">.</span><span class="n">response</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Load and prepare the data for Experiment B</span>
+<span class="n">coherence_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="n">coherence_path</span><span class="p">)</span>
+
+<span class="c1"># Filter the data</span>
+<span class="c1"># High coherence</span>
+<span class="n">coherence_high_coherence_df</span> <span class="o">=</span> <span class="n">coherence_df</span><span class="p">[</span><span class="n">coherence_df</span><span class="o">.</span><span class="n">condition</span> <span class="o">==</span> <span class="s1">&#39;HighCoherence&#39;</span><span class="p">]</span>
+<span class="c1"># Correct</span>
+<span class="n">rt_high_coherence_correct</span> <span class="o">=</span> <span class="n">coherence_high_coherence_df</span><span class="o">.</span><span class="n">rt</span><span class="p">[</span><span class="n">coherence_high_coherence_df</span><span class="o">.</span><span class="n">response</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+<span class="c1"># Incorrect</span>
+<span class="n">rt_high_coherence_incorrect</span> <span class="o">=</span> <span class="n">coherence_high_coherence_df</span><span class="o">.</span><span class="n">rt</span><span class="p">[</span><span class="n">coherence_high_coherence_df</span><span class="o">.</span><span class="n">response</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Low coherence</span>
+<span class="n">coherence_low_coherence_df</span> <span class="o">=</span> <span class="n">coherence_df</span><span class="p">[</span><span class="n">coherence_df</span><span class="o">.</span><span class="n">condition</span> <span class="o">==</span> <span class="s1">&#39;LowCoherence&#39;</span><span class="p">]</span>
+<span class="c1"># Correct</span>
+<span class="n">rt_low_coherence_correct</span> <span class="o">=</span> <span class="n">coherence_low_coherence_df</span><span class="o">.</span><span class="n">rt</span><span class="p">[</span><span class="n">coherence_low_coherence_df</span><span class="o">.</span><span class="n">response</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+<span class="c1"># Incorrect</span>
+<span class="n">rt_low_coherence_incorrect</span> <span class="o">=</span> <span class="n">coherence_low_coherence_df</span><span class="o">.</span><span class="n">rt</span><span class="p">[</span><span class="n">coherence_low_coherence_df</span><span class="o">.</span><span class="n">response</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+
+
+<span class="c1"># This function is used to plot the RT distributions</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_rt_distributions</span><span class="p">(</span><span class="n">rt_correct</span><span class="p">,</span> <span class="n">rt_incorrect</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">x_max</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="mf">.1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_max</span> <span class="o">/</span> <span class="mf">.1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">rt_correct</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Correct&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">rt_incorrect</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Wrong&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Response Time&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    
+<span class="c1"># Plot the RT distributions for Experiment A</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;RT Frequency by Penalty&#39;</span><span class="p">)</span>
+<span class="n">plot_rt_distributions</span><span class="p">(</span><span class="n">rt_zero_penalty_correct</span><span class="p">,</span> <span class="n">rt_zero_penalty_incorrect</span><span class="p">,</span> <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;Zero Penalty&#39;</span><span class="p">,</span> <span class="n">max_rt</span><span class="p">)</span>
+<span class="n">plot_rt_distributions</span><span class="p">(</span><span class="n">rt_high_penalty_correct</span><span class="p">,</span> <span class="n">rt_high_penalty_incorrect</span><span class="p">,</span> <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;High Penalty&#39;</span><span class="p">,</span> <span class="n">max_rt</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Plot the RT distributions for Experiment B</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;RT Frequency by Coherence&#39;</span><span class="p">)</span>
+<span class="n">plot_rt_distributions</span><span class="p">(</span><span class="n">rt_high_coherence_correct</span><span class="p">,</span> <span class="n">rt_high_coherence_incorrect</span><span class="p">,</span> <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;High Coherence&#39;</span><span class="p">,</span> <span class="n">max_rt</span><span class="p">)</span>
+<span class="n">plot_rt_distributions</span><span class="p">(</span><span class="n">rt_low_coherence_correct</span><span class="p">,</span> <span class="n">rt_low_coherence_incorrect</span><span class="p">,</span> <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;Low Coherence&#39;</span><span class="p">,</span> <span class="n">max_rt</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/2f51f8d67324f8dcb8d96288e7d318ba8a0bca720dad3994b96f129258271706.png" src="../../../../../_images/2f51f8d67324f8dcb8d96288e7d318ba8a0bca720dad3994b96f129258271706.png" />
+<img alt="../../../../../_images/76fcb57929b9ae3694a6c5e9a902335d2c7f8cee307b37cc729d810ab59dc48d.png" src="../../../../../_images/76fcb57929b9ae3694a6c5e9a902335d2c7f8cee307b37cc729d810ab59dc48d.png" />
+</div>
+</div>
+<p><strong>Exercise 5a</strong></p>
+<p>Build a single path integrator (not analytic) that corresponds to the zero penalty condition in Experiment A (A1). Then build the analogue for the other condition by changing only one parameter of the <code class="docutils literal notranslate"><span class="pre">DriftDiffusionIntegrator</span></code>. Run the integrators for 100 trials and plot the resulting RT distributions.</p>
+<p><strong>Note:</strong> The goal is not to fit the data exactly but to understand how the parameters influence the RT distributions and how to get qualitatively similar results. It is not important that the absolute values of the RT distributions match the data but that you can reproduce the general differences in RT distributions between the two conditions.</p>
+<details><summary style="background: #d6c89d; color: #e9e9e9">💡 Hint 1</summary>
+<p>The general difference between the two conditions in Experiment A is that the RTs where higher and that the error rate was lower.</p>
+</details>
+<details><summary style="background: #d6c89d; color: #e9e9e9">💡 Hint 2</summary>
+<p>You can start with the following code snippet that builds the integrator for the zero penalty condition in Experiment A (A1). You can then modify this code to build the integrator for the high penalty condition in Experiment A (A2).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">num_trials</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># Instate the DDM mechanism</span>
+<span class="n">ddm_integrator_a1</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">DDM</span><span class="p">(</span><span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">DriftDiffusionIntegrator</span><span class="p">(</span>
+    <span class="n">noise</span><span class="o">=</span><span class="mf">.25</span><span class="p">,</span>
+    <span class="n">starting_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">non_decision_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">rate</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># Tell the DDM to store its outputs at each trial</span>
+<span class="n">ddm_integrator_a1</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">set_log_conditions</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">DECISION_VARIABLE</span><span class="p">,</span> <span class="n">pnl</span><span class="o">.</span><span class="n">RESPONSE_TIME</span><span class="p">])</span>
+
+<span class="c1"># Create a compositions with only the integrator</span>
+<span class="n">DDM_a1</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">Composition</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;DDM A1&#39;</span><span class="p">)</span>
+<span class="n">DDM_a1</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="o">=</span><span class="n">ddm_integrator_a1</span><span class="p">)</span>
+
+<span class="c1"># Run it</span>
+<span class="n">DDM_a1</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">{</span><span class="n">ddm_integrator_a1</span><span class="p">:</span> <span class="mf">1.</span><span class="p">},</span> <span class="n">num_trials</span><span class="o">=</span><span class="n">num_trials</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;execid&#39;</span><span class="p">)</span>
+
+<span class="c1"># Extract the logged data</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">ddm_integrator_a1</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">nparray_dictionary</span><span class="p">()[</span><span class="s1">&#39;execid&#39;</span><span class="p">]</span>
+<span class="n">decision_pos</span> <span class="o">=</span> <span class="n">log</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">DECISION_VARIABLE</span><span class="p">]</span>
+<span class="n">time_pos</span> <span class="o">=</span> <span class="n">log</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">RESPONSE_TIME</span><span class="p">]</span> <span class="o">/</span> <span class="mf">5.</span> <span class="c1"># Here, we divide by 5 to get a better fit</span>
+
+<span class="c1"># For each decision variable, plot the response time frequency</span>
+<span class="n">time_pos_pos_decision</span> <span class="o">=</span> <span class="n">time_pos</span><span class="p">[</span><span class="n">decision_pos</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">time_pos_neg_decision</span> <span class="o">=</span> <span class="n">time_pos</span><span class="p">[</span><span class="n">decision_pos</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="n">max_rt</span> <span class="o">=</span> <span class="n">time_pos</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+<span class="c1"># Plot the RT distributions for Experiment A1</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plot_rt_distributions</span><span class="p">(</span><span class="n">time_pos_pos_decision</span><span class="p">,</span> <span class="n">time_pos_neg_decision</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="s1">&#39;Experiment A1&#39;</span><span class="p">,</span> <span class="n">max_rt</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</details>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 5a</summary>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">num_trials</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1">## Experiment A1 - Zero Penalty</span>
+<span class="c1"># Instate the DDM mechanism for Experiment A1</span>
+<span class="n">ddm_integrator_a1</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">DDM</span><span class="p">(</span><span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">DriftDiffusionIntegrator</span><span class="p">(</span>
+    <span class="n">noise</span><span class="o">=</span><span class="mf">.25</span><span class="p">,</span>
+    <span class="n">starting_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">non_decision_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">rate</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># Tell the DDM to store its outputs at each trial</span>
+<span class="n">ddm_integrator_a1</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">set_log_conditions</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">DECISION_VARIABLE</span><span class="p">,</span> <span class="n">pnl</span><span class="o">.</span><span class="n">RESPONSE_TIME</span><span class="p">])</span>
+
+<span class="c1"># Create a compositions with only the integrator</span>
+<span class="n">DDM_a1</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">Composition</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;DDM A1&#39;</span><span class="p">)</span>
+<span class="n">DDM_a1</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="o">=</span><span class="n">ddm_integrator_a1</span><span class="p">)</span>
+
+
+<span class="c1">## Experiment A2 - High Penalty</span>
+<span class="c1"># Instate the DDM mechanism for Experiment A2</span>
+<span class="n">ddm_integrator_a2</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">DDM</span><span class="p">(</span><span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">DriftDiffusionIntegrator</span><span class="p">(</span>
+    <span class="n">noise</span><span class="o">=</span><span class="mf">.25</span><span class="p">,</span>
+    <span class="n">starting_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">non_decision_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">rate</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="o">=</span><span class="mf">3.</span><span class="p">)</span>  <span class="c1"># Here, we manipulate the threshold. All other parameters are the same as in A1</span>
+<span class="p">)</span>
+
+<span class="c1"># Tell the DDM to store its outputs at each trial</span>
+<span class="n">ddm_integrator_a2</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">set_log_conditions</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">DECISION_VARIABLE</span><span class="p">,</span> <span class="n">pnl</span><span class="o">.</span><span class="n">RESPONSE_TIME</span><span class="p">])</span>
+
+<span class="c1"># Create a compositions with only the integrator</span>
+<span class="n">DDM_a2</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">Composition</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;DDM A2&#39;</span><span class="p">)</span>
+<span class="n">DDM_a2</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="o">=</span><span class="n">ddm_integrator_a2</span><span class="p">)</span>
+
+<span class="c1"># </span>
+<span class="c1"># # Run both integrators</span>
+<span class="n">DDM_a1</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">{</span><span class="n">ddm_integrator_a1</span><span class="p">:</span> <span class="mf">1.</span><span class="p">},</span> <span class="n">num_trials</span><span class="o">=</span><span class="n">num_trials</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;execid&#39;</span><span class="p">)</span>
+<span class="n">DDM_a2</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">{</span><span class="n">ddm_integrator_a2</span><span class="p">:</span> <span class="mf">1.</span><span class="p">},</span> <span class="n">num_trials</span><span class="o">=</span><span class="n">num_trials</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;execid&#39;</span><span class="p">)</span>
+<span class="c1"># </span>
+<span class="c1"># Extract the logged data</span>
+<span class="n">log_a1</span> <span class="o">=</span> <span class="n">ddm_integrator_a1</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">nparray_dictionary</span><span class="p">()[</span><span class="s1">&#39;execid&#39;</span><span class="p">]</span>
+<span class="n">decision_pos_a1</span> <span class="o">=</span> <span class="n">log_a1</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">DECISION_VARIABLE</span><span class="p">]</span>
+<span class="n">time_pos_a1</span> <span class="o">=</span> <span class="n">log_a1</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">RESPONSE_TIME</span><span class="p">]</span> <span class="o">/</span> <span class="mf">5.</span> <span class="c1"># Here, we divide by 5 to get a better fit</span>
+
+<span class="c1"># For each decision variable, plot the response time frequency</span>
+<span class="n">time_pos_pos_decision_a1</span> <span class="o">=</span> <span class="n">time_pos_a1</span><span class="p">[</span><span class="n">decision_pos_a1</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">time_pos_neg_decision_a1</span> <span class="o">=</span> <span class="n">time_pos_a1</span><span class="p">[</span><span class="n">decision_pos_a1</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="n">log_a2</span> <span class="o">=</span> <span class="n">ddm_integrator_a2</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">nparray_dictionary</span><span class="p">()[</span><span class="s1">&#39;execid&#39;</span><span class="p">]</span>
+<span class="n">decision_pos_a2</span> <span class="o">=</span> <span class="n">log_a2</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">DECISION_VARIABLE</span><span class="p">]</span>
+<span class="n">time_pos_a2</span> <span class="o">=</span> <span class="n">log_a2</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">RESPONSE_TIME</span><span class="p">]</span> <span class="o">/</span> <span class="mf">5.</span> <span class="c1"># Here, we divide by 5 to get a better fit</span>
+
+<span class="c1"># For each decision variable, plot the response time frequency</span>
+<span class="n">time_pos_pos_decision_a2</span> <span class="o">=</span> <span class="n">time_pos_a2</span><span class="p">[</span><span class="n">decision_pos_a2</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">time_pos_neg_decision_a2</span> <span class="o">=</span> <span class="n">time_pos_a2</span><span class="p">[</span><span class="n">decision_pos_a2</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="n">max_rt</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">time_pos_a1</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">time_pos_a2</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+
+
+<span class="c1"># Plot the RT distributions for Experiment A1</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plot_rt_distributions</span><span class="p">(</span><span class="n">time_pos_pos_decision_a1</span><span class="p">,</span> <span class="n">time_pos_neg_decision_a1</span><span class="p">,</span> <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;A1 Zero Penalty&#39;</span><span class="p">,</span> <span class="n">max_rt</span><span class="p">)</span>
+<span class="n">plot_rt_distributions</span><span class="p">(</span><span class="n">time_pos_pos_decision_a2</span><span class="p">,</span> <span class="n">time_pos_neg_decision_a2</span><span class="p">,</span> <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;A2 High Penalty&#39;</span><span class="p">,</span> <span class="n">max_rt</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</details>
+<p>Exercise 5b</p>
+<p>Repeat the same process for Experiment B. Build the integrators for the high and low coherence conditions (B1 and B2) and run them for 100 trials. Plot the resulting RT distributions.</p>
+<details><summary style="background: #d6c89d; color: #e9e9e9">💡 Hint</summary>
+<p>The general difference between the two conditions is that in the high coherence condition the participants are faster and more accurate.</p>
+</details>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 5b</summary>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">num_trials</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1">## Experiment B1 - High Coherence</span>
+<span class="c1"># Instate the DDM mechanism for Experiment b1</span>
+<span class="n">ddm_integrator_b1</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">DDM</span><span class="p">(</span><span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">DriftDiffusionIntegrator</span><span class="p">(</span>
+    <span class="n">noise</span><span class="o">=</span><span class="mf">.25</span><span class="p">,</span>
+    <span class="n">starting_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">non_decision_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">rate</span><span class="o">=</span><span class="mf">.2</span><span class="p">,</span>  <span class="c1"># Here, we manipulate the drift rate</span>
+    <span class="n">threshold</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># Tell the DDM to store its outputs at each trial</span>
+<span class="n">ddm_integrator_b1</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">set_log_conditions</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">DECISION_VARIABLE</span><span class="p">,</span> <span class="n">pnl</span><span class="o">.</span><span class="n">RESPONSE_TIME</span><span class="p">])</span>
+
+<span class="c1"># Create a compositions with only the integrator</span>
+<span class="n">DDM_b1</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">Composition</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;DDM B1&#39;</span><span class="p">)</span>
+<span class="n">DDM_b1</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="o">=</span><span class="n">ddm_integrator_b1</span><span class="p">)</span>
+
+
+<span class="c1">## Experiment B2 - Low Coherence</span>
+<span class="c1"># Instate the DDM mechanism for Experiment B2</span>
+<span class="n">ddm_integrator_b2</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">DDM</span><span class="p">(</span><span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">DriftDiffusionIntegrator</span><span class="p">(</span>
+    <span class="n">noise</span><span class="o">=</span><span class="mf">.25</span><span class="p">,</span>
+    <span class="n">starting_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">non_decision_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">rate</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>  
+<span class="p">)</span>
+
+<span class="c1"># Tell the DDM to store its outputs at each trial</span>
+<span class="n">ddm_integrator_b2</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">set_log_conditions</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">DECISION_VARIABLE</span><span class="p">,</span> <span class="n">pnl</span><span class="o">.</span><span class="n">RESPONSE_TIME</span><span class="p">])</span>
+
+<span class="c1"># Create a compositions with only the integrator</span>
+<span class="n">DDM_b2</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">Composition</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;DDM B2&#39;</span><span class="p">)</span>
+<span class="n">DDM_b2</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="o">=</span><span class="n">ddm_integrator_b2</span><span class="p">)</span>
+
+<span class="c1"># </span>
+<span class="c1"># # Run both integrators</span>
+<span class="n">DDM_b1</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">{</span><span class="n">ddm_integrator_b1</span><span class="p">:</span> <span class="mf">1.</span><span class="p">},</span> <span class="n">num_trials</span><span class="o">=</span><span class="n">num_trials</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;execid&#39;</span><span class="p">)</span>
+<span class="n">DDM_b2</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">{</span><span class="n">ddm_integrator_b2</span><span class="p">:</span> <span class="mf">1.</span><span class="p">},</span> <span class="n">num_trials</span><span class="o">=</span><span class="n">num_trials</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;execid&#39;</span><span class="p">)</span>
+<span class="c1"># </span>
+<span class="c1"># Extract the logged data</span>
+<span class="n">log_b1</span> <span class="o">=</span> <span class="n">ddm_integrator_b1</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">nparray_dictionary</span><span class="p">()[</span><span class="s1">&#39;execid&#39;</span><span class="p">]</span>
+<span class="n">decision_pos_b1</span> <span class="o">=</span> <span class="n">log_b1</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">DECISION_VARIABLE</span><span class="p">]</span>
+<span class="n">time_pos_b1</span> <span class="o">=</span> <span class="n">log_b1</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">RESPONSE_TIME</span><span class="p">]</span> <span class="o">/</span> <span class="mf">10.</span> <span class="c1"># Here, we divide by 10 to get a better fit</span>
+
+<span class="c1"># For each decision variable, plot the response time frequency</span>
+<span class="n">time_pos_pos_decision_b1</span> <span class="o">=</span> <span class="n">time_pos_b1</span><span class="p">[</span><span class="n">decision_pos_b1</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">time_pos_neg_decision_b1</span> <span class="o">=</span> <span class="n">time_pos_b1</span><span class="p">[</span><span class="n">decision_pos_b1</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="n">log_b2</span> <span class="o">=</span> <span class="n">ddm_integrator_b2</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">nparray_dictionary</span><span class="p">()[</span><span class="s1">&#39;execid&#39;</span><span class="p">]</span>
+<span class="n">decision_pos_b2</span> <span class="o">=</span> <span class="n">log_b2</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">DECISION_VARIABLE</span><span class="p">]</span>
+<span class="n">time_pos_b2</span> <span class="o">=</span> <span class="n">log_b2</span><span class="p">[</span><span class="n">pnl</span><span class="o">.</span><span class="n">RESPONSE_TIME</span><span class="p">]</span> <span class="o">/</span> <span class="mf">10.</span> <span class="c1"># Here, we divide by 10 to get a better fit</span>
+
+<span class="c1"># For each decision variable, plot the response time frequency</span>
+<span class="n">time_pos_pos_decision_b2</span> <span class="o">=</span> <span class="n">time_pos_b2</span><span class="p">[</span><span class="n">decision_pos_b2</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">time_pos_neg_decision_b2</span> <span class="o">=</span> <span class="n">time_pos_b2</span><span class="p">[</span><span class="n">decision_pos_b2</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="n">max_rt</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">time_pos_b1</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">time_pos_b2</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+
+
+<span class="c1"># Plot the RT distributions for Experiment b1</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plot_rt_distributions</span><span class="p">(</span><span class="n">time_pos_pos_decision_b1</span><span class="p">,</span> <span class="n">time_pos_neg_decision_b1</span><span class="p">,</span> <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;B1 High Coherence&#39;</span><span class="p">,</span> <span class="n">max_rt</span><span class="p">)</span>
+<span class="n">plot_rt_distributions</span><span class="p">(</span><span class="n">time_pos_pos_decision_b2</span><span class="p">,</span> <span class="n">time_pos_neg_decision_b2</span><span class="p">,</span> <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;B2 Low Coherence&#39;</span><span class="p">,</span> <span class="n">max_rt</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</details>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "PrincetonUniversity/NEU-PSY-502",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/502B/Computation/Decision Making/notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">3 Decision Making</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../Reinforcement%20Learning/intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">4 Reinforcement Learning</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-are-drift-diffusion-models-useful">Why are drift diffusion models useful?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-alternative-forced-choice-2afc-tafc-task">The Two Alternative Forced Choice (2AFC / TAFC) Task</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#to-err-on-the-side-of-caution-or-respond-quickly">To err on the side of caution or respond quickly?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-walk">Random Walk</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-walk-in-the-context-of-ddm">Random Walk in the context of DDM</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#drift-diffusion-model-in-psyneulink">Drift Diffusion Model in PsyNeuLink</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analytical-solutions-to-the-ddm">Analytical Solutions to the DDM</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jonathan Cohen, Samuel Nastase, Alexander Ku & Younes Strittmatter
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
