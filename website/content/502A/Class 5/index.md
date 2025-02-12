@@ -6,7 +6,7 @@
 <iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%205/Integration%20and%20Perceptual%20Decision%20Making.pdf" width="100%" 
 height="600px"></iframe>
 
-## Topography of the Visual Cortex (Graziano)
+## Decision Making (Brody)
 
 <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%205/Decision%20Making%20-%20Brody.pdf" download>Download</a>
 <iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%205/Decision%20Making%20-%20Brody.pdf"width="100%" 
