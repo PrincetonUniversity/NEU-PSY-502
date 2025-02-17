@@ -3,6 +3,13 @@
   <component name="JupyterPersistentConnectionParameters">
     <option name="moduleParameters">
       <map>
+        <entry key="$PROJECT_DIR$/../PsyNeuLink/.idea/PsyNeuLink.iml">
+          <value>
+            <JupyterConnectionParameters>
+              <option name="managed" value="true" />
+            </JupyterConnectionParameters>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../em-wm-simulation/.idea/em-wm-simulation.iml">
           <value>
             <JupyterConnectionParameters>
