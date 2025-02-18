@@ -10,4 +10,4 @@ The study of decision-making processes across species can benefit from approache
 
 ## Additional Resources
 
-- [Bogacz et al (2006)](https://sites.engineering.ucsb.edu/~moehlis/moehlis_papers/psych.pdf)
+- [Bogacz et al. (2006)](https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%206/Bogacz2006.pdf)

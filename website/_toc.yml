@@ -44,7 +44,7 @@ parts:
     - file: content/502B/Computation/Reinforcement Learning/notebooks/1 Reinforcement Learning
   - file: content/502B/Computation/Statistical Learning and Backpropagation/intro
     sections:
-    - file: content/502B/Computation/Statistical Learning and Backpropagation/notebooks/1 Rummelhart Network
+    - file: content/502B/Computation/Statistical Learning and Backpropagation/notebooks/1 Rumelhart Network
 - caption: 502B Empirical
   chapters:
   - file: content/502B/Empirical/intro
