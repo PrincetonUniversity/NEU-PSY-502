@@ -11,3 +11,4 @@ Here, we will introduce the concept of *reinforcement learning* by recreating th
 ## Additional Resources
 
 - [Montague et al. (1996)](https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%207/Montague1996.pdf)
+- Temporal Difference Learning: [Younes - TD Table](https://younesstrittmatter.github.io/teaching/content/machine-learning/reinforcement-learning/TD-Table.html)
