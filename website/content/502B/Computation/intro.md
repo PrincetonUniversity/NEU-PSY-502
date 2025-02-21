@@ -20,6 +20,8 @@ Some pages include interactive Jupyter notebooks that allow you to run code and 
 
 [4 Reinforcement Learning](Reinforcement%20Learning/intro.md)
 
+[5 Statistical Learning and Backpropagation](Statistical%20Learning%20and%20Backpropagation/intro.md)
+
 ## Prerequisites
 
 This guide introduces PsyNeuLink, a Python package for building cognitive and neural models. It assumes familiarity
