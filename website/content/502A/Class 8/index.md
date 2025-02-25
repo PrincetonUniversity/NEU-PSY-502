@@ -2,7 +2,6 @@
 
 ## The Explore / Exploit Tradeoff and Locus Coeruleus / Norepinephrine Neuromodulation
 
-
 <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%208/LC-NE_Neuromodulation_and_the_Explore-Exploit_Tradeoff.key.pdf" download>Download</a>
 <iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%208/LC-NE_Neuromodulation_and_the_Explore-Exploit_Tradeoff.key.pdf" width="100%" 
 height="600px"></iframe>
