@@ -2,11 +2,13 @@
 
 ## Reinforcement Learning
 
-<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%207/Reinforcement%20Learning.pdf" 
-download>Download</a>
-<iframe src="https://princetonuniversity.github.
-io/NEU-PSY-502/_static/pdf/Class%207/Reinforcement%20Learning.pdf" width="100%" 
-height="600px"></iframe>
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%207/Reinforcement%20Learning.pdf" download>Download</a>
+<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%207/Reinforcement%20Learning.pdf" width="100%" height="600px"></iframe>
+
+## RL in the Brain (Daw)
+
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%207/RL%20in%20the%20Brain%20-%20Daw.pdf" download>Download</a>
+<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%207/RL%20in%20the%20Brain%20-%20Daw.pdf" width="100%" height="600px"></iframe>
 
 ## Readings
 
