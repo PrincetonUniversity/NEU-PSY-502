@@ -2,14 +2,14 @@
 
 ## Distributed Representation
 
-<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Distributed%20Representation. .pdf" 
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Distributed%20Representation.pdf" 
 download>Download</a>
 <iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Distributed%20Representation.
 pdf" width="100%" height="600px"></iframe>
 
 ## Backpropagation Learning and Semantics
 
-<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Backprop%20and%20Semantics. .pdf" 
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Backprop%20and%20Semantics.pdf" 
 download>Download</a>
 <iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Backprop%20and%20Semantics.
 pdf" width="100%" height="600px"></iframe>
