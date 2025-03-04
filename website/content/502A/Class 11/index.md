@@ -1,5 +1,17 @@
 # 11 Interactive Activation, Statistical Learning, and Language Processing
 
+## Language Processing
+
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2011/Language_Processing.pdf" 
+download>Download</a>
+<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2011/Language_Processing.pdf" width="100%" height="600px"></iframe>
+
+## Scaling up to the rest of language without rules (Goldberg)
+
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2011/March3_25_uncles_aunts_islands.pdf" 
+download>Download</a>
+<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2011/March3_25_uncles_aunts_islands.pdf" width="100%" height="600px"></iframe>
+
 ## Readings
 
 - <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2011/Hargoot2019.pdf" download>Hargoot2019</a>
