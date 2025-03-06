@@ -7,5 +7,6 @@
 - <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Hirschberg2015.pdf" download>Hirschberg2015</a>
 - <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Miklov2013.pdf" download>Miklov2013</a>
 - <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Tenney2019.pdf" download>Tenney2019</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Seidenberg1989.pdf" download>Seidenberg1989</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/McCRogers03.pdf" download>McCRogers03.pdf</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/RogersMcC08BBSFinalProof.pdf" download>RogersMcC08BBSFinalProof.pdf</a>
 

@@ -1,5 +1,9 @@
 # 4 High Level Vision
 
+## High Level Vision (Gomez)
+
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%204/high_level_vision_2025.pdf" download>Download</a>
+<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%204/high_level_vision_2025.pdf" width="100%" height="600px"></iframe>
 
 ## HCCN (Ning Wang)
 > presenting on [Yamins, D., DiCarlo (2016)](https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%204/Yamins2016.pdf)
