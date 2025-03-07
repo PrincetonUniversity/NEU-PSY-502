@@ -1,4 +1,9 @@
-# 12 Language and LLMs
+# 12 Language, Context and LLMs
+
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2011/Language_2.pdf" 
+download>Download</a>
+<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2011/Language_Processing_2.pdf" 
+width="100%" height="600px"></iframe>
 
 ## Readings
 

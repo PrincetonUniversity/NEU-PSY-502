@@ -1,6 +1,6 @@
 # 11 Interactive Activation, Statistical Learning, and Language Processing
 
-## Language Processing
+## Language Processing I
 
 <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2011/Language_Processing.pdf" 
 download>Download</a>
