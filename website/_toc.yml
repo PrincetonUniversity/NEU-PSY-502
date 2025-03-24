@@ -20,6 +20,13 @@ parts:
   - file: content/502A/Class 10/index
   - file: content/502A/Class 11/index
   - file: content/502A/Class 12/index
+  - file: content/502A/Class 13/index
+  - file: content/502A/Class 14/index
+  - file: content/502A/Class 15/index
+  - file: content/502A/Class 16/index
+  - file: content/502A/Class 17/index
+  - file: content/502A/Class 18/index
+  - file: content/502A/Class 19/index
 - caption: 502B
   chapters:
   - file: content/502B/intro
