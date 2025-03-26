@@ -121,7 +121,11 @@ def process_notebook(path=BUILD_DIR):
         return title, count
 
     with open(path, 'r', encoding='utf-8') as f:
-        notebook = nbformat.read(f, as_version=nbformat.NO_CONVERT)
+        try:
+            notebook = nbformat.read(f, as_version=nbformat.NO_CONVERT)
+        except Exception as e:
+            print(f"Error reading notebook: {path}")
+            print(e)
     for cell in notebook['cells']:
         if cell['cell_type'] == 'markdown':
             title = cell['source'].split('\n')[0]
