@@ -56,6 +56,9 @@ parts:
     sections:
       - file: content/502B/Computation/Episodic Memory/notebooks/1 Episodic Memory
       - file: content/502B/Computation/Episodic Memory/notebooks/2 Episodic Generalization Optimization - EGO
+  - file: content/502B/Computation/Selective Attention Automaticity and Control/intro
+    sections:
+      - file: content/502B/Computation/Selective Attention Automaticity and Control/notebooks/1 Stroop Model
 - caption: 502B Empirical
   chapters:
   - file: content/502B/Empirical/intro
