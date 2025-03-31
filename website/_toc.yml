@@ -59,6 +59,12 @@ parts:
   - file: content/502B/Computation/Selective Attention Automaticity and Control/intro
     sections:
       - file: content/502B/Computation/Selective Attention Automaticity and Control/notebooks/1 Stroop Model
+  - file: content/502B/Computation/Conflict Monitoring Effort and Control/intro
+    sections:
+      - file: content/502B/Computation/Conflict Monitoring Effort and Control/notebooks/1 Conflict Monitoring
+  - file: content/502B/Computation/Integration Attention Context and Control/intro
+    sections:
+      - file: content/502B/Computation/Integration Attention Context and Control/notebooks/1 Embeddings
 - caption: 502B Empirical
   chapters:
   - file: content/502B/Empirical/intro
