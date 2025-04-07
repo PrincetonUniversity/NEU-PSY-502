@@ -126,6 +126,7 @@ def process_notebook(path=BUILD_DIR):
         except Exception as e:
             print(f"Error reading notebook: {path}")
             print(e)
+            return
     for cell in notebook['cells']:
         if cell['cell_type'] == 'markdown':
             title = cell['source'].split('\n')[0]
