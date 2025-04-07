@@ -122,7 +122,7 @@ def process_notebook(path=BUILD_DIR):
 
     with open(path, 'r', encoding='utf-8') as f:
         try:
-            notebook = nbformat.read(f, as_version=nbformat.current_nbformat)
+            notebook = nbformat.read(f, as_version=4)
         except Exception as e:
             print(f"Error reading notebook: {path}")
             print(e)
