@@ -62,6 +62,9 @@ parts:
   - file: content/502B/Computation/Conflict Monitoring Effort and Control/intro
     sections:
       - file: content/502B/Computation/Conflict Monitoring Effort and Control/notebooks/1 Conflict Monitoring
+  - file: content/502B/Computation/Integration Attention Context and Control/intro
+    sections:
+      - file: content/502B/Computation/Integration Attention Context and Control/notebooks/1 ISCCI Model
 - caption: 502B Empirical
   chapters:
   - file: content/502B/Empirical/intro
