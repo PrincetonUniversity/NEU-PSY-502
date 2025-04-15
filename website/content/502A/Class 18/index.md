@@ -5,6 +5,9 @@
 <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2018/Symbolic_Processing.pdf" download>Download</a>
 <iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2018/Symbolic_Processing.pdf" width="100%" height="600px"></iframe>
 
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2018/Relational_Bottleneck_Shaunak_Yukang.pdf" download>Download</a>
+<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2018/Relational_Bottleneck_Shaunak_Yukang.pdf" width="100%" height="600px"></iframe>
+
 ## Readings
 
 - <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2018/ShenhavEtAl_2017_ARN.pdf" download>ShenhavEtAl_2017_ARN.pdf</a>

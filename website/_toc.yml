@@ -27,6 +27,11 @@ parts:
   - file: content/502A/Class 17/index
   - file: content/502A/Class 18/index
   - file: content/502A/Class 19/index
+  - file: content/502A/Class 20/index
+  - file: content/502A/Class 21/index
+  - file: content/502A/Class 22/index
+  - file: content/502A/Class 23/index
+  - file: content/502A/Class 24/index
 - caption: 502B
   chapters:
   - file: content/502B/intro
