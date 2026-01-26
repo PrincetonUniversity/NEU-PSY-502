@@ -12,3 +12,4 @@ height="600px"></iframe>
 - <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%201/Fodor88.pdf" download>Fodor88</a>
 - <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%201/McClelland09.pdf" download>McClelland09</a>
 - <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%201/McClelland86.pdf" download>McClelland86</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%201/Minsky-and-Papert-Perceptrons.pdf" download>Minsky and Papert, Perceptrons</a>
