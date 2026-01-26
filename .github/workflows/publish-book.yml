@@ -35,7 +35,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install jupyter-book
+          pip install "jupyter-book==0.15.1"
           pip install -r requirements.txt
           pip install --upgrade nbformat
           python -m pip list  # Logs installed dependencies
