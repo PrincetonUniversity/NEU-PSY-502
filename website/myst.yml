@@ -1,0 +1,18 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+version: 1
+project:
+  id: a1fc32f1-5080-46ff-a014-b020eab11b1e
+  title: NEU-PSY-MOL-502
+  authors: [Jonathan Cohen, Samuel Nastase, Alexander Ku & Younes Strittmatter]
+  copyright: '2025'
+  # title:
+  # description:
+  # keywords: []
+  # authors: []
+  github: https://github.com/PrincetonUniversity/NEU-PSY-502
+  # To autogenerate a Table of Contents, run "jupyter book init --write-toc"
+site:
+  template: book-theme
+  options:
+    # favicon: favicon.ico
+    logo: logo.png
