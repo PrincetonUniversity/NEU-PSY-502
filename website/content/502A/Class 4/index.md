@@ -5,7 +5,7 @@
 <a href="" download>Download</a>
 <iframe src="" width="100%" height="600px"></iframe>
 
-## 
+## Student Presentation
 <!-- > presenting on [Yamins, D., DiCarlo (2016)](https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%204/Yamins2016.pdf)
 
 <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%204/HCNNs%20are%20all%20you%20need.pdf" download>Download</a>

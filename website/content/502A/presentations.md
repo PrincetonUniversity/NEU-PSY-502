@@ -1,4 +1,4 @@
-# Paper Presentation Rubric (Graduate Level)
+# Paper Presentation Rubric
 
 In this course, each student will present a primary research paper. The goal is **not** to recite the paper, but to **explain, synthesize, and evaluate** it for your peers. A strong presentation tells a clear scientific story: *What is the problem? Why does it matter? What did they do? What did they find? What does it mean? What should come next?*
 
