@@ -4,7 +4,7 @@
 
 <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%203/Associative%20Learning%20and%20Feature%20Maps.pdf" download>Download</a>
 <iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%203/Associative%20Learning%20and%20Feature%20Maps.pdf" width="100%" height="600px"></iframe>
-<iframe src="https://www.youtube.com/watch?v=-6a7LATC-9g" width="100%" height="600px"></iframe>
+<iframe width="100%" height="600px" src="https://www.youtube.com/embed/-6a7LATC-9g" title="Kohonen Network Self Organizing Map for Color Organization" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## Topography of the Visual Cortex (Graziano)
 
