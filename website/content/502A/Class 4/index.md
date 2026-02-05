@@ -18,4 +18,6 @@
 - <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%204/annurev-vision-112122-020941.pdf" download>Manookin and Rieke, 2023</a>
 - <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%204/LiDiCarlo2008.pdf" download>Li and Dicarlo, 2008</a>
 - <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%204/Miyashita - 1988 - Neuronal correlate of visual associative long-term memory in the primate temporal cortex.pdf" download>Miyashita, 1988</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class 4/Summerfield_Koechlin_2008.pdf" download>Summerfield and Koechlin, 2008</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class 4/Fiser_et_al_NN_2016.pdf" download>Fiser et al, 2016</a>
 
