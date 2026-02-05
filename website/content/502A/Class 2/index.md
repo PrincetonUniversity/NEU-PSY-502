@@ -4,14 +4,14 @@
 ## Perception and Constraint Satisfaction
 
 <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%202/Perception%20and%20Constraint%20Satisfaction.pdf" download>Download</a>
-<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%202/Perception%20and%20Constraint%20Satisfaction.pdf" width="100%" 
-height="600px"></iframe>
+<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%202/Perception%20and%20Constraint%20Satisfaction.pdf" width="100%" height="600px"></iframe>
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%202/Associative%20Learning%20and%20Feature%20Maps.pdf" download>Download</a>
+<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%202/Associative%20Learning%20and%20Feature%20Maps.pdf" width="100%" height="600px"></iframe>
 
 ## Retina, V1 and Early Visual Cortex (Buschman)
 
 <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%202/NEU502_EarlyIntermedVisualSystem_2025.pdf" download>Download</a>
-<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%202/NEU502_EarlyIntermedVisualSystem_2025.pdf" width="100%" 
-height="600px"></iframe>
+<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%202/NEU502_EarlyIntermedVisualSystem_2025.pdf" width="100%" height="600px"></iframe>
 
 ## Readings
 
