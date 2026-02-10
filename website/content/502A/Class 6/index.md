@@ -1,18 +1,11 @@
-# 6 Optimization of Decision Making
+# 6 Cerebellum and Error-driven Learning
 
-## Optimization and Control of Decision Making
+## Cerebellum
 
-<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%206/Optimization%20and%20Control%20of%20Decision%20Making.pdf" download>Download</a>
-<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%206/Optimization%20and%20Control%20of%20Decision%20Making.pdf" width="100%" 
-height="600px"></iframe>
-
-## Coordinated Coss-Brain Activity during Accumulation of Sensory Evidence and Decision Commitment (Fei & Charlie)
-
-<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%206/Decision%20Commitment.pdf" download>Download</a>
-<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%206/Decision%20Commitment.pdf" width="100%" height="600px"></iframe>
+## Student Presentations
 
 ## Readings
-
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%206/Bogacz2006.pdf" download>Bogacz2006</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%206/Holmes2012.pdf" download>Holmes2012.</a>
-
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%206/Carey2024.pdf" download>Review of the cerebellum: Carey, (2024)</a>
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%206/PurvesChapter5.pdf" download>Background on the cerebellum: Purves, Chapter 5</a>
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%206/Herzfeld2018.pdf" download>Error-driven learning of predictions: Herzfeld et al., (2018)</a>
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%206/Marek2018.pdf" download>Cerebellar Map in Humans: Marek et al., (2018)</a>
