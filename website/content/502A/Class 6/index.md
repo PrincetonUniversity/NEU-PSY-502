@@ -2,6 +2,10 @@
 
 ## Cerebellum
 
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%206/SamWangCerebellumLecture.pdf" download>Download</a>
+<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%206/SamWangCerebellumLecture.pdf" width="100%" 
+height="600px"></iframe>
+
 ## Student Presentations
 
 ## Readings
