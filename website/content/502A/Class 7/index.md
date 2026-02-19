@@ -1,6 +1,9 @@
 # 7 Reinforcement Learning
 
 ## Reinforcement Learning (Buschman)
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%207/NEU502_RewardLearning_2025.pdf" download>Download</a>
+<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%207/NEU502_RewardLearning_2025.pdf" width="100%" 
+height="600px"></iframe>
 
 ## Model-Free vs. Model-Based Learning, Dopamine and Basal Ganglia (Daw)
 
