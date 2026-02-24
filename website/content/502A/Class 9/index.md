@@ -1,31 +1,12 @@
-# 9 Distributed Representation, Learning and Semantics
+# 9 Basics of Motor System + Motor Cortex
 
-## Distributed Representation
-
-<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Distributed%20Representation.pdf" 
-download>Download</a>
-<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Distributed%20Representation.
-pdf" width="100%" height="600px"></iframe>
-
-## Backpropagation Learning and Semantics
-
-<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Backprop%20and%20Semantics.pdf" 
-download>Download</a>
-<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Backprop%20and%20Semantics.
-pdf" width="100%" height="600px"></iframe>
+## Basics of Motor System + Motor Cortex
 
 
 ## Readings
 
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Bozkurt2024.pdf" download>Bozkurt2024</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Collins1969.pdf" download>Collins1969</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Hinton1986.pdf" download>Hinton1986</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/LeCun2015.pdf" download>LeCun2015</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/McClelland1985.pdf" download>McClelland1985</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/McClelland2003.pdf" download>McClelland2003</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/OReilly2001.pdf" download>OReilly2001</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Rumelhart1986.pdf" download>Rumelhart1986</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Rumelhart1993.pdf" download>Rumelhart1993</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Saxe2019.pdf" download>Saxe2019</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Xie2003.pdf" download>Xie2003</a>
-
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Luo_Ch8.pdf" download>Motor Systems: Luo Chapter 8</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Bizzi1995.pdf" download>Modular organization of motor behavior in
+the frog's spinal cord: Bizzi et al., (1995)</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Graziano2002.pdf" download>Complex Movements Evoked
+by Microstimulation of Precentral Cortex: Graziano et al., (2002)</a>
