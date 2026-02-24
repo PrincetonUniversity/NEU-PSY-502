@@ -1,20 +1,17 @@
-# 10 Bayesian Approaches to Human Cognition and Neural Network Function
+# 10 Explore/exploit and noradrenergic neuromodulation 
 
 
-## Bayesian Approaches (Griffiths)
+## Explore / Exploit and the Locus Coeruleus-Norepinephrine System (Cohen)
 
-<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2010/Bayesian%20Approaches%20to%20Human%20Cognition%20and%20Neural%20Network%20Function%20(Griffiths).pdf" 
-download>Download</a>
-<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2010/Bayesian%20Approaches%20to%20Human%20Cognition%20and%20Neural%20Network%20Function%20(Griffiths).pdf" width="100%" height="600px"></iframe>
-
-## A mathematical theory of semantic development in deep neural networks (Udith)
-
-<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2010/NEU502A_Presentation_SemanticCognition.pdf" 
-download>Download</a>
-<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2010/NEU502A_Presentation_SemanticCognition.pdf" width="100%" height="600px"></iframe>
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2010/LC-NE_Neuromodulation_and_the_Explore-Exploit_Tradeoff.key.pdf" download>Download</a>
+<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2010/LC-NE_Neuromodulation_and_the_Explore-Exploit_Tradeoff.key.pdf" width="100%" 
+height="600px"></iframe>
 
 ## Readings
 
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2010/Griffiths2008.pdf" download>Griffiths2008</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2010/Griffiths2024.pdf" download>Griffiths2024</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%209/Tenenbaum2011.pdf" download>Tenenbaum2011</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2010/Cohen2007.pdf" download>Should I stay or should I go? How  the human brain manages the trade-off between exploitation and exploration: Cohen et al., (2007)</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2010/Aston-Jones2005.pdf" download>Adaptive Gain Hypothesis: Aston-Jones et al., (2005)</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2010/Daw2006.pdf" download>Behavior and Brain Imaging.: Daw et al., (2006)</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2010/Yu2005.pdf" download>Uncertainty and Exploration.: Yu et al., (2005)</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2010/McClure2005.pdf" download>Dopamine-norepinephrine interactions in exploration and learning: McClure et al., (2005)</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2010/Usher1999.pdf" download>Biologically-informed model of LC: Usher et al., (1999)</a>
