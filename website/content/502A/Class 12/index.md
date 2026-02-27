@@ -1,19 +1,12 @@
-# 12 Language, Context and LLMs
+# 12 Bayesian Inference and Neural Networks (Griffiths)
 
-## Language Processing II
+## Bayesian Inference and Neural Networks (Griffiths)
 
-<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Language_2.pdf" 
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Bayesian%20Approaches%20to%20Human%20Cognition%20and%20Neural%20Network%20Function%20(Griffiths).pdf" 
 download>Download</a>
-<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Language_2.pdf" 
-width="100%" height="600px"></iframe>
+<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Bayesian%20Approaches%20to%20Human%20Cognition%20and%20Neural%20Network%20Function%20(Griffiths).pdf" width="100%" height="600px"></iframe>
 
 ## Readings
-
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Dumais2004.pdf" download>Dumais2004</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Hewitt2019.pdf" download>Hewitt2019</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Hirschberg2015.pdf" download>Hirschberg2015</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Miklov2013.pdf" download>Miklov2013</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Tenney2019.pdf" download>Tenney2019</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/McCRogers03.pdf" download>McCRogers03.pdf</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/RogersMcC08BBSFinalProof.pdf" download>RogersMcC08BBSFinalProof.pdf</a>
-
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Griffiths2008.pdf" download>Bayesian models of cognition: Griffiths, et al., (2008)</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Griffiths2024.pdf" download>Bayesian inference and neural networks: Griffiths et al., (2024)</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Tenenbaum2011.pdf" download>Tenenbaum, et al., (2011)</a>
