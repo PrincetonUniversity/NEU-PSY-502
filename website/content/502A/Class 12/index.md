@@ -1,12 +1,22 @@
-# 12 Bayesian Inference and Neural Networks (Griffiths)
+# Class 12: Episodic Memory and Hippocampal Function
 
-## Bayesian Inference and Neural Networks (Griffiths)
+## Lectures
 
-<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Bayesian%20Approaches%20to%20Human%20Cognition%20and%20Neural%20Network%20Function%20(Griffiths).pdf" 
-download>Download</a>
-<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Bayesian%20Approaches%20to%20Human%20Cognition%20and%20Neural%20Network%20Function%20(Griffiths).pdf" width="100%" height="600px"></iframe>
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Episodic%20Memory%20and%20CLS.pdf" download>Download</a>
+<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Episodic%20Memory%20and%20CLS.pdf" width="100%" height="600px"></iframe>
+
 
 ## Readings
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Griffiths2008.pdf" download>Bayesian models of cognition: Griffiths, et al., (2008)</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Griffiths2024.pdf" download>Bayesian inference and neural networks: Griffiths et al., (2024)</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Tenenbaum2011.pdf" download>Tenenbaum, et al., (2011)</a>
+
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/clewett2019transcending.pdf" download>Episodic memory: Clewett et al., (2019)</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/tulving2002episodic.pdf" download>Episodic memory: Tulving et al., (2002)</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/Moser2014.pdf" download>Hippocampal representations of space: Moser et al., (2014)</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/mcclelland1995complementary.pdf" download>Complementary learning systems: Mcclelland et al., (1995)</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/oreilly2002hippocampal.pdf" download>Complementary learning systems (extended): Oreilly et al., (2002)</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/kumaran2016learning.pdf" download>CLS theory updated: Kumaran et al., (2016)</a>
+
+<!--
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2013/howard2002distributed.pdf" download>howard2002distributed.pdf</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2012/gershman2010learning.pdf" download>gershman2010learning.pdf</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2013/norman2007neural.pdf" download>norman2007neural.pdf</a>
+-->
