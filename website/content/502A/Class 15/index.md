@@ -1,14 +1,12 @@
-# Class 15: Working memory and Prefrontal Function
-
+# Class 15: Attention, Control and Prefrontal Function
 ## Lectures
 
-<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2015/Adaptive%20Gating.pdf" download>Download</a>
-<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2015/Adaptive%20Gating.pdf" width="100%" height="600px"></iframe>
-
-<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2015/NEU502A_WorkingMemory_2025.pdf" download>Download</a>
-<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2015/NEU502A_WorkingMemory_2025.pdf" width="100%" height="600px"></iframe>
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2015/Automaticity%20and%20Control.pdf" download>Download</a>
+<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2015/Automaticity%20and%20Control.pdf" width="100%" height="600px"></iframe>
 
 ## Readings
 
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2015/bouchacourt2022fast.pdf" download>bouchacourt2022fast.pdf</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2015/panichello2019error.pdf" download>panichello2019error.pdf</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2015/cohen1990control.pdf" download>cohen1990control.pdf</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2015/shiffrin1977controlled.pdf" download>shiffrin1977controlled.pdf</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2015/chun2011taxonomy.pdf" download>chun2011taxonomy.pdf</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2015/miller2001integrative.pdf" download>miller2001integrative.pdf</a>
