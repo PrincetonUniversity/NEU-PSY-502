@@ -1,4 +1,4 @@
-# 2 Perception and Constraint Satisfaction
+# Class 2: Perception and Constraint Satisfaction
 
 
 ## Perception and Constraint Satisfaction

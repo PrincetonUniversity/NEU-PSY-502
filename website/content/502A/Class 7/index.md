@@ -1,4 +1,4 @@
-# 7 Reinforcement Learning
+# Class 7: Reinforcement Learning
 
 ## Reinforcement Learning (Buschman)
 <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%207/NEU502_RewardLearning_2025.pdf" download>Download</a>

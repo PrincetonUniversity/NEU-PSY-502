@@ -1,4 +1,4 @@
-# 5 Dynamics of Integration and Decision Making
+# Class 5: Dynamics of Integration and Decision Making
 
 ## Integration and Perceptual Decision Making
 

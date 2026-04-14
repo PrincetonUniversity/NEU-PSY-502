@@ -1,4 +1,4 @@
-# 4 Sequences and Predictions
+# Class 4: Sequences and Predictions
 
 ## Sequence and Predictions (Buschman)
 

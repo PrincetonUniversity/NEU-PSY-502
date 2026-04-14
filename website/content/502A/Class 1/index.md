@@ -1,4 +1,4 @@
-# 1 Introduction and History
+# Class 1: Introduction and History
 
 ## Overview
 <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%201/NEU502_Overview_2025.pdf" download>Download</a>

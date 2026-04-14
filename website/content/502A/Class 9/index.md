@@ -1,4 +1,4 @@
-# 9 Basics of Motor System + Motor Cortex
+# Class 9: Basics of Motor System + Motor Cortex
 
 ## Basics of Motor System + Motor Cortex
 

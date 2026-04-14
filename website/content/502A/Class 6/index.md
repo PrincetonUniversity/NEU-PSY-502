@@ -1,4 +1,4 @@
-# 6 Cerebellum and Error-driven Learning
+# Class 6: Cerebellum and Error-driven Learning
 
 ## Cerebellum
 
