@@ -1,8 +1,11 @@
-# Class 24: Modern Computational Psychiatry
+# Class 24: Development
 
 ## Lectures
 
 ## Readings
-
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2024/decker-et-al-2016-from-creatures-of-habit-to-goal-directed-learners-tracking-the-developmental-emergence-of-model-based.pdf" download>decker-et-al-2016-from-creatures-of-habit-to-goal-directed-learners-tracking-the-developmental-emergence-of-model-based.pdf</a>
-- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2024/pisupat_addiction.pdf" download>pisupat_addiction.pdf</a>
+- <a href="https://doi.org/10.1038/nn.4635" download>Development of visual system. Arcaro, M., Schade, P., Vincent, J. et al. Seeing faces is necessary for face-domain formation. Nat Neurosci 20, 1404–1412 (2017).</a>
+- <a href="https://www.sciencedirect.com/science/article/pii/S0959438810000073" download>Development of Cognitive Control. Somerville, L. H., & Casey, B. (2010). Developmental neurobiology of cognitive control and motivational systems. Current opinion in neurobiology, 20(2), 236-241.</a>
+- <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4899156/" download>RL. Decker, J. H., Otto, A. R., Daw, N. D., & Hartley, C. A. (2016). From creatures of habit to goal directed learners: Tracking the developmental emergence of model-based reinforcement learning.  Psychological science, 27(6), 848-858.</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2021/On-resolving-the-enigma-of-infantile-amnesia.pdf" download>On-resolving-the-enigma-of-infantile-amnesia.pdf</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2021/baillargeon1987.pdf.pdf" download>baillargeon1987.pdf.pdf</a>
+- <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2021/ellis_ntb.pdf" download>ellis_ntb.pdf</a>
