@@ -1,0 +1,1635 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>8.1 Conflict Monitoring &#8212; NEU-PSY-MOL-502</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <script src="../../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../../_static/copybutton.js"></script>
+    <script src="../../../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/502B/Computation/Conflict Monitoring Effort and Control/notebooks/1 Conflict Monitoring';</script>
+    <link rel="canonical" href="https://princetonuniversity.github.io/NEU-PSY-502/content/502B/Computation/Conflict Monitoring Effort and Control/notebooks/1 Conflict Monitoring.html" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="9 Integration, Attention, Context, and Control" href="../../Integration%20Attention%20Context%20and%20Control/intro.html" />
+    <link rel="prev" title="8 Conflict Monitoring, Effort, and Control" href="../intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../../_static/logo.png" class="logo__image only-light" alt="NEU-PSY-MOL-502 - Home"/>
+    <script>document.write(`<img src="../../../../../_static/logo.png" class="logo__image only-dark" alt="NEU-PSY-MOL-502 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../../intro.html">
+                    NEU/PSY 502
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">502A</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/syllabus.html">Syllabus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/lectures.html">Lectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/presentations.html">Paper Presentation Rubric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%201/index.html">Class 1: Introduction and History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%202/index.html">Class 2: Perception and Constraint Satisfaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%203/index.html">Class 3: Associative Learning and Topography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%204/index.html">Class 4: Sequences and Predictions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%205/index.html">Class 5: Dynamics of Integration and Decision Making</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%206/index.html">Class 6: Cerebellum and Error-driven Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%207/index.html">Class 7: Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%208/index.html">Class 8: Dopamine and Basal Ganglia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%209/index.html">Class 9: Basics of Motor System + Motor Cortex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2010/index.html">Class 10: Explore/exploit and noradrenergic neuromodulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2011/index.html">Class 11: Distributed Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2012/index.html">Class 12: Episodic Memory and Hippocampal Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2013/index.html">Class 13: Bayesian Inference and Neural Networks (Griffiths)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2014/index.html">Class 14: Episodic Memory and Sleep</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2015/index.html">Class 15: Attention, Control and Prefrontal Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2016/index.html">Class 16: Working memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2017/index.html">Class 17: Representation and Capacity Limits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2018/index.html">Class 18: Optimization and Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2019/index.html">Class 19: Dynamics and Geometry of Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2020/index.html">Class 20: Oscillations and Coherence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2021/index.html">Class 21: ISC &amp; BCI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2022/index.html">Class 22: Social Cognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2023/index.html">Class 23: Cognitive Neuropsychology and the Origins of Computational Psychiatry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2024/index.html">Class 24: Development</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Syllabus</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B Computation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Primer/intro.html">1 Primer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Primer/notebooks/1%20Scalars%2C%20Vectors%2C%20and%20Matrices.html">1.1 Scalars, Vectors, and Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Primer/notebooks/2%20Logistic%20Function.html">1.2 Logistic Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Primer/notebooks/3%20Perceptron%20and%20XOR.html">1.3 Perceptron and XOR</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Dynamics%20in%20Perception/intro.html">2 Dynamics in Perception</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Dynamics%20in%20Perception/notebooks/1%20Hebbian%20Learning.html">2.1 Hebbian Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Dynamics%20in%20Perception/notebooks/2%20Hopfield%20Networks.html">2.2 Hopfield Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Dynamics%20in%20Perception/notebooks/3%20Dynamic%20Systems%20and%20Bistable%20Perception.html">2.3 Dynamic Systems and Bistable Perception</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Decision%20Making/intro.html">3 Decision Making</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Decision%20Making/notebooks/1%20Drift%20Diffusion%20Models.html">3.1 Drift Diffusion Models</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Reinforcement%20Learning/intro.html">4 Reinforcement Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Reinforcement%20Learning/notebooks/1%20Reinforcement%20Learning.html">4.1 Reinforcement Learning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Statistical%20Learning%20and%20Backpropagation/intro.html">5 Statistical Learning and Backpropagation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Statistical%20Learning%20and%20Backpropagation/notebooks/1%20Rumelhart%20Semantic%20Network.html">5.1 Rumelhart Semantic Network</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Episodic%20Memory/intro.html">6 Episodic Memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Episodic%20Memory/notebooks/1%20Episodic%20Memory.html">6.1 Episodic Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Episodic%20Memory/notebooks/2%20Episodic%20Generalization%20Optimization%20-%20EGO.html">6.2 Episodic Generalization Optimization - EGO</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Selective%20Attention%20Automaticity%20and%20Control/intro.html">7 Selective Attention, Automaticity, and Control</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Selective%20Attention%20Automaticity%20and%20Control/notebooks/1%20Stroop%20Model.html">7.1 Stroop Model</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../intro.html">8 Conflict Monitoring, Effort, and Control</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">8.1 Conflict Monitoring</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Integration%20Attention%20Context%20and%20Control/intro.html">9 Integration, Attention, Context, and Control</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Integration%20Attention%20Context%20and%20Control/notebooks/1%20ISCCI%20Model.html">9.1 ISC-CI Model</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B Empirical</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../Empirical/intro.html">Introduction</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/PrincetonUniversity/NEU-PSY-502/main?urlpath=tree/website/content/502B/Computation/Conflict Monitoring Effort and Control/notebooks/1 Conflict Monitoring.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../../../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/PrincetonUniversity/NEU-PSY-502/blob/main/website/content/502B/Computation/Conflict Monitoring Effort and Control/notebooks/1 Conflict Monitoring.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../../../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/PrincetonUniversity/NEU-PSY-502" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/PrincetonUniversity/NEU-PSY-502/issues/new?title=Issue%20on%20page%20%2Fcontent/502B/Computation/Conflict Monitoring Effort and Control/notebooks/1 Conflict Monitoring.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../../../_sources/content/502B/Computation/Conflict Monitoring Effort and Control/notebooks/1 Conflict Monitoring.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>8.1 Conflict Monitoring</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-stroop-model">The Stroop Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-task-stimuli">The Task Stimuli</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-he-model-on-all-task-condition-combinations">Run he model on all Task - Condition Combinations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-decision-activity">Visualize Decision Activity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-response-unit-activity-by-condition">Plotting Response Unit Activity by Condition</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-decision-energy">Visualize Decision Energy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-decision-energy">Plotting Decision Energy</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examine-the-effect-of-task-demand">Examine the effect of task demand</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-energy-as-a-signal-for-effort-control">Decision Energy as a Signal for Effort &amp; Control</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-task-demand-rt">Plotting Task Demand &amp; RT</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="conflict-monitoring">
+<h1>8.1 Conflict Monitoring<a class="headerlink" href="#conflict-monitoring" title="Permalink to this heading">#</a></h1>
+<p>Humans are motivationally omnivorous – from wanting to catch a fish to wanting to walk on the moon. Accomplishing open-ended goals that can span days to lifetimes requires … did you just get an email notification? Go ahead, check your phone, this notebook is very patient… now you’re back … requires a cognitive architecture capable of overcoming interruptions, sustaining effort, and controlling attention. These abilities comprise the will of free will.</p>
+<p>Around the start of the semester, you freely decided to learn about computational modeling of psychological function, and for the most part have willfully followed through. At times it has been effortless – when you were captivated by fascinating discoveries, theories, and models. At other times it has been effortful – requiring you to suppress a wide variety of distractions and competing interests. During those effortful moments, when you succeeded in maintaining or regaining focus on the lectures, readings, or lab work, what was happening in your mind? In this lab, we will explore the cognitive processes that monitor for internal conflict and help overcome that conflict. When effort is required to help control attention, mechanisms that monitor conflict can activate effort and control. For a familiar starting point, we will build a conflict monitoring system on top of a Stroop model introduced in the last chapter (see 7).</p>
+<p><em>Setup and Installation:</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">psyneulink</span>
+<span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">stroop</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">psyneulink</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pnl</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">stroop.stimulus</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_stimulus_set</span><span class="p">,</span> <span class="n">TASKS</span><span class="p">,</span> <span class="n">COLORS</span><span class="p">,</span> <span class="n">CONDITIONS</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">Line2D</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># constants</span>
+<span class="n">experiment_info</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">stroop experiment info</span>
+<span class="s2">- all colors:</span><span class="se">\t</span><span class="s2"> </span><span class="si">{</span><span class="n">COLORS</span><span class="si">}</span>
+<span class="s2">- all words:</span><span class="se">\t</span><span class="s2"> </span><span class="si">{</span><span class="n">COLORS</span><span class="si">}</span>
+<span class="s2">- all tasks:</span><span class="se">\t</span><span class="s2"> </span><span class="si">{</span><span class="n">TASKS</span><span class="si">}</span>
+<span class="s2">- all conditions:</span><span class="si">{</span><span class="n">CONDITIONS</span><span class="si">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">experiment_info</span><span class="p">)</span>
+
+<span class="c1"># calculate experiment metadata</span>
+<span class="n">n_conditions</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">CONDITIONS</span><span class="p">)</span>
+<span class="n">n_tasks</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">TASKS</span><span class="p">)</span>
+<span class="n">n_colors</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">COLORS</span><span class="p">)</span>
+
+<span class="c1"># OTHER CONSTANTS</span>
+<span class="n">N_UNITS</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>stroop experiment info
+- all colors:	 [&#39;red&#39;, &#39;green&#39;]
+- all words:	 [&#39;red&#39;, &#39;green&#39;]
+- all tasks:	 [&#39;color naming&#39;, &#39;word reading&#39;]
+- all conditions:[&#39;control&#39;, &#39;conflict&#39;, &#39;congruent&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
+<section id="the-stroop-model">
+<h3>The Stroop Model<a class="headerlink" href="#the-stroop-model" title="Permalink to this heading">#</a></h3>
+<p>Here we define a function that creates a model of the Stroop task. This is the same model as we created in the previous tutorial (see, 7.2)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_stroop_model</span><span class="p">(</span>
+        <span class="n">unit_noise_std</span><span class="o">=</span><span class="mf">.01</span><span class="p">,</span>
+        <span class="n">dec_noise_std</span><span class="o">=</span><span class="mf">.1</span><span class="p">,</span>
+        <span class="n">integration_rate</span><span class="o">=</span><span class="mf">.2</span><span class="p">,</span>
+        <span class="n">leak</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">competition</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">):</span>
+    <span class="c1"># model params</span>
+    <span class="n">hidden_func</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">Logistic</span><span class="p">(</span><span class="n">gain</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">x_0</span><span class="o">=</span><span class="mf">4.0</span><span class="p">)</span>
+
+    <span class="c1"># input layer, color and word</span>
+    <span class="n">inp_clr</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">TransferMechanism</span><span class="p">(</span>
+        <span class="n">default_variable</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">Linear</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;COLOR INPUT&#39;</span>
+    <span class="p">)</span>
+    <span class="n">inp_wrd</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">TransferMechanism</span><span class="p">(</span>
+        <span class="n">default_variable</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">Linear</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;WORD INPUT&#39;</span>
+    <span class="p">)</span>
+    <span class="c1"># task layer, represent the task instruction; color naming / word reading</span>
+    <span class="n">inp_task</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">TransferMechanism</span><span class="p">(</span>
+        <span class="n">default_variable</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">Linear</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;TASK&#39;</span>
+    <span class="p">)</span>
+    <span class="c1"># hidden layer for color and word</span>
+    <span class="n">hid_clr</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">TransferMechanism</span><span class="p">(</span>
+        <span class="n">default_variable</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="n">function</span><span class="o">=</span><span class="n">hidden_func</span><span class="p">,</span>
+        <span class="n">integrator_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">integration_rate</span><span class="o">=</span><span class="n">integration_rate</span><span class="p">,</span>
+        <span class="n">noise</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">NormalDist</span><span class="p">(</span><span class="n">standard_deviation</span><span class="o">=</span><span class="n">unit_noise_std</span><span class="p">)</span><span class="o">.</span><span class="n">function</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;COLORS HIDDEN&#39;</span>
+    <span class="p">)</span>
+    <span class="n">hid_wrd</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">TransferMechanism</span><span class="p">(</span>
+        <span class="n">default_variable</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="n">function</span><span class="o">=</span><span class="n">hidden_func</span><span class="p">,</span>
+        <span class="n">integrator_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">integration_rate</span><span class="o">=</span><span class="n">integration_rate</span><span class="p">,</span>
+        <span class="n">noise</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">NormalDist</span><span class="p">(</span><span class="n">standard_deviation</span><span class="o">=</span><span class="n">unit_noise_std</span><span class="p">)</span><span class="o">.</span><span class="n">function</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;WORDS HIDDEN&#39;</span>
+    <span class="p">)</span>
+    <span class="c1"># output layer</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">TransferMechanism</span><span class="p">(</span>
+        <span class="n">default_variable</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="n">function</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">Logistic</span><span class="p">,</span>
+        <span class="n">integrator_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">integration_rate</span><span class="o">=</span><span class="n">integration_rate</span><span class="p">,</span>
+        <span class="n">noise</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">NormalDist</span><span class="p">(</span><span class="n">standard_deviation</span><span class="o">=</span><span class="n">unit_noise_std</span><span class="p">)</span><span class="o">.</span><span class="n">function</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;OUTPUT&#39;</span>
+    <span class="p">)</span>
+    <span class="c1"># decision layer, some accumulator</span>
+    <span class="n">decision</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">LCAMechanism</span><span class="p">(</span>
+        <span class="n">default_variable</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="n">leak</span><span class="o">=</span><span class="n">leak</span><span class="p">,</span> <span class="n">competition</span><span class="o">=</span><span class="n">competition</span><span class="p">,</span>
+        <span class="n">noise</span><span class="o">=</span><span class="n">pnl</span><span class="o">.</span><span class="n">UniformToNormalDist</span><span class="p">(</span>
+            <span class="n">standard_deviation</span><span class="o">=</span><span class="n">dec_noise_std</span><span class="p">)</span><span class="o">.</span><span class="n">function</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;DECISION&#39;</span>
+    <span class="p">)</span>
+    <span class="c1"># PROJECTIONS, weights copied from cohen et al (1990)</span>
+    <span class="n">wts_clr_ih</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">MappingProjection</span><span class="p">(</span>
+        <span class="n">matrix</span><span class="o">=</span><span class="p">[[</span><span class="mf">2.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.2</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">2.2</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">]],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;COLOR INPUT TO HIDDEN&#39;</span><span class="p">)</span>
+    <span class="n">wts_wrd_ih</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">MappingProjection</span><span class="p">(</span>
+        <span class="n">matrix</span><span class="o">=</span><span class="p">[[</span><span class="mf">2.6</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.6</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">2.6</span><span class="p">,</span> <span class="mf">2.6</span><span class="p">]],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;WORD INPUT TO HIDDEN&#39;</span><span class="p">)</span>
+    <span class="n">wts_clr_ho</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">MappingProjection</span><span class="p">(</span>
+        <span class="n">matrix</span><span class="o">=</span><span class="p">[[</span><span class="mf">1.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.3</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">]],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;COLOR HIDDEN TO OUTPUT&#39;</span><span class="p">)</span>
+    <span class="n">wts_wrd_ho</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">MappingProjection</span><span class="p">(</span>
+        <span class="n">matrix</span><span class="o">=</span><span class="p">[[</span><span class="mf">2.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">]],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;WORD HIDDEN TO OUTPUT&#39;</span><span class="p">)</span>
+    <span class="n">wts_tc</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">MappingProjection</span><span class="p">(</span>
+        <span class="n">matrix</span><span class="o">=</span><span class="p">[[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;COLOR NAMING&#39;</span><span class="p">)</span>
+    <span class="n">wts_tw</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">MappingProjection</span><span class="p">(</span>
+        <span class="n">matrix</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;WORD READING&#39;</span><span class="p">)</span>
+    <span class="c1"># build the model</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">Composition</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;STROOP model&#39;</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add_linear_processing_pathway</span><span class="p">([</span><span class="n">inp_clr</span><span class="p">,</span> <span class="n">wts_clr_ih</span><span class="p">,</span> <span class="n">hid_clr</span><span class="p">])</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add_linear_processing_pathway</span><span class="p">([</span><span class="n">inp_wrd</span><span class="p">,</span> <span class="n">wts_wrd_ih</span><span class="p">,</span> <span class="n">hid_wrd</span><span class="p">])</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add_linear_processing_pathway</span><span class="p">([</span><span class="n">hid_clr</span><span class="p">,</span> <span class="n">wts_clr_ho</span><span class="p">,</span> <span class="n">output</span><span class="p">])</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add_linear_processing_pathway</span><span class="p">([</span><span class="n">hid_wrd</span><span class="p">,</span> <span class="n">wts_wrd_ho</span><span class="p">,</span> <span class="n">output</span><span class="p">])</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add_linear_processing_pathway</span><span class="p">([</span><span class="n">inp_task</span><span class="p">,</span> <span class="n">wts_tc</span><span class="p">,</span> <span class="n">hid_clr</span><span class="p">])</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add_linear_processing_pathway</span><span class="p">([</span><span class="n">inp_task</span><span class="p">,</span> <span class="n">wts_tw</span><span class="p">,</span> <span class="n">hid_wrd</span><span class="p">])</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add_linear_processing_pathway</span><span class="p">([</span><span class="n">output</span><span class="p">,</span> <span class="n">pnl</span><span class="o">.</span><span class="n">IDENTITY_MATRIX</span><span class="p">,</span> <span class="n">decision</span><span class="p">])</span>
+    <span class="c1"># collect the node handles</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">inp_clr</span><span class="p">,</span> <span class="n">inp_wrd</span><span class="p">,</span> <span class="n">inp_task</span><span class="p">,</span> <span class="n">hid_clr</span><span class="p">,</span> <span class="n">hid_wrd</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">decision</span><span class="p">]</span>
+    <span class="n">metadata</span> <span class="o">=</span> <span class="p">[</span><span class="n">integration_rate</span><span class="p">,</span> <span class="n">dec_noise_std</span><span class="p">,</span> <span class="n">unit_noise_std</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">nodes</span><span class="p">,</span> <span class="n">metadata</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s create a model with no noise and plot the model graph.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># turn off noise</span>
+<span class="n">unit_noise_std</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">dec_noise_std</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># define the model</span>
+<span class="n">model</span><span class="p">,</span> <span class="n">nodes</span><span class="p">,</span> <span class="n">model_params</span> <span class="o">=</span> <span class="n">get_stroop_model</span><span class="p">(</span><span class="n">unit_noise_std</span><span class="p">,</span> <span class="n">dec_noise_std</span><span class="p">)</span>
+
+<span class="c1"># fetch the params</span>
+<span class="p">[</span><span class="n">integration_rate</span><span class="p">,</span> <span class="n">dec_noise_std</span><span class="p">,</span> <span class="n">unit_noise_std</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_params</span>
+<span class="p">[</span><span class="n">inp_color</span><span class="p">,</span> <span class="n">inp_word</span><span class="p">,</span> <span class="n">inp_task</span><span class="p">,</span> <span class="n">hid_color</span><span class="p">,</span> <span class="n">hid_word</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">decision</span><span class="p">]</span> <span class="o">=</span> <span class="n">nodes</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Show the graph:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">show_graph</span><span class="p">(</span><span class="n">output_fmt</span> <span class="o">=</span> <span class="s1">&#39;jupyter&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:76,</span> in <span class="ni">run_check</span><span class="nt">(cmd, input_lines, encoding, quiet, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">75</span>         <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;stdout&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;stderr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span>
+<span class="ne">---&gt; </span><span class="mi">76</span>     <span class="n">proc</span> <span class="o">=</span> <span class="n">_run_input_lines</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">input_lines</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">77</span> <span class="k">else</span><span class="p">:</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:96,</span> in <span class="ni">_run_input_lines</span><span class="nt">(cmd, input_lines, kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">95</span> <span class="k">def</span><span class="w"> </span><span class="nf">_run_input_lines</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">input_lines</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">96</span>     <span class="n">popen</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">stdin</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span>     <span class="n">stdin_write</span> <span class="o">=</span> <span class="n">popen</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">write</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/subprocess.py:1026,</span> in <span class="ni">Popen.__init__</span><span class="nt">(self, args, bufsize, executable, stdin, stdout, stderr, preexec_fn, close_fds, shell, cwd, env, universal_newlines, startupinfo, creationflags, restore_signals, start_new_session, pass_fds, user, group, extra_groups, encoding, errors, text, umask, pipesize, process_group)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1023</span>             <span class="bp">self</span><span class="o">.</span><span class="n">stderr</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">TextIOWrapper</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1024</span>                     <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="n">errors</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1026</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_execute_child</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">executable</span><span class="p">,</span> <span class="n">preexec_fn</span><span class="p">,</span> <span class="n">close_fds</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1027</span>                         <span class="n">pass_fds</span><span class="p">,</span> <span class="n">cwd</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1028</span>                         <span class="n">startupinfo</span><span class="p">,</span> <span class="n">creationflags</span><span class="p">,</span> <span class="n">shell</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1029</span>                         <span class="n">p2cread</span><span class="p">,</span> <span class="n">p2cwrite</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1030</span>                         <span class="n">c2pread</span><span class="p">,</span> <span class="n">c2pwrite</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1031</span>                         <span class="n">errread</span><span class="p">,</span> <span class="n">errwrite</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1032</span>                         <span class="n">restore_signals</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1033</span>                         <span class="n">gid</span><span class="p">,</span> <span class="n">gids</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">umask</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1034</span>                         <span class="n">start_new_session</span><span class="p">,</span> <span class="n">process_group</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1035</span> <span class="k">except</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1036</span>     <span class="c1"># Cleanup if the child failed starting.</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/subprocess.py:1955,</span> in <span class="ni">Popen._execute_child</span><span class="nt">(self, args, executable, preexec_fn, close_fds, pass_fds, cwd, env, startupinfo, creationflags, shell, p2cread, p2cwrite, c2pread, c2pwrite, errread, errwrite, restore_signals, gid, gids, uid, umask, start_new_session, process_group)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1954</span> <span class="k">if</span> <span class="n">err_filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1955</span>     <span class="k">raise</span> <span class="n">child_exception_type</span><span class="p">(</span><span class="n">errno_num</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">,</span> <span class="n">err_filename</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1956</span> <span class="k">else</span><span class="p">:</span>
+
+<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: PosixPath(&#39;dot&#39;)
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">ExecutableNotFound</span><span class="g g-Whitespace">                        </span>Traceback (most recent call last)
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/IPython/core/formatters.py:1036,</span> in <span class="ni">MimeBundleFormatter.__call__</span><span class="nt">(self, obj, include, exclude)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1033</span>     <span class="n">method</span> <span class="o">=</span> <span class="n">get_real_method</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">print_method</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1035</span>     <span class="k">if</span> <span class="n">method</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1036</span>         <span class="k">return</span> <span class="n">method</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="n">include</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="n">exclude</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1037</span>     <span class="k">return</span> <span class="kc">None</span>
+<span class="g g-Whitespace">   </span><span class="mi">1038</span> <span class="k">else</span><span class="p">:</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98,</span> in <span class="ni">JupyterIntegration._repr_mimebundle_</span><span class="nt">(self, include, exclude, **_)</span>
+<span class="g g-Whitespace">     </span><span class="mi">96</span> <span class="n">include</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">include</span><span class="p">)</span> <span class="k">if</span> <span class="n">include</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_jupyter_mimetype</span><span class="p">}</span>
+<span class="g g-Whitespace">     </span><span class="mi">97</span> <span class="n">include</span> <span class="o">-=</span> <span class="nb">set</span><span class="p">(</span><span class="n">exclude</span> <span class="ow">or</span> <span class="p">[])</span>
+<span class="ne">---&gt; </span><span class="mi">98</span> <span class="k">return</span> <span class="p">{</span><span class="n">mimetype</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)()</span>
+<span class="nn">     99         for mimetype, method_name</span> in <span class="ni">MIME_TYPES.items</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">100</span>         <span class="k">if</span> <span class="n">mimetype</span> <span class="ow">in</span> <span class="n">include</span><span class="p">}</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:98,</span> in <span class="ni">&lt;dictcomp&gt;</span><span class="nt">(.0)</span>
+<span class="g g-Whitespace">     </span><span class="mi">96</span> <span class="n">include</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">include</span><span class="p">)</span> <span class="k">if</span> <span class="n">include</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_jupyter_mimetype</span><span class="p">}</span>
+<span class="g g-Whitespace">     </span><span class="mi">97</span> <span class="n">include</span> <span class="o">-=</span> <span class="nb">set</span><span class="p">(</span><span class="n">exclude</span> <span class="ow">or</span> <span class="p">[])</span>
+<span class="ne">---&gt; </span><span class="mi">98</span> <span class="k">return</span> <span class="p">{</span><span class="n">mimetype</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)()</span>
+<span class="nn">     99         for mimetype, method_name</span> in <span class="ni">MIME_TYPES.items</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">100</span>         <span class="k">if</span> <span class="n">mimetype</span> <span class="ow">in</span> <span class="n">include</span><span class="p">}</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/graphviz/jupyter_integration.py:112,</span> in <span class="ni">JupyterIntegration._repr_image_svg_xml</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">110</span> <span class="k">def</span><span class="w"> </span><span class="nf">_repr_image_svg_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">111</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Return the rendered graph as SVG string.&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">112</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;svg&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">SVG_ENCODING</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/graphviz/piping.py:104,</span> in <span class="ni">Pipe.pipe</span><span class="nt">(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)</span>
+<span class="g g-Whitespace">     </span><span class="mi">55</span> <span class="k">def</span><span class="w"> </span><span class="nf">pipe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">56</span>          <span class="nb">format</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">57</span>          <span class="n">renderer</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>     <span class="mi">61</span>          <span class="n">engine</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">62</span>          <span class="n">encoding</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="g g-Whitespace">     </span><span class="mi">63</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Return the source piped through the Graphviz layout command.</span>
+<span class="g g-Whitespace">     </span><span class="mi">64</span><span class="sd"> </span>
+<span class="g g-Whitespace">     </span><span class="mi">65</span><span class="sd">     Args:</span>
+<span class="sd">   (...)    102         &#39;&lt;?xml version=&#39;</span>
+<span class="g g-Whitespace">    </span><span class="mi">103</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">104</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pipe_legacy</span><span class="p">(</span><span class="nb">format</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">105</span>                              <span class="n">renderer</span><span class="o">=</span><span class="n">renderer</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">106</span>                              <span class="n">formatter</span><span class="o">=</span><span class="n">formatter</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">107</span>                              <span class="n">neato_no_op</span><span class="o">=</span><span class="n">neato_no_op</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">108</span>                              <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">109</span>                              <span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">110</span>                              <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/graphviz/_tools.py:185,</span> in <span class="ni">deprecate_positional_args.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">177</span>     <span class="n">wanted</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">=</span><span class="si">{</span><span class="n">value</span><span class="si">!r}</span><span class="s1">&#39;</span>
+<span class="nn">    178                        for name, value</span> in <span class="ni">deprecated.items</span><span class="nt">())</span>
+<span class="g g-Whitespace">    </span><span class="mi">179</span>     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The signature of </span><span class="si">{</span><span class="n">func_name</span><span class="si">}</span><span class="s1"> will be reduced&#39;</span>
+<span class="g g-Whitespace">    </span><span class="mi">180</span>                   <span class="sa">f</span><span class="s1">&#39; to </span><span class="si">{</span><span class="n">supported_number</span><span class="si">}</span><span class="s1"> positional arg</span><span class="si">{</span><span class="n">s_</span><span class="si">}{</span><span class="n">qualification</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="g g-Whitespace">    </span><span class="mi">181</span>                   <span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">supported</span><span class="p">)</span><span class="si">}</span><span class="s1">: pass </span><span class="si">{</span><span class="n">wanted</span><span class="si">}</span><span class="s1"> as keyword arg</span><span class="si">{</span><span class="n">s_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">182</span>                   <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">183</span>                   <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">185</span> <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/graphviz/piping.py:121,</span> in <span class="ni">Pipe._pipe_legacy</span><span class="nt">(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)</span>
+<span class="g g-Whitespace">    </span><span class="mi">112</span> <span class="nd">@_tools</span><span class="o">.</span><span class="n">deprecate_positional_args</span><span class="p">(</span><span class="n">supported_number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ignore_arg</span><span class="o">=</span><span class="s1">&#39;self&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">113</span> <span class="k">def</span><span class="w"> </span><span class="nf">_pipe_legacy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">114</span>                  <span class="nb">format</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>    <span class="mi">119</span>                  <span class="n">engine</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">120</span>                  <span class="n">encoding</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="ne">--&gt; </span><span class="mi">121</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pipe_future</span><span class="p">(</span><span class="nb">format</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">122</span>                              <span class="n">renderer</span><span class="o">=</span><span class="n">renderer</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">123</span>                              <span class="n">formatter</span><span class="o">=</span><span class="n">formatter</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">124</span>                              <span class="n">neato_no_op</span><span class="o">=</span><span class="n">neato_no_op</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">125</span>                              <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">126</span>                              <span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">127</span>                              <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/graphviz/piping.py:149,</span> in <span class="ni">Pipe._pipe_future</span><span class="nt">(self, format, renderer, formatter, neato_no_op, quiet, engine, encoding)</span>
+<span class="g g-Whitespace">    </span><span class="mi">146</span> <span class="k">if</span> <span class="n">encoding</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">147</span>     <span class="k">if</span> <span class="n">codecs</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span> <span class="ow">is</span> <span class="n">codecs</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">148</span>         <span class="c1"># common case: both stdin and stdout need the same encoding</span>
+<span class="ne">--&gt; </span><span class="mi">149</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pipe_lines_string</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">150</span>     <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">151</span>         <span class="n">raw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pipe_lines</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">input_encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/graphviz/backend/piping.py:212,</span> in <span class="ni">pipe_lines_string</span><span class="nt">(engine, format, input_lines, encoding, renderer, formatter, neato_no_op, quiet)</span>
+<span class="g g-Whitespace">    </span><span class="mi">206</span> <span class="n">cmd</span> <span class="o">=</span> <span class="n">dot_command</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">engine</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">207</span>                           <span class="n">renderer</span><span class="o">=</span><span class="n">renderer</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">208</span>                           <span class="n">formatter</span><span class="o">=</span><span class="n">formatter</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">209</span>                           <span class="n">neato_no_op</span><span class="o">=</span><span class="n">neato_no_op</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">210</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;input_lines&#39;</span><span class="p">:</span> <span class="n">input_lines</span><span class="p">,</span> <span class="s1">&#39;encoding&#39;</span><span class="p">:</span> <span class="n">encoding</span><span class="p">}</span>
+<span class="ne">--&gt; </span><span class="mi">212</span> <span class="n">proc</span> <span class="o">=</span> <span class="n">execute</span><span class="o">.</span><span class="n">run_check</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">213</span> <span class="k">return</span> <span class="n">proc</span><span class="o">.</span><span class="n">stdout</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/graphviz/backend/execute.py:81,</span> in <span class="ni">run_check</span><span class="nt">(cmd, input_lines, encoding, quiet, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">79</span> <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">80</span>     <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="o">.</span><span class="n">ENOENT</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">81</span>         <span class="k">raise</span> <span class="n">ExecutableNotFound</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span>     <span class="k">raise</span>
+<span class="g g-Whitespace">     </span><span class="mi">84</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">quiet</span> <span class="ow">and</span> <span class="n">proc</span><span class="o">.</span><span class="n">stderr</span><span class="p">:</span>
+
+<span class="ne">ExecutableNotFound</span>: failed to execute PosixPath(&#39;dot&#39;), make sure the Graphviz executables are on your systems&#39; PATH
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;graphviz.graphs.Digraph at 0x7f2fc5674250&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-task-stimuli">
+<h3>The Task Stimuli<a class="headerlink" href="#the-task-stimuli" title="Permalink to this heading">#</a></h3>
+<p>Again, we have two tasks:</p>
+<ul class="simple">
+<li><p>color naming</p></li>
+<li><p>word reading</p></li>
+</ul>
+<p>… and three conditions:</p>
+<ul class="simple">
+<li><p>control</p></li>
+<li><p>conflict</p></li>
+<li><p>congruent</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># the length of the stimulus sequence</span>
+<span class="n">n_time_steps</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="n">input_set</span> <span class="o">=</span> <span class="n">get_stimulus_set</span><span class="p">(</span><span class="n">inp_color</span><span class="p">,</span> <span class="n">inp_word</span><span class="p">,</span> <span class="n">inp_task</span><span class="p">,</span> <span class="n">n_time_steps</span><span class="p">)</span>
+
+<span class="c1"># show what&#39;s in the dictionary</span>
+<span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">TASKS</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">input_set</span><span class="p">[</span><span class="n">task</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>color naming: dict_keys([&#39;control&#39;, &#39;conflict&#39;, &#39;congruent&#39;])
+word reading: dict_keys([&#39;control&#39;, &#39;conflict&#39;, &#39;congruent&#39;])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># show one stimuli sequence</span>
+<span class="n">task</span> <span class="o">=</span> <span class="s1">&#39;color naming&#39;</span>
+<span class="n">cond</span> <span class="o">=</span> <span class="s1">&#39;conflict&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">input_set</span><span class="p">[</span><span class="n">task</span><span class="p">][</span><span class="n">cond</span><span class="p">][</span><span class="n">inp_color</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+  1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+  1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+  1 1 1 1 1 1 1 1 1 1 1 1]
+ [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+  0 0 0 0 0 0 0 0 0 0 0 0]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="run-he-model-on-all-task-condition-combinations">
+<h3>Run he model on all Task - Condition Combinations<a class="headerlink" href="#run-he-model-on-all-task-condition-combinations" title="Permalink to this heading">#</a></h3>
+<p>test the model on all CONDITIONS x TASKS combinations</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># log the activities</span>
+<span class="n">hid_color</span><span class="o">.</span><span class="n">set_log_conditions</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+<span class="n">hid_word</span><span class="o">.</span><span class="n">set_log_conditions</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+<span class="n">output</span><span class="o">.</span><span class="n">set_log_conditions</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+
+<span class="c1"># run the model</span>
+<span class="n">execution_id</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">TASKS</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">cond</span> <span class="ow">in</span> <span class="n">CONDITIONS</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Running </span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">cond</span><span class="si">}</span><span class="s1"> ... &#39;</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+            <span class="n">context</span><span class="o">=</span><span class="n">execution_id</span><span class="p">,</span>
+            <span class="n">inputs</span><span class="o">=</span><span class="n">input_set</span><span class="p">[</span><span class="n">task</span><span class="p">][</span><span class="n">cond</span><span class="p">],</span>
+            <span class="n">num_trials</span><span class="o">=</span><span class="n">n_time_steps</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">execution_id</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Running color naming - control ... 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Running color naming - conflict ... 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Running color naming - congruent ... 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Running word reading - control ... 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Running word reading - conflict ... 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Running word reading - congruent ... 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here, we define a function that collects the logged activity for all trials …</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_log_values</span><span class="p">(</span><span class="n">execution_ids_</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    get logged activity, given a list/array of execution ids</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># word hidden layer</span>
+    <span class="n">hw_acts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">hid_word</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">nparray_dictionary</span><span class="p">()[</span><span class="n">ei</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">ei</span> <span class="ow">in</span> <span class="n">execution_ids_</span>
+    <span class="p">])</span>
+    <span class="c1"># color hidden layer</span>
+    <span class="n">hc_acts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">hid_color</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">nparray_dictionary</span><span class="p">()[</span><span class="n">ei</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">ei</span> <span class="ow">in</span> <span class="n">execution_ids_</span>
+    <span class="p">])</span>
+    <span class="n">out_acts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">hid_color</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">nparray_dictionary</span><span class="p">()[</span><span class="n">ei</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">ei</span> <span class="ow">in</span> <span class="n">execution_ids_</span>
+    <span class="p">])</span>
+    <span class="n">dec_acts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ei</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">ei</span> <span class="ow">in</span> <span class="n">execution_ids_</span>
+    <span class="p">])</span>
+    <span class="k">return</span> <span class="n">hw_acts</span><span class="p">,</span> <span class="n">hc_acts</span><span class="p">,</span> <span class="n">out_acts</span><span class="p">,</span> <span class="n">dec_acts</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>… and collect the activity for all tasks x conditions</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># collect the activity</span>
+<span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">ei</span> <span class="k">for</span> <span class="n">ei</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">execution_id</span><span class="p">)]</span>
+<span class="n">hw_acts</span><span class="p">,</span> <span class="n">hc_acts</span><span class="p">,</span> <span class="n">out_acts</span><span class="p">,</span> <span class="n">dec_acts</span> <span class="o">=</span> <span class="n">get_log_values</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;activities: trial_id x n_time_steps x n_units&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;word hidden: </span><span class="se">\t</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">hw_acts</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;color hidden: </span><span class="se">\t</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">hc_acts</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;output: </span><span class="se">\t</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">out_acts</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;decision acts: </span><span class="se">\t</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">dec_acts</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>activities: trial_id x n_time_steps x n_units
+word hidden: 	(6, 120, 2)
+color hidden: 	(6, 120, 2)
+output: 	(6, 120, 2)
+decision acts: 	(6, 120, 2)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="visualize-decision-activity">
+<h2>Visualize Decision Activity<a class="headerlink" href="#visualize-decision-activity" title="Permalink to this heading">#</a></h2>
+<p>In this section, we will visualize the activity of the two decision units. For simplicity, the stimuli were intentionally chosen so that the correct response is always red (e.g. in a word naming - conflict trial, the word is red). Therefore, the activity for the red decision unit is always higher than the green decision unit. However, the difference between these two units depends on both task and condition.</p>
+<p><h0 style="background: #256ca2; color: #e9e9e9">🎯 Exercise 1: Setting Expectations</h0></p>
+<p>Before looking at the results, predict which task-condition combination will evoke the biggest differences between the two decision units? Explain your reasoning.  Write your answer below.</p>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution</summary>
+<p>You can think about this as “easy” vs “hard” decisions. As further appart the activations are (the higher the difference), the easier the decision is. If — on the contrary — activity levels are more similar (the difference is low), the decision is harder.</p>
+<p>For the word naming task, the activity is high for the red unit, since the word is red. The color unit is not very important here, since both the task demand unit “surpresses” the color unit and the weights from the color unit are lower anyways. So the word naming task doesn’t lead to conflict (the difference of activity will be high no matter what condition)</p>
+<p>For the color naming task, the activity difference, the activity difference depends more on the condition:</p>
+<p>congruent &gt; control &gt; conflict</p>
+</details>
+<p>Here, for <em>more visually appealing</em> plots,we are using seaborn for a colorpalette, so let’s install this here:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">seaborn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We define a legend:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the set of colors</span>
+<span class="n">col_pal</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s1">&#39;colorblind&#39;</span><span class="p">,</span> <span class="n">n_colors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># define the set of line style</span>
+<span class="n">lsty_plt</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">]</span>
+<span class="c1"># line width</span>
+<span class="n">lw_plt</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">lgd_elements</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># legend for all conditions</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">cond</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">CONDITIONS</span><span class="p">):</span>
+    <span class="n">lgd_elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">Line2D</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">col_pal</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw_plt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">cond</span><span class="p">))</span>
+
+<span class="c1"># legend for all tasks</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">task</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">TASKS</span><span class="p">):</span>
+    <span class="n">lgd_elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">Line2D</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw_plt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">task</span><span class="p">,</span>
+               <span class="n">linestyle</span><span class="o">=</span><span class="n">lsty_plt</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="p">)</span>
+
+<span class="c1"># show the legend</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">lgd_elements</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f2fc2fbf190&gt;
+</pre></div>
+</div>
+<img alt="../../../../../_images/c7a438b4d2cc87eb1a007e8eaeaebc730aba8f4d08e64dd5bb3f5f5097774514.png" src="../../../../../_images/c7a438b4d2cc87eb1a007e8eaeaebc730aba8f4d08e64dd5bb3f5f5097774514.png" />
+</div>
+</div>
+<section id="plotting-response-unit-activity-by-condition">
+<h3>Plotting Response Unit Activity by Condition<a class="headerlink" href="#plotting-response-unit-activity-by-condition" title="Permalink to this heading">#</a></h3>
+<p>The cell below creates a plot of decision unit activity over time for 3 different trial types.  For all trials, the ink color is red and the task is to respond to the ink color.  Control trials have no word.  Congruent trials display the word Red.  And Incongruent trials display the word Green.   In this figure, the top 3 lines show the Red Response Unit Activity, and these are higher because the stimulus is red ink and the task is to respond to the color of the ink.  The bottom 3 lines show the Green Response Unit Activity.</p>
+<p>For the incongruent color naming trial, the Red Response Unit is more active because the ink is red and the task is to respond to the ink color. However, the Green Response Unit (light blue line) is also somewhat active because the word is Green.  The relatively small (smaller than any other task-condition) difference between these two units suggests that the Decision Energy should be higher for this trial.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;plot the activity</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">task</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">TASKS</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">cond</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">CONDITIONS</span><span class="p">):</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">dec_acts</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="o">*</span><span class="n">n_conditions</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">col_pal</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">CONDITIONS</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="n">lsty_plt</span><span class="p">[</span><span class="n">j</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">dec_acts</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="o">*</span><span class="n">n_conditions</span><span class="p">][:,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">col_pal</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="n">lsty_plt</span><span class="p">[</span><span class="n">j</span><span class="p">],</span>
+        <span class="p">)</span>
+
+<span class="n">title_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Decision activity, red trial</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title_text</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axes</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Activity, </span><span class="si">{</span><span class="n">COLORS</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1"> unit&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+<span class="c1"># add legend</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span>
+    <span class="n">handles</span><span class="o">=</span><span class="n">lgd_elements</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">.7</span><span class="p">,</span> <span class="mf">.75</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/2292b4bfded9c14fdbe5f4cea3f7e9d861d781863da0880aee2a6801142082a6.png" src="../../../../../_images/2292b4bfded9c14fdbe5f4cea3f7e9d861d781863da0880aee2a6801142082a6.png" />
+</div>
+</div>
+<p><h0 style="background: #256ca2; color: #e9e9e9">🎯 Exercise 2. Visualize the activity time course for the hidden layers on a green trial</h0></p>
+<p>2a. Plot the activity for the <strong>color</strong> hidden layer unit, for all tasks (color naming, word reading) x conditions (congruent, control, conflict).  Interpret the results.</p>
+<p>2b. Plot the activity for the <strong>word</strong> hidden layer unit, for all tasks x conditions.  Interpret the results.</p>
+</section>
+</section>
+<section id="visualize-decision-energy">
+<h2>Visualize Decision Energy<a class="headerlink" href="#visualize-decision-energy" title="Permalink to this heading">#</a></h2>
+<p><a href="https://en.wikipedia.org/wiki/Hopfield_network#Energy">Energy</a>
+is essentially the product of the two activation values.  For example, if the activations are at 0.6 and 0.4, the energy would be 0.24; in comparison to 0.1 and 0.9 computing an energy of 0.09.  This function is sensitive both to the total level of activation, and the differences between the units’ activations.</p>
+<ul class="simple">
+<li><p>This is also implemented in psyneulink as <a href="https://princetonuniversity.github.io/PsyNeuLink/Keywords.html?highlight=energy#psyneulink.core.globals.keywords.DistanceMetrics.ENERGY">pnl.ENERGY</a>.</p></li>
+</ul>
+<section id="plotting-decision-energy">
+<h3>Plotting Decision Energy<a class="headerlink" href="#plotting-decision-energy" title="Permalink to this heading">#</a></h3>
+<p>The following cell creates a plot of the decision energy for 3 types of trials: Control, Congruent, and Incongruent.  When the levels of activity for the two response units (Red &amp; Green) are close, the decision energy is higher.  This makes sense because it is harder to decide when both responses are similarly active.  The decision is easiest (and energy is lowest) when the there is a big difference between the two response units.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">plot dec energy</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">data_plt</span> <span class="o">=</span> <span class="n">dec_acts</span>
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">col_pal</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s1">&#39;colorblind&#39;</span><span class="p">,</span> <span class="n">n_colors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">tid</span><span class="p">,</span> <span class="n">task</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">TASKS</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">cid</span><span class="p">,</span> <span class="n">cond</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">CONDITIONS</span><span class="p">):</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">data_plt</span><span class="p">[</span><span class="n">counter</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">col_pal</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mod</span><span class="p">(</span><span class="n">counter</span><span class="p">,</span> <span class="n">n_conditions</span><span class="p">)],</span>
+            <span class="n">linestyle</span><span class="o">=</span><span class="n">lsty_plt</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Decision energy&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Energy&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">lgd_elements</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">.7</span><span class="p">,</span> <span class="mf">.95</span><span class="p">))</span>
+<span class="n">f</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../../_images/91628bd5d1d42e8cf8497760c690ce34ceb244a61b908c99da8794d20cc6ba59.png" src="../../../../../_images/91628bd5d1d42e8cf8497760c690ce34ceb244a61b908c99da8794d20cc6ba59.png" />
+</div>
+</div>
+<p><h0 style="background: #256ca2; color: #e9e9e9">🎯 Exercise 3: Energy, the initial state</h0></p>
+<p>Unpack what is being plotted by finding the equation used (e.g. in PNL documentation) and the input values to this calculation at the first time step.  What is the initial value of decision energy? Comment on why this is an interesting quantity for this situation. (Hint: What happens to the energy if one of the activation values is 1? What about if they are both equal?)</p>
+</section>
+</section>
+<section id="examine-the-effect-of-task-demand">
+<h2>Examine the effect of task demand<a class="headerlink" href="#examine-the-effect-of-task-demand" title="Permalink to this heading">#</a></h2>
+<section id="decision-energy-as-a-signal-for-effort-control">
+<h3>Decision Energy as a Signal for Effort &amp; Control<a class="headerlink" href="#decision-energy-as-a-signal-for-effort-control" title="Permalink to this heading">#</a></h3>
+<p>The simple model we have built so far shows one type of signal that could be monitored and used as input to a mechanism of effort and control.  For example, if Decision Energy is high, that could provide useful information that the task requires additional attention and/or effort.</p>
+<p>In order to better understand the effects of modulating attention and/or effort in our models, it is helpful to explore exactly how these factors influence performance.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># re-initialize the model</span>
+<span class="n">model</span><span class="p">,</span> <span class="n">nodes</span><span class="p">,</span> <span class="n">model_params</span> <span class="o">=</span> <span class="n">get_stroop_model</span><span class="p">(</span><span class="n">unit_noise_std</span><span class="p">,</span> <span class="n">dec_noise_std</span><span class="p">)</span>
+<span class="p">[</span><span class="n">inp_color</span><span class="p">,</span> <span class="n">inp_word</span><span class="p">,</span> <span class="n">inp_task</span><span class="p">,</span> <span class="n">hid_color</span><span class="p">,</span> <span class="n">hid_word</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">decision</span><span class="p">]</span> <span class="o">=</span> <span class="n">nodes</span>
+
+<span class="c1"># the length of the stimulus sequence</span>
+<span class="n">n_time_steps</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="n">demand_levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">n_demand_levels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">demand_levels</span><span class="p">)</span>
+<span class="n">input_sets</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">get_stimulus_set</span><span class="p">(</span><span class="n">inp_color</span><span class="p">,</span> <span class="n">inp_word</span><span class="p">,</span> <span class="n">inp_task</span><span class="p">,</span> <span class="n">n_time_steps</span><span class="p">,</span> <span class="n">demand</span><span class="o">=</span><span class="n">d</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">demand_levels</span>
+<span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;demand levels: </span><span class="si">{</span><span class="n">demand_levels</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>demand levels: [0.  0.2 0.4 0.6 0.8 1. ]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># run the model for all demand levels</span>
+<span class="n">execution_id</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">did</span><span class="p">,</span> <span class="n">demand</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">demand_levels</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">TASKS</span><span class="p">:</span>
+        <span class="n">time_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="c1">#records start time, to estimate our progress</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">With demand = </span><span class="si">{</span><span class="n">demand</span><span class="si">}</span><span class="s1">, running </span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s1">: &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">cond</span> <span class="ow">in</span> <span class="n">CONDITIONS</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">cond</span><span class="si">}</span><span class="s1"> &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+                <span class="n">context</span><span class="o">=</span><span class="n">execution_id</span><span class="p">,</span>
+                <span class="n">inputs</span><span class="o">=</span><span class="n">input_sets</span><span class="p">[</span><span class="n">did</span><span class="p">][</span><span class="n">task</span><span class="p">][</span><span class="n">cond</span><span class="p">],</span>
+                <span class="n">num_trials</span><span class="o">=</span><span class="n">n_time_steps</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">execution_id</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;| Time = %.2f&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">time_start</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>With demand = 0.0, running color naming: control 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>conflict 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>congruent 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>| Time = 8.72
+With demand = 0.0, running word reading: control 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>conflict 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>congruent 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>| Time = 8.34
+With demand = 0.2, running color naming: control 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>conflict 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>congruent 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>| Time = 8.40
+With demand = 0.2, running word reading: control 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>conflict 
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="n">line</span> <span class="mi">9</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="k">for</span> <span class="n">cond</span> <span class="ow">in</span> <span class="n">CONDITIONS</span><span class="p">:</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">cond</span><span class="si">}</span><span class="s1"> &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">9</span>     <span class="n">model</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span>         <span class="n">context</span><span class="o">=</span><span class="n">execution_id</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>         <span class="n">inputs</span><span class="o">=</span><span class="n">input_sets</span><span class="p">[</span><span class="n">did</span><span class="p">][</span><span class="n">task</span><span class="p">][</span><span class="n">cond</span><span class="p">],</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>         <span class="n">num_trials</span><span class="o">=</span><span class="n">n_time_steps</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>     <span class="n">execution_id</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;| Time = %.2f&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">time_start</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/psyneulink/core/globals/context.py:747,</span> in <span class="ni">handle_external_context.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper</span><span class="nt">(context, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">744</span>             <span class="k">pass</span>
+<span class="g g-Whitespace">    </span><span class="mi">746</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">747</span>     <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">748</span> <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">749</span>     <span class="c1"># context parameter may be passed as a positional arg</span>
+<span class="g g-Whitespace">    </span><span class="mi">750</span>     <span class="k">if</span> <span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">751</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">() got multiple values for argument&quot;</span>
+<span class="nn">    752         not</span> in <span class="ni">str</span><span class="nt">(e)</span>
+<span class="g g-Whitespace">    </span><span class="mi">753</span>     <span class="p">):</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/psyneulink/core/compositions/composition.py:11808,</span> in <span class="ni">Composition.run</span><span class="nt">(self, inputs, num_trials, initialize_cycle_values, reset_stateful_functions_to, reset_stateful_functions_when, skip_initialization, clamp_input, runtime_params, call_before_time_step, call_after_time_step, call_before_pass, call_after_pass, call_before_trial, call_after_trial, termination_processing, skip_analyze_graph, report_output, report_params, report_progress, report_simulations, report_to_devices, animate, log, scheduler, scheduling_mode, execution_mode, default_absolute_time_unit, context, base_context, **kwargs)</span>
+<span class="g g-Whitespace">  </span><span class="mi">11804</span>     <span class="n">execution_stimuli</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="g g-Whitespace">  </span><span class="mi">11806</span> <span class="c1"># execute processing, passing stimuli for this trial</span>
+<span class="g g-Whitespace">  </span><span class="mi">11807</span> <span class="c1"># IMPLEMENTATION NOTE: for autodiff, the following executes the forward pass for a single input</span>
+<span class="ne">&gt; </span><span class="mi">11808</span> <span class="n">trial_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">execution_stimuli</span><span class="p">,</span>
+<span class="g g-Whitespace">  </span><span class="mi">11809</span>                             <span class="n">scheduler</span><span class="o">=</span><span class="n">scheduler</span><span class="p">,</span>
+<span class="g g-Whitespace">  </span><span class="mi">11810</span>                             <span class="n">termination_processing</span><span class="o">=</span><span class="n">termination_processing</span><span class="p">,</span>
+<span class="g g-Whitespace">  </span><span class="mi">11811</span>                             <span class="n">call_before_time_step</span><span class="o">=</span><span class="n">call_before_time_step</span><span class="p">,</span>
+<span class="g g-Whitespace">  </span><span class="mi">11812</span>                             <span class="n">call_before_pass</span><span class="o">=</span><span class="n">call_before_pass</span><span class="p">,</span>
+<span class="g g-Whitespace">  </span><span class="mi">11813</span>                             <span class="n">call_after_time_step</span><span class="o">=</span><span class="n">call_after_time_step</span><span class="p">,</span>
+<span class="g g-Whitespace">  </span><span class="mi">11814</span>                             <span class="n">call_after_pass</span><span class="o">=</span><span class="n">call_after_pass</span><span class="p">,</span>
+<span class="g g-Whitespace">  </span><span class="mi">11815</span>                             <span class="n">reset_stateful_functions_to</span><span class="o">=</span><span class="n">reset_stateful_functions_to</span><span class="p">,</span>
+<span class="g g-Whitespace">  </span><span class="mi">11816</span>                             <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+<span class="g g-Whitespace">  </span><span class="mi">11817</span>                             <span class="n">base_context</span><span class="o">=</span><span class="n">base_context</span><span class="p">,</span>
+<span class="g g-Whitespace">  </span><span class="mi">11818</span>                             <span class="n">clamp_input</span><span class="o">=</span><span class="n">clamp_input</span><span class="p">,</span>
+<span class="g g-Whitespace">  </span><span class="mi">11819</span>                             <span class="n">runtime_params</span><span class="o">=</span><span class="n">runtime_params</span><span class="p">,</span>
+<span class="g g-Whitespace">  </span><span class="mi">11820</span>                             <span class="n">skip_initialization</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="g g-Whitespace">  </span><span class="mi">11821</span>                             <span class="n">execution_mode</span><span class="o">=</span><span class="n">execution_mode</span><span class="p">,</span>
+<span class="g g-Whitespace">  </span><span class="mi">11822</span>                             <span class="n">report</span><span class="o">=</span><span class="n">report</span><span class="p">,</span>
+<span class="g g-Whitespace">  </span><span class="mi">11823</span>                             <span class="n">report_num</span><span class="o">=</span><span class="n">report_num</span><span class="p">,</span>
+<span class="g g-Whitespace">  </span><span class="mi">11824</span>                             <span class="o">**</span><span class="n">kwargs</span>
+<span class="g g-Whitespace">  </span><span class="mi">11825</span>                             <span class="p">)</span>
+<span class="g g-Whitespace">  </span><span class="mi">11827</span> <span class="c1"># ---------------------------------------------------------------------------------</span>
+<span class="g g-Whitespace">  </span><span class="mi">11828</span> <span class="c1"># store the result of this execution in case it will be the final result</span>
+<span class="g g-Whitespace">  </span><span class="mi">11830</span> <span class="n">trial_output</span> <span class="o">=</span> <span class="n">copy_parameter_value</span><span class="p">(</span><span class="n">trial_output</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/psyneulink/core/globals/context.py:747,</span> in <span class="ni">handle_external_context.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper</span><span class="nt">(context, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">744</span>             <span class="k">pass</span>
+<span class="g g-Whitespace">    </span><span class="mi">746</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">747</span>     <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">748</span> <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">749</span>     <span class="c1"># context parameter may be passed as a positional arg</span>
+<span class="g g-Whitespace">    </span><span class="mi">750</span>     <span class="k">if</span> <span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">751</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">() got multiple values for argument&quot;</span>
+<span class="nn">    752         not</span> in <span class="ni">str</span><span class="nt">(e)</span>
+<span class="g g-Whitespace">    </span><span class="mi">753</span>     <span class="p">):</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/psyneulink/core/compositions/composition.py:12790,</span> in <span class="ni">Composition.execute</span><span class="nt">(self, inputs, scheduler, termination_processing, call_before_time_step, call_before_pass, call_after_time_step, call_after_pass, reset_stateful_functions_to, context, base_context, clamp_input, runtime_params, skip_initialization, execution_mode, report_output, report_params, report_progress, report_simulations, report_to_devices, report, report_num, **kwargs)</span>
+<span class="g g-Whitespace">  </span><span class="mi">12788</span>             <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">input_ports</span><span class="p">:</span>
+<span class="g g-Whitespace">  </span><span class="mi">12789</span>                 <span class="n">port</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span>
+<span class="ne">&gt; </span><span class="mi">12790</span>         <span class="n">node</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="n">mech_context</span><span class="p">,</span>
+<span class="g g-Whitespace">  </span><span class="mi">12791</span>                      <span class="n">report_num</span><span class="o">=</span><span class="n">report_num</span><span class="p">,</span>
+<span class="g g-Whitespace">  </span><span class="mi">12792</span>                      <span class="n">runtime_params</span><span class="o">=</span><span class="n">execution_runtime_params</span><span class="p">,</span>
+<span class="g g-Whitespace">  </span><span class="mi">12793</span>                      <span class="p">)</span>
+<span class="g g-Whitespace">  </span><span class="mi">12794</span>         <span class="k">assert</span> <span class="s1">&#39;DEBUGGING BREAK POINT: NODE EXECUTION&#39;</span>
+<span class="g g-Whitespace">  </span><span class="mi">12796</span> <span class="c1"># Set execution_phase for node&#39;s context back to IDLE</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/psyneulink/core/globals/context.py:747,</span> in <span class="ni">handle_external_context.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper</span><span class="nt">(context, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">744</span>             <span class="k">pass</span>
+<span class="g g-Whitespace">    </span><span class="mi">746</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">747</span>     <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">748</span> <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">749</span>     <span class="c1"># context parameter may be passed as a positional arg</span>
+<span class="g g-Whitespace">    </span><span class="mi">750</span>     <span class="k">if</span> <span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">751</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">() got multiple values for argument&quot;</span>
+<span class="nn">    752         not</span> in <span class="ni">str</span><span class="nt">(e)</span>
+<span class="g g-Whitespace">    </span><span class="mi">753</span>     <span class="p">):</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/psyneulink/core/components/mechanisms/mechanism.py:2544,</span> in <span class="ni">Mechanism_Base.execute</span><span class="nt">(self, input, context, runtime_params, report_output, report_params, report_num)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2532</span> <span class="c1"># UPDATE VARIABLE and InputPort(s)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2533</span> <span class="c1"># Executing or simulating Composition, so get input by updating input_ports</span>
+<span class="g g-Whitespace">   </span><span class="mi">2534</span> <span class="k">if</span> <span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">2535</span>     <span class="nb">input</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="g g-Whitespace">   </span><span class="mi">2536</span>     <span class="ow">and</span> <span class="p">(</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>   <span class="mi">2542</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2543</span> <span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">2544</span>     <span class="n">variable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_input_ports</span><span class="p">(</span><span class="n">runtime_port_params</span><span class="p">[</span><span class="n">INPUT_PORT_PARAMS</span><span class="p">],</span> <span class="n">context</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2546</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">2547</span>     <span class="c1"># Direct call to execute Mechanism with specified input, so assign input to Mechanism&#39;s input_ports</span>
+<span class="g g-Whitespace">   </span><span class="mi">2548</span>     <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">source</span> <span class="o">&amp;</span> <span class="n">ContextFlags</span><span class="o">.</span><span class="n">COMMAND_LINE</span><span class="p">:</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/psyneulink/core/components/mechanisms/mechanism.py:2719,</span> in <span class="ni">Mechanism_Base._update_input_ports</span><span class="nt">(self, runtime_input_port_params, context)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2717</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_ports</span><span class="p">)):</span>
+<span class="g g-Whitespace">   </span><span class="mi">2718</span>     <span class="n">port</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_ports</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="ne">-&gt; </span><span class="mi">2719</span>     <span class="n">port</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">runtime_input_port_params</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2720</span>                  <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2721</span> <span class="k">return</span> <span class="n">convert_to_np_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_input_values</span><span class="p">(</span><span class="n">context</span><span class="p">))</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/psyneulink/core/components/ports/port.py:1933,</span> in <span class="ni">Port_Base._update</span><span class="nt">(self, params, context)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1931</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_and_assign_runtime_params</span><span class="p">(</span><span class="n">local_params</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1932</span> <span class="n">variable</span> <span class="o">=</span> <span class="n">local_params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">VARIABLE</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1933</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">runtime_params</span><span class="o">=</span><span class="n">local_params</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/psyneulink/core/globals/context.py:747,</span> in <span class="ni">handle_external_context.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper</span><span class="nt">(context, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">744</span>             <span class="k">pass</span>
+<span class="g g-Whitespace">    </span><span class="mi">746</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">747</span>     <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">748</span> <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">749</span>     <span class="c1"># context parameter may be passed as a positional arg</span>
+<span class="g g-Whitespace">    </span><span class="mi">750</span>     <span class="k">if</span> <span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">751</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">() got multiple values for argument&quot;</span>
+<span class="nn">    752         not</span> in <span class="ni">str</span><span class="nt">(e)</span>
+<span class="g g-Whitespace">    </span><span class="mi">753</span>     <span class="p">):</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/psyneulink/core/components/component.py:3462,</span> in <span class="ni">Component.execute</span><span class="nt">(self, variable, context, runtime_params)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3459</span>     <span class="k">if</span> <span class="n">is_numeric</span><span class="p">(</span><span class="n">variable</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">3460</span>         <span class="n">variable</span> <span class="o">=</span> <span class="n">convert_all_elements_to_np_array</span><span class="p">(</span><span class="n">variable</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">3462</span> <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">variable</span><span class="o">=</span><span class="n">variable</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">runtime_params</span><span class="o">=</span><span class="n">runtime_params</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3463</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">_set</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3465</span> <span class="k">return</span> <span class="n">value</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/psyneulink/core/components/ports/port.py:2105,</span> in <span class="ni">Port_Base._execute</span><span class="nt">(self, variable, context, runtime_params)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2102</span>         <span class="n">mod_params</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">mod_param_name</span><span class="p">:</span> <span class="n">mod_val</span><span class="p">})</span>
+<span class="g g-Whitespace">   </span><span class="mi">2103</span>     <span class="k">return</span> <span class="n">mod_params</span>
+<span class="ne">-&gt; </span><span class="mi">2105</span> <span class="k">def</span><span class="w"> </span><span class="nf">_execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">runtime_params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">2106</span>     <span class="k">if</span> <span class="n">variable</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">2107</span>         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">DEFAULT_INPUT</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_input</span> <span class="o">==</span> <span class="n">DEFAULT_VARIABLE</span><span class="p">:</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># collect the activity</span>
+<span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">ei</span> <span class="k">for</span> <span class="n">ei</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">execution_id</span><span class="p">)]</span>
+
+<span class="c1"># get decision activities for all trials</span>
+<span class="n">dec_acts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ei</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">ei</span> <span class="ow">in</span> <span class="n">ids</span>
+<span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute_rt</span><span class="p">(</span><span class="n">act</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">.9</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;compute reaction time</span>
+<span class="sd">    take the activity of the decision layer...</span>
+<span class="sd">    RT := the earliest time point when activity &gt; threshold...</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_time_steps_</span><span class="p">,</span> <span class="n">N_UNITS_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">act</span><span class="p">)</span>
+    <span class="n">tps_pass_threshold</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">act</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tps_pass_threshold</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">tps_pass_threshold</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">n_time_steps_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># re-organize RT data</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="mf">.9</span>
+<span class="n">rts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_demand_levels</span><span class="p">,</span> <span class="n">n_tasks</span><span class="p">,</span> <span class="n">n_conditions</span><span class="p">))</span>
+<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">did</span><span class="p">,</span> <span class="n">demand</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">demand_levels</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">tid</span><span class="p">,</span> <span class="n">task</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">TASKS</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">cid</span><span class="p">,</span> <span class="n">cond</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">CONDITIONS</span><span class="p">):</span>
+            <span class="n">rts</span><span class="p">[</span><span class="n">did</span><span class="p">,</span> <span class="n">tid</span><span class="p">,</span> <span class="n">cid</span><span class="p">]</span> <span class="o">=</span> <span class="n">compute_rt</span><span class="p">(</span>
+                <span class="n">dec_acts</span><span class="p">[</span><span class="n">counter</span><span class="p">],</span> <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span>
+            <span class="p">)</span>
+            <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plotting-task-demand-rt">
+<h3>Plotting Task Demand &amp; RT<a class="headerlink" href="#plotting-task-demand-rt" title="Permalink to this heading">#</a></h3>
+<p>The two figures created by the following cell qualitatively replicate Fig 13A (left) and Fig 13B (right) from <a href="https://www.ncbi.nlm.nih.gov/pubmed/2200075">Cohen et al. (1990)</a>.  The Y axis displays response time, and the X axis progresses upward in task demand unit activity.  (<em>Note that the key is consistent with previous figures in this notebook, but not all the conditions in the key are plotted.</em>)</p>
+<p>In the left panel we can see that Word reading (dashed black line) is generally faster than ink Color Naming (solid black line). The other prominent pattern is that increased activity in the task demand units leads to faster (lower) reaction times.</p>
+<p>The right panel compares Word reading under conflict (green dashed) to control (blue dashed).  It also displays part of the Color Naming plot under conflict (green solid).  These figures are truncated at the top to zoom in on key comparisons, and the full data extend well above the top of the Y-axis.</p>
+<p>These reaction times are in different units than human performance, but the overall trends make sense.  We can potentially use Task Demand as a way to model Attention/Effort. Increasing attention to the task improves performance yielding faster reaction times.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot prep</span>
+<span class="n">col_pal</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s1">&#39;colorblind&#39;</span><span class="p">,</span> <span class="n">n_colors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">xticklabels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">demand_levels</span><span class="p">]</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="c1"># left panel</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rts</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rts</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;RT as a function of task demand&#39;</span><span class="p">)</span>
+<span class="c1"># axes[0].legend(TASKS, frameon=False, bbox_to_anchor=(.4, 1))</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">lgd_elements</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">.7</span><span class="p">,</span> <span class="mf">.95</span><span class="p">))</span>
+<span class="c1"># right panel</span>
+<span class="n">clf_id</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">n_skips</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_skips</span><span class="p">,</span> <span class="n">n_demand_levels</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+             <span class="n">rts</span><span class="p">[</span><span class="n">n_skips</span><span class="p">:,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">clf_id</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">col_pal</span><span class="p">[</span><span class="n">clf_id</span><span class="p">],</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;conflicting word&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rts</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">clf_id</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">col_pal</span><span class="p">[</span><span class="n">clf_id</span><span class="p">],</span>
+             <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;conflicting color&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rts</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">col_pal</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;control&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Compared the two conflict conditions&#39;</span><span class="p">)</span>
+<span class="c1"># axes[1].legend(frameon=False, bbox_to_anchor=(.55, 1))</span>
+<span class="c1"># common</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Reaction time (RT)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">())</span>
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_demand_levels</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">xticklabels</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Demand&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><h0 style="background: #256ca2; color: #e9e9e9">🎯 Exercise 4. Interpret the task demand results above</h0></p>
+<ul class="simple">
+<li><p>Compare the results above with human performance in <a href="https://www.ncbi.nlm.nih.gov/pubmed/2200075">Cohen et al. (1990)</a> Figures 13A &amp; 13B, and comment on a few interesting similarities and differences.</p></li>
+</ul>
+<p><h0 style="background: #256ca2; color: #e9e9e9">🎯 Exercise 5: Putting it all together</h0></p>
+<p>Note: Answers to this exercise can be qualitative and schematic – you do not need to build the models (although you can if you like!), just describe how you would initially reason and plan to build them.</p>
+<p>5a.  How should task demand unit activity impact accuracy?</p>
+<p>5b.  Concisely describe key elements of a model mimicking human performance that exhibits the appropriate influence of task demand activity on accuracy.</p>
+<p>5c.  Describe steps that you could take, based on the models provided in this notebook, to build a model that monitors for conflict within trials and increases attention when conflict is present.</p>
+<p>5d.  Describe steps that you could take to build a model that monitors for errors after trials and increases attention on the subsequent trial.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "PrincetonUniversity/NEU-PSY-502",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/502B/Computation/Conflict Monitoring Effort and Control/notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">8 Conflict Monitoring, Effort, and Control</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../Integration%20Attention%20Context%20and%20Control/intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">9 Integration, Attention, Context, and Control</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-stroop-model">The Stroop Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-task-stimuli">The Task Stimuli</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-he-model-on-all-task-condition-combinations">Run he model on all Task - Condition Combinations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-decision-activity">Visualize Decision Activity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-response-unit-activity-by-condition">Plotting Response Unit Activity by Condition</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-decision-energy">Visualize Decision Energy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-decision-energy">Plotting Decision Energy</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examine-the-effect-of-task-demand">Examine the effect of task demand</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-energy-as-a-signal-for-effort-control">Decision Energy as a Signal for Effort &amp; Control</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-task-demand-rt">Plotting Task Demand &amp; RT</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jonathan Cohen, Samuel Nastase, Alexander Ku & Younes Strittmatter
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

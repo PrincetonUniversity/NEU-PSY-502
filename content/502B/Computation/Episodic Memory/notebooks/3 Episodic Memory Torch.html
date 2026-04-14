@@ -1,0 +1,1167 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>6.1 Episodic Memory &#8212; NEU-PSY-MOL-502</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <script src="../../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../../_static/copybutton.js"></script>
+    <script src="../../../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/502B/Computation/Episodic Memory/notebooks/3 Episodic Memory Torch';</script>
+    <link rel="canonical" href="https://princetonuniversity.github.io/NEU-PSY-502/content/502B/Computation/Episodic Memory/notebooks/3 Episodic Memory Torch.html" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../../_static/logo.png" class="logo__image only-light" alt="NEU-PSY-MOL-502 - Home"/>
+    <script>document.write(`<img src="../../../../../_static/logo.png" class="logo__image only-dark" alt="NEU-PSY-MOL-502 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../../intro.html">
+                    NEU/PSY 502
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">502A</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/syllabus.html">Syllabus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/lectures.html">Lectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/presentations.html">Paper Presentation Rubric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%201/index.html">Class 1: Introduction and History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%202/index.html">Class 2: Perception and Constraint Satisfaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%203/index.html">Class 3: Associative Learning and Topography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%204/index.html">Class 4: Sequences and Predictions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%205/index.html">Class 5: Dynamics of Integration and Decision Making</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%206/index.html">Class 6: Cerebellum and Error-driven Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%207/index.html">Class 7: Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%208/index.html">Class 8: Dopamine and Basal Ganglia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%209/index.html">Class 9: Basics of Motor System + Motor Cortex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2010/index.html">Class 10: Explore/exploit and noradrenergic neuromodulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2011/index.html">Class 11: Distributed Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2012/index.html">Class 12: Episodic Memory and Hippocampal Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2013/index.html">Class 13: Bayesian Inference and Neural Networks (Griffiths)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2014/index.html">Class 14: Episodic Memory and Sleep</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2015/index.html">Class 15: Attention, Control and Prefrontal Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2016/index.html">Class 16: Working memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2017/index.html">Class 17: Representation and Capacity Limits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2018/index.html">Class 18: Optimization and Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2019/index.html">Class 19: Dynamics and Geometry of Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2020/index.html">Class 20: Oscillations and Coherence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2021/index.html">Class 21: ISC &amp; BCI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2022/index.html">Class 22: Social Cognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2023/index.html">Class 23: Cognitive Neuropsychology and the Origins of Computational Psychiatry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../502A/Class%2024/index.html">Class 24: Development</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Syllabus</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B Computation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Primer/intro.html">1 Primer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Primer/notebooks/1%20Scalars%2C%20Vectors%2C%20and%20Matrices.html">1.1 Scalars, Vectors, and Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Primer/notebooks/2%20Logistic%20Function.html">1.2 Logistic Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Primer/notebooks/3%20Perceptron%20and%20XOR.html">1.3 Perceptron and XOR</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Dynamics%20in%20Perception/intro.html">2 Dynamics in Perception</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Dynamics%20in%20Perception/notebooks/1%20Hebbian%20Learning.html">2.1 Hebbian Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Dynamics%20in%20Perception/notebooks/2%20Hopfield%20Networks.html">2.2 Hopfield Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Dynamics%20in%20Perception/notebooks/3%20Dynamic%20Systems%20and%20Bistable%20Perception.html">2.3 Dynamic Systems and Bistable Perception</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Decision%20Making/intro.html">3 Decision Making</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Decision%20Making/notebooks/1%20Drift%20Diffusion%20Models.html">3.1 Drift Diffusion Models</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Reinforcement%20Learning/intro.html">4 Reinforcement Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Reinforcement%20Learning/notebooks/1%20Reinforcement%20Learning.html">4.1 Reinforcement Learning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Statistical%20Learning%20and%20Backpropagation/intro.html">5 Statistical Learning and Backpropagation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Statistical%20Learning%20and%20Backpropagation/notebooks/1%20Rumelhart%20Semantic%20Network.html">5.1 Rumelhart Semantic Network</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../intro.html">6 Episodic Memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="1%20Episodic%20Memory.html">6.1 Episodic Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2%20Episodic%20Generalization%20Optimization%20-%20EGO.html">6.2 Episodic Generalization Optimization - EGO</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Selective%20Attention%20Automaticity%20and%20Control/intro.html">7 Selective Attention, Automaticity, and Control</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Selective%20Attention%20Automaticity%20and%20Control/notebooks/1%20Stroop%20Model.html">7.1 Stroop Model</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Conflict%20Monitoring%20Effort%20and%20Control/intro.html">8 Conflict Monitoring, Effort, and Control</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Conflict%20Monitoring%20Effort%20and%20Control/notebooks/1%20Conflict%20Monitoring.html">8.1 Conflict Monitoring</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Integration%20Attention%20Context%20and%20Control/intro.html">9 Integration, Attention, Context, and Control</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Integration%20Attention%20Context%20and%20Control/notebooks/1%20ISCCI%20Model.html">9.1 ISC-CI Model</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">502B Empirical</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../Empirical/intro.html">Introduction</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/PrincetonUniversity/NEU-PSY-502/main?urlpath=tree/website/content/502B/Computation/Episodic Memory/notebooks/3 Episodic Memory Torch.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../../../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/PrincetonUniversity/NEU-PSY-502/blob/main/website/content/502B/Computation/Episodic Memory/notebooks/3 Episodic Memory Torch.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../../../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/PrincetonUniversity/NEU-PSY-502" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/PrincetonUniversity/NEU-PSY-502/issues/new?title=Issue%20on%20page%20%2Fcontent/502B/Computation/Episodic Memory/notebooks/3 Episodic Memory Torch.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../../../_sources/content/502B/Computation/Episodic Memory/notebooks/3 Episodic Memory Torch.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>6.1 Episodic Memory</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#psyneulink-emcomposition">PsyNeuLink - EMComposition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marking-a-field-as-value-non-query">Marking a Field as Value (non-query)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="episodic-memory">
+<h1>6.1 Episodic Memory<a class="headerlink" href="#episodic-memory" title="Permalink to this heading">#</a></h1>
+<p>In the previous chapters, learning was based on gradually adjusting weights in a neural network. However, humans have the ability to learn from a single experience without the need for repetition. One could argue that this “one-shot” learning can be achieved by a high learning rate. However, a high learning rate can lead to <em>catastrophic forgetting</em>, where the network forgets previously learned associations.</p>
+<p>Consider for example, the <a class="reference external" href="https://princetonuniversity.github.io/NEU-PSY-502/content/502B/Computation/Statistical%20Learning%20and%20Backpropagation/notebooks/1%20Rumelhart%20Semantic%20Network.html">Rumelhart Semantic Network</a> from the previous chapter. If we first train the network to associate various birds with flying, and then train the network with a single example of a penguin with a very high learning rate, the network will forget the previous association with birds and flying. In general, we can mitigate this problem by using interleaved training, where we mix examples from the bird-category with the penguin example. However, this doesn’t reflect human learning, where we can learn from a single example without forgetting previous associations.</p>
+<p><a class="reference external" href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2013/McClellandEtAl1995.pdf">McClelland et al, 1995</a> proposed two complemantary learning systems: A slow learning system that learns gradually from repetition (in form of weight adjustments in the Neocortex) and a fast learning system that learns from single experiences (in form of episodic memory in the hippocampus). Here, we will explore how such a episodic memory system can be modeled in PsyNeuLink.</p>
+<p><strong>Installation and Setup</strong></p>
+<blockquote>
+<div><p>If the following code fails, you might have to restart the kernel/session and run it again. This is a known issue when installing PsyNeulink in google colab.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">psyneulink.library.models.Cohen_Huston1994</span><span class="w"> </span><span class="kn">import</span> <span class="n">threshold</span>
+<span class="o">%%capture</span>
+<span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">psyneulink</span>
+<span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">torch</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">psyneulink</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pnl</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>usage: ipykernel_launcher.py [-h] [--no-plot] [--threshold THRESHOLD]
+                             [--settle-trials SETTLE_TRIALS]
+ipykernel_launcher.py: error: unrecognized arguments: -f /tmp/tmp8u_8jiri.json --HistoryManager.hist_file=:memory:
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">An</span> <span class="n">exception</span> <span class="n">has</span> <span class="n">occurred</span><span class="p">,</span> <span class="n">use</span> <span class="o">%</span><span class="k">tb</span> to see the full traceback.
+
+<span class="ne">SystemExit</span>: 2
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/IPython/core/interactiveshell.py:3709: UserWarning: To exit: use &#39;exit&#39;, &#39;quit&#39;, or Ctrl-D.
+  warn(&quot;To exit: use &#39;exit&#39;, &#39;quit&#39;, or Ctrl-D.&quot;, stacklevel=1)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Episodic Memory - Torch Implementation</p>
+<p>Here, we implement a simple episodic memory module using PyTorch. The module stores a set of keys and values. When queried with a key, it returns a weighted sum of the values, where the weights are determined by the similarity between the query key and the stored key.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">safe_softmax</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Softmax function that masks out values below a threshold.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">v</span> <span class="o">=</span> <span class="n">t</span>
+
+    <span class="c1"># Apply mask: only include values greater than mask_threshold</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="o">-</span><span class="n">torch</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">v</span><span class="o">.</span><span class="n">device</span><span class="p">))</span>
+
+    <span class="c1"># Shift by the global max to avoid extreme values (numerical stability</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">v</span> <span class="o">-</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+    <span class="c1"># Exponentiate</span>
+    <span class="n">masked_exp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+    <span class="c1"># Normalize (to sum to 1)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">masked_exp</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">masked_exp</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">masked_exp</span> <span class="o">/</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">masked_exp</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">EMModule</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The EM module is a key-value memory that stores a set of keys and values.</span>
+<span class="sd">    When queried with a key, it returns a weighted sum of the values, where the weights</span>
+<span class="sd">    are determined by the similarity between the query key and the stored keys.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># Current index to store the next key-value pair to</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Keys and values to store</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_match_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the matched weights between the provided key and the stored keys, using the dot product.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;b a, c a -&gt; c b&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the weighted sum of the stored values, using the provided key.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">matched_weights</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_match_weights</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;a b, c a -&gt; c b&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">safe_softmax</span><span class="p">(</span><span class="n">matched_weights</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">prep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prepare the memory by setting the keys and values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="n">key</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">value</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reset the memory by setting the keys and values to None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Write a key-value pair to the memory.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">24</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span>         <span class="k">return</span> <span class="n">masked_exp</span> <span class="o">/</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">masked_exp</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">24</span> <span class="k">class</span><span class="w"> </span><span class="nc">EMModule</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span><span class="sd">     The EM module is a key-value memory that stores a set of keys and values.</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span><span class="sd">     When queried with a key, it returns a weighted sum of the values, where the weights</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span><span class="sd">     are determined by the similarity between the query key and the stored keys.</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span>     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="ne">NameError</span>: name &#39;nn&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s inspect the EMModule class to understand how it works:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">em</span> <span class="o">=</span> <span class="n">EMModule</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="n">em_module</span><span class="p">):</span>
+        <span class="c1"># Plot keys</span>
+    <span class="k">if</span> <span class="n">em</span><span class="o">.</span><span class="n">keys</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">em_module</span><span class="o">.</span><span class="n">keys</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Key Value&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Keys Heatmap&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Features&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Memory Slots&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;No keys found in the memory. Please add keys before plotting.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Plot values</span>
+    <span class="k">if</span> <span class="n">em_module</span><span class="o">.</span><span class="n">values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">em_module</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Value&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Values Heatmap&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Features&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Memory Slots&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;No values found in the memory. Please add values before plotting.&quot;</span><span class="p">)</span>
+
+
+<span class="n">plot</span><span class="p">(</span><span class="n">em</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">em</span> <span class="o">=</span> <span class="n">EMModule</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="n">em_module</span><span class="p">):</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>         <span class="c1"># Plot keys</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="k">if</span> <span class="n">em</span><span class="o">.</span><span class="n">keys</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="ne">NameError</span>: name &#39;EMModule&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s start by adding some empty key and value pairs to the memory. Here, we assume both keys and values are one-hot encoded (categorical) vectors. Here, we use 5-dimensional vetors and initialize the memory with 10 key-value pairs filled with 0.001:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">memory_capacity</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="n">em</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">memory_capacity</span><span class="p">):</span>
+    <span class="n">em</span><span class="o">.</span><span class="n">prep</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">.01</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">),</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">.01</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">))</span>
+
+<span class="n">plot</span><span class="p">(</span><span class="n">em</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">memory_capacity</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">em</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">memory_capacity</span><span class="p">):</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">em</span><span class="o">.</span><span class="n">prep</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">.01</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">),</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>             <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">.01</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">))</span>
+
+<span class="ne">NameError</span>: name &#39;em&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p>All the keys and values are initialized with 0.001. Let’s add a key-value pair by adding it to the memory:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">em</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">))</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">em</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">em</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">plot</span><span class="p">(</span><span class="n">em</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;em&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see, that for both the keys and the values, the first memory slot has been updated. Let’s see what happens when we query the memory:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">res</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;em&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note, while the returned value has the highest value at the second entry, it is not the exact value we stored. Let’s explore what is going on. The memory first matches the query key with the stored keys. But how exactly does it do that? Let’s inspect the match weights:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">memorized_keys</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="n">keys</span>
+<span class="n">query_key</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+
+<span class="n">match_weights</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;b a, c a -&gt; c b&#39;</span><span class="p">,</span> <span class="n">memorized_keys</span><span class="p">,</span> <span class="n">query_key</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">match_weights</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">memorized_keys</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="n">keys</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">query_key</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">match_weights</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;b a, c a -&gt; c b&#39;</span><span class="p">,</span> <span class="n">memorized_keys</span><span class="p">,</span> <span class="n">query_key</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;em&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">torch.einsum('b</span> <span class="pre">a,</span> <span class="pre">c</span> <span class="pre">a</span> <span class="pre">-&gt;</span> <span class="pre">c</span> <span class="pre">b',</span> <span class="pre">memorized_keys,</span> <span class="pre">query_key)</span></code> calculates the dot product between the query key and each stored key. The result is a 1x10 vector that indicates the “overlap” between the query key and each stored key. Since the first entry of keys is the same as the query key (both <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0]</span></code> the dot product is 1.0. The other entries have a dot product of <code class="docutils literal notranslate"><span class="pre">0.001</span></code> since the memory was initialized with this value.</p>
+<p>In the next step, we calculate the softmax of the math weight. This normalizes the match weights to sum to 1.0.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">match_weights_sm</span> <span class="o">=</span> <span class="n">safe_softmax</span><span class="p">(</span><span class="n">match_weights</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">match_weights_sm</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">match_weights_sm</span> <span class="o">=</span> <span class="n">safe_softmax</span><span class="p">(</span><span class="n">match_weights</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="n">match_weights_sm</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;match_weights&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here, we see that the softmax “flattens” the vector while keeping the highest value at the first entry.</p>
+<p>To retreive the memory, we use another einsum by multiplying the stored memory values (<code class="docutils literal notranslate"><span class="pre">em.values</span></code>) with the match_weights. This results in a weighted sum of the stored values, where the weights are determined by the similarity between the query key and the stored key for each memory slot:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">retrieved_value</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;a b, c a -&gt; c b&#39;</span><span class="p">,</span> <span class="n">em</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">match_weights_sm</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">retrieved_value</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">retrieved_value</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;a b, c a -&gt; c b&#39;</span><span class="p">,</span> <span class="n">em</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">match_weights_sm</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="n">retrieved_value</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;torch&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p><h0 style="background: #256ca2; color: #e9e9e9">🎯 Exercise 1</h0></p>
+<p>The above implementation of the softmax masks values below a certain threshold. Why is this necessary? What would happen if we didn’t mask values?</p>
+<details><summary style="background: #d6c89d; color: #e9e9e9">💡 Hint </summary>
+<p>In our toy example we have only a few memory slots. However, in a most scenarios, we want to model a large number of episodic memory slots. In this case, the <code class="docutils literal notranslate"><span class="pre">match_weight</span></code> vector will have a large number of entries with a lot of zeros (or near zeros). Think about why that is problematic.</p>
+</details>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 1</summary>
+<p>The “flattening” effect of the softmax function is dependent on the length of the vector. For example, try running the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">safe_softmax</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span><span class="p">),</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.001</span> <span class="p">)</span>
+<span class="n">res_2</span> <span class="o">=</span> <span class="n">safe_softmax</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">),</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">res_2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">res_safe_1</span> <span class="o">=</span> <span class="n">safe_softmax</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span><span class="p">),</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">res_safe_2</span> <span class="o">=</span> <span class="n">safe_softmax</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">),</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">res_safe_1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">res_safe_2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</details>
+<p><h0 style="background: #256ca2; color: #e9e9e9">🎯 Exercise 2</h0></p>
+<p>Try playing around with the threshold value in the <code class="docutils literal notranslate"><span class="pre">safe_softmax</span></code> function. Can you find a threshold value that results in memory retrieval that is closer to the stored value?</p>
+<p><h0 style="background: #256ca2; color: #e9e9e9">🎯 Exercise 3</h0></p>
+<p>Try adding more key-value pairs to the memory. How does the memory retrieval change with more key-value pairs?</p>
+<section id="psyneulink-emcomposition">
+<h2>PsyNeuLink - EMComposition<a class="headerlink" href="#psyneulink-emcomposition" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">PsyNeuLink</span></code> provides build-in support for episodic memory through the <code class="docutils literal notranslate"><span class="pre">EMComposition</span></code>. Here, we explain the most important parameters of the <code class="docutils literal notranslate"><span class="pre">EMComposition</span></code>. It can be used to easily build more complex memory structures, and we will use it in the <a class="reference external" href="https://princetonuniversity.github.io/NEU-PSY-502/content/502B/Computation/Episodic%20Memory/notebooks/2%20Episodic%20Generalization%20Optimization%20-%20EGO.html">next tutorial</a> in the EGO model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">em</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">EMComposition</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;EM&#39;</span><span class="p">,</span>  <span class="c1"># name</span>
+                       <span class="n">memory_capacity</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>  <span class="c1"># number of key-value pairs</span>
+                       <span class="n">memory_template</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
+                       <span class="c1"># template for the memory. Note: Here we use 3 memory slots (instead of just a key value pair, we can store as many keys and pairs as we want.)</span>
+                       <span class="n">fields</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                                   <span class="p">{</span><span class="n">pnl</span><span class="o">.</span><span class="n">FIELD_WEIGHT</span><span class="p">:</span> <span class="mf">.33</span><span class="p">,</span>
+                                    <span class="c1"># weight of the key. This determines how much this &quot;slot&quot; influences the retrieval</span>
+                                    <span class="n">pnl</span><span class="o">.</span><span class="n">LEARN_FIELD_WEIGHT</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># The weight can be learned via backpropagation</span>
+                                    <span class="n">pnl</span><span class="o">.</span><span class="n">TARGET_FIELD</span><span class="p">:</span> <span class="kc">False</span>
+                                    <span class="c1"># If this is a target field, the error is calculated here, and backpropagated</span>
+                                    <span class="p">},</span>
+                               <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">pnl</span><span class="o">.</span><span class="n">FIELD_WEIGHT</span><span class="p">:</span> <span class="mf">.33</span><span class="p">,</span>
+                                     <span class="n">pnl</span><span class="o">.</span><span class="n">LEARN_FIELD_WEIGHT</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                                     <span class="n">pnl</span><span class="o">.</span><span class="n">TARGET_FIELD</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
+                               <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">pnl</span><span class="o">.</span><span class="n">FIELD_WEIGHT</span><span class="p">:</span> <span class="mf">.33</span><span class="p">,</span>
+                                     <span class="n">pnl</span><span class="o">.</span><span class="n">LEARN_FIELD_WEIGHT</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                                     <span class="n">pnl</span><span class="o">.</span><span class="n">TARGET_FIELD</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
+
+                               <span class="p">},</span>
+                       <span class="n">memory_fill</span><span class="o">=</span><span class="mf">.001</span><span class="p">,</span>  <span class="c1"># fill the memory with this value</span>
+                       <span class="n">normalize_memories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># normalize the memories</span>
+                       <span class="n">softmax_gain</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>  <span class="c1"># gain of the softmax function</span>
+                       <span class="n">softmax_threshold</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>  <span class="c1"># threshold of the softmax function</span>
+                       <span class="n">memory_decay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># memory can be decayed over time</span>
+                       <span class="p">)</span>
+<span class="n">em</span><span class="o">.</span><span class="n">show_graph</span><span class="p">(</span><span class="n">output_fmt</span><span class="o">=</span><span class="s1">&#39;jupyter&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">em</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">EMComposition</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;EM&#39;</span><span class="p">,</span>  <span class="c1"># name</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>                        <span class="n">memory_capacity</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>  <span class="c1"># number of key-value pairs</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>                        <span class="n">memory_template</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                        <span class="c1"># template for the memory. Note: Here we use 3 memory slots (instead of just a key value pair, we can store as many keys and pairs as we want.)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                        <span class="n">fields</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>                                    <span class="p">{</span><span class="n">pnl</span><span class="o">.</span><span class="n">FIELD_WEIGHT</span><span class="p">:</span> <span class="mf">.33</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>                                     <span class="c1"># weight of the key. This determines how much this &quot;slot&quot; influences the retrieval</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>                                     <span class="n">pnl</span><span class="o">.</span><span class="n">LEARN_FIELD_WEIGHT</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># The weight can be learned via backpropagation</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>                                     <span class="n">pnl</span><span class="o">.</span><span class="n">TARGET_FIELD</span><span class="p">:</span> <span class="kc">False</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span>                                     <span class="c1"># If this is a target field, the error is calculated here, and backpropagated</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>                                     <span class="p">},</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>                                <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">pnl</span><span class="o">.</span><span class="n">FIELD_WEIGHT</span><span class="p">:</span> <span class="mf">.33</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>                                      <span class="n">pnl</span><span class="o">.</span><span class="n">LEARN_FIELD_WEIGHT</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>                                      <span class="n">pnl</span><span class="o">.</span><span class="n">TARGET_FIELD</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>                                <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">pnl</span><span class="o">.</span><span class="n">FIELD_WEIGHT</span><span class="p">:</span> <span class="mf">.33</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span>                                      <span class="n">pnl</span><span class="o">.</span><span class="n">LEARN_FIELD_WEIGHT</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>                                      <span class="n">pnl</span><span class="o">.</span><span class="n">TARGET_FIELD</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> 
+<span class="g g-Whitespace">     </span><span class="mi">19</span>                                <span class="p">},</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span>                        <span class="n">memory_fill</span><span class="o">=</span><span class="mf">.001</span><span class="p">,</span>  <span class="c1"># fill the memory with this value</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span>                        <span class="n">normalize_memories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># normalize the memories</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span>                        <span class="n">softmax_gain</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>  <span class="c1"># gain of the softmax function</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>                        <span class="n">softmax_threshold</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>  <span class="c1"># threshold of the softmax function</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span>                        <span class="n">memory_decay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># memory can be decayed over time</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span>                        <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="n">em</span><span class="o">.</span><span class="n">show_graph</span><span class="p">(</span><span class="n">output_fmt</span><span class="o">=</span><span class="s1">&#39;jupyter&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;pnl&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p>The above figure seems complicated at first, but it follows the same principle as the torch implementation:
+We look it from the bottom to the top:</p>
+<ul class="simple">
+<li><p>The arrows from the 1, 2, and 3 query to the “STORE” node, represent that these values are stored in memory</p></li>
+<li><p>All of them ara also passed through a “MATCH” node, wich calculates the similarity between the query and the stored values (just as desibed above for the keys)</p></li>
+<li><p>The “MATCH” nodes are then weighted and combined. (Here they are also softmaxed)</p></li>
+<li><p>Then the result is used to retrieve the memory by multiplying the “combined matchse” with the stored values.</p></li>
+</ul>
+<p><h0 style="background: #256ca2; color: #e9e9e9">🎯 Exercise 4</h0></p>
+<p>In our implementation, we specified input node 1 as having 2 entries (1x2 vector), the input node 2 with 4 entries (1x4 vector), and the input node 3 with 3 entries (1x3 vector). Yet, In the explanation above, I talked about adding weighted vectors together. How can that be?</p>
+<details><summary style="background: #d6c89d; color: #e9e9e9">💡 Hint </summary>
+<p>We are not adding the query vectors together but the matched weights. What is the shape of these weights?</p>
+</details>
+<details><summary style='background: #22ae6a; color:#e9e9e9'>✅ Solution 4</summary>
+<p>The matched weights have the shape of the number of memory slots. Their entries don’t represent the query vectors themselves, the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th entry signifies how similar the memory in slot <code class="docutils literal notranslate"><span class="pre">i</span></code> is to the query vector.</p>
+<p>This is why a weighted sum makes sense, we are literally weighing how similar 1, 2, and 3 is and then combining them. This way the retrieavel searches for the most combined (weighted) similarity</p>
+</details>
+<section id="marking-a-field-as-value-non-query">
+<h3>Marking a Field as Value (non-query)<a class="headerlink" href="#marking-a-field-as-value-non-query" title="Permalink to this heading">#</a></h3>
+<p>If we don’t want specific fields to be taken into account on retrieval (for example if they are the “target” fields that the model is supposed to predict), we can set their retrieval weight to “None”:</p>
+<p>em.memory</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">em</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">EMComposition</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;EM with Target&#39;</span><span class="p">,</span>  <span class="c1"># name</span>
+                       <span class="n">memory_capacity</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>  <span class="c1"># number of key-value pairs</span>
+                       <span class="n">memory_template</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
+                       <span class="c1"># template for the memory. Note: Here we use 3 memory slots (instead of just a key value pair, we can store as many keys and pairs as we want.)</span>
+                       <span class="n">fields</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                                   <span class="p">{</span><span class="n">pnl</span><span class="o">.</span><span class="n">FIELD_WEIGHT</span><span class="p">:</span> <span class="mf">.5</span><span class="p">,</span>
+                                    <span class="c1"># weight of the key. This determines how much this &quot;slot&quot; influences the retrieval</span>
+                                    <span class="n">pnl</span><span class="o">.</span><span class="n">LEARN_FIELD_WEIGHT</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># The weight can be learned via backpropagation</span>
+                                    <span class="n">pnl</span><span class="o">.</span><span class="n">TARGET_FIELD</span><span class="p">:</span> <span class="kc">False</span>
+                                    <span class="c1"># If this is a target field, the error is calculated here, and backpropagated</span>
+                                    <span class="p">},</span>
+                               <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">pnl</span><span class="o">.</span><span class="n">FIELD_WEIGHT</span><span class="p">:</span> <span class="mf">.5</span><span class="p">,</span>
+                                     <span class="n">pnl</span><span class="o">.</span><span class="n">LEARN_FIELD_WEIGHT</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                                     <span class="n">pnl</span><span class="o">.</span><span class="n">TARGET_FIELD</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
+                               <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">pnl</span><span class="o">.</span><span class="n">FIELD_WEIGHT</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                                     <span class="n">pnl</span><span class="o">.</span><span class="n">LEARN_FIELD_WEIGHT</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                                     <span class="n">pnl</span><span class="o">.</span><span class="n">TARGET_FIELD</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+
+                               <span class="p">},</span>
+                       <span class="n">memory_fill</span><span class="o">=</span><span class="mf">.001</span><span class="p">,</span>  <span class="c1"># fill the memory with this value</span>
+                       <span class="n">normalize_memories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># normalize the memories</span>
+                       <span class="n">softmax_gain</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>  <span class="c1"># gain of the softmax function</span>
+                       <span class="n">softmax_threshold</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>  <span class="c1"># threshold of the softmax function</span>
+                       <span class="n">memory_decay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># memory can be decayed over time</span>
+                       <span class="p">)</span>
+<span class="n">em</span><span class="o">.</span><span class="n">show_graph</span><span class="p">(</span><span class="n">output_fmt</span><span class="o">=</span><span class="s1">&#39;jupyter&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">em</span> <span class="o">=</span> <span class="n">pnl</span><span class="o">.</span><span class="n">EMComposition</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;EM with Target&#39;</span><span class="p">,</span>  <span class="c1"># name</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>                        <span class="n">memory_capacity</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>  <span class="c1"># number of key-value pairs</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>                        <span class="n">memory_template</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                        <span class="c1"># template for the memory. Note: Here we use 3 memory slots (instead of just a key value pair, we can store as many keys and pairs as we want.)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                        <span class="n">fields</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>                                    <span class="p">{</span><span class="n">pnl</span><span class="o">.</span><span class="n">FIELD_WEIGHT</span><span class="p">:</span> <span class="mf">.5</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>                                     <span class="c1"># weight of the key. This determines how much this &quot;slot&quot; influences the retrieval</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>                                     <span class="n">pnl</span><span class="o">.</span><span class="n">LEARN_FIELD_WEIGHT</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># The weight can be learned via backpropagation</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>                                     <span class="n">pnl</span><span class="o">.</span><span class="n">TARGET_FIELD</span><span class="p">:</span> <span class="kc">False</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span>                                     <span class="c1"># If this is a target field, the error is calculated here, and backpropagated</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>                                     <span class="p">},</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>                                <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">pnl</span><span class="o">.</span><span class="n">FIELD_WEIGHT</span><span class="p">:</span> <span class="mf">.5</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>                                      <span class="n">pnl</span><span class="o">.</span><span class="n">LEARN_FIELD_WEIGHT</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>                                      <span class="n">pnl</span><span class="o">.</span><span class="n">TARGET_FIELD</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>                                <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">pnl</span><span class="o">.</span><span class="n">FIELD_WEIGHT</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span>                                      <span class="n">pnl</span><span class="o">.</span><span class="n">LEARN_FIELD_WEIGHT</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>                                      <span class="n">pnl</span><span class="o">.</span><span class="n">TARGET_FIELD</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> 
+<span class="g g-Whitespace">     </span><span class="mi">19</span>                                <span class="p">},</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span>                        <span class="n">memory_fill</span><span class="o">=</span><span class="mf">.001</span><span class="p">,</span>  <span class="c1"># fill the memory with this value</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span>                        <span class="n">normalize_memories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># normalize the memories</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span>                        <span class="n">softmax_gain</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>  <span class="c1"># gain of the softmax function</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>                        <span class="n">softmax_threshold</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>  <span class="c1"># threshold of the softmax function</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span>                        <span class="n">memory_decay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># memory can be decayed over time</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span>                        <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="n">em</span><span class="o">.</span><span class="n">show_graph</span><span class="p">(</span><span class="n">output_fmt</span><span class="o">=</span><span class="s1">&#39;jupyter&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;pnl&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you see, this way 3 is stored (and retrieved) but is not taken into account when calculating the matched similarity (it is not “used” to retrieve from memory).</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "PrincetonUniversity/NEU-PSY-502",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/502B/Computation/Episodic Memory/notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#psyneulink-emcomposition">PsyNeuLink - EMComposition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marking-a-field-as-value-non-query">Marking a Field as Value (non-query)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jonathan Cohen, Samuel Nastase, Alexander Ku & Younes Strittmatter
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
