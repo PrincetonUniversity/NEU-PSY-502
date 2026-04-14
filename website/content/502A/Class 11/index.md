@@ -1,4 +1,4 @@
-## Distributed Representation
+# Class 11: Distributed Representation
 
 <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%2011/Distributed%20Representation.pdf" 
 download>Download</a>

@@ -1,4 +1,4 @@
-# 8 Dopamine and Basal Ganglia
+# Class 8: Dopamine and Basal Ganglia
 
 ## Dopamine and Basal Ganglia
 <a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%208/BG%20lecture%20502A%202026.pdf" download>Download</a>

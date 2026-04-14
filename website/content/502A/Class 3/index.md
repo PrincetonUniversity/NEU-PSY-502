@@ -1,4 +1,4 @@
-# 3 Associative Learning and Topography
+# Class 3: Associative Learning and Topography
 
 ## Associative Learning and Feature Maps (Cohen and Graziano)
 

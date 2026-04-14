@@ -1,4 +1,4 @@
-# 10 Explore/exploit and noradrenergic neuromodulation 
+# Class 10: Explore/exploit and noradrenergic neuromodulation 
 
 
 ## Explore / Exploit and the Locus Coeruleus-Norepinephrine System (Cohen)
