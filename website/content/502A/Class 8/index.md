@@ -1,8 +1,8 @@
 # 8 Dopamine and Basal Ganglia
 
 ## Dopamine and Basal Ganglia
-
-## Student Presentations
+<a href="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%208/BG%20lecture%20502A%202026.pdf" download>Download</a>
+<iframe src="https://princetonuniversity.github.io/NEU-PSY-502/_static/pdf/Class%208/BG%20lecture%20502A%202026.pdf" width="100%" height="600px"></iframe>
 
 ## Readings
 
